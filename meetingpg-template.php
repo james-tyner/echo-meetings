@@ -9,11 +9,6 @@
 <body>
 	<!-- navbar -->
 	<div class="navbar">
-		<div class="className">
-			
-		</div>
-		
-
 		<div class="apple"></div>
 		<div class="div-logo"> <img src="" alt="logo-img"></div>
 		<div class="nav-items">
