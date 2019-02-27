@@ -1,0 +1,134 @@
+@import 'fonts';
+@import 'colors';
+@import 'elements';
+@import 'animations';
+
+body {
+  background-color:$bgGray;
+  margin:0;
+}
+
+nav#sidebar {
+  position:absolute;
+  width:18vw;
+  min-width:140px;
+  max-width:275px;
+  height:100vh;
+  left:0;
+  top:0;
+  background-color:$gray4;
+  color:$bgGray;
+
+  #logo {
+    width:40%;
+    padding:3em 1.5em 3em 1.5em;
+  }
+
+  * a {
+    color:$bgGray;
+    text-decoration:none;
+  }
+
+  .nav-item {
+    display:block;
+    padding:1.2em 1.5em;
+    @include navBarLink;
+
+    &.active {
+      background-color:$gray3;
+    }
+
+    &:hover {
+      color:$gray2;
+    }
+  }
+
+  .profile {
+    position:absolute;
+    left:1.5em;
+    bottom:30px;
+
+    #profile-photo {
+      float:left;
+      @include sidebar-photo;
+      background-image:url("../assets/profile-img-sample.jpg");
+    }
+
+    #profile-info {
+      float:left;
+
+      a {
+        display:block;
+        @include navBarLink;
+
+        &#signout {
+          font-size:0.7em;
+          padding-top:0.1em;
+          color:$red;
+          font-weight:400;
+
+          &:hover {
+            color:$red * 0.7;
+          }
+        }
+      }
+    }
+  }
+}
+
+header {
+  .page-title {
+    @include heading1;
+  }
+}
+
+main {
+  position:absolute;
+  left:18vw;
+  padding:3vw;
+
+  .card {
+    @include card-style;
+    padding:0.75em;
+
+    .card-team {
+      color:$green;
+      @include detailsFont;
+      margin:0.5em 0;
+    }
+
+    .card-heading {
+      @include itemHeading;
+      color:$gray4;
+      margin:0;
+    }
+
+    .card-icons {
+      display:flex;
+      flex-wrap:nowrap;
+      border-top:1px solid $gray1;
+      padding-top:0.8em;
+      margin-top:0.8em;
+      margin-bottom:0.3em;
+      @include taskDetails;
+
+      .icon-group {
+        margin-right:1em;
+
+        i {
+          padding-right:0.2em;
+        }
+      }
+    }
+
+    &.color-band {
+      border-left:10px solid $green;
+    }
+  }
+}
+
+// PAGES
+@import 'pages/dashboard';
+@import 'pages/meetings';
+@import 'pages/tasks';
+@import 'pages/teams';
