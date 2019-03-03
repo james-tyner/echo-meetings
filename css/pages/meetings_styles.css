@@ -1,0 +1,85 @@
+.filter-bar p {
+	display: inline;
+}
+
+a.filter-group {
+	border-radius: 30px;
+	font-family: Rubik;
+	font-style: normal;
+	font-size: 12px;
+	text-align: center;
+	background: #EEEEEE;
+	color: #777777;
+	padding: 10px 24px 10px 24px;
+	border: 0px;
+	display: inline;
+	margin: 0px 5px 0px 5px;
+	text-decoration: none;
+}
+
+a:focus {
+	outline: none;
+}
+
+a.selected {
+	background: #777777;
+	color: #FCFCFC;
+}
+
+
+.mtg-date, .card {
+	display: inline-block;
+}
+
+.card {
+	width: 560px;
+}
+
+.mtg-date {
+	padding: 0 0 24px 24px;
+	margin: 0px;
+	vertical-align: bottom;
+	font-weight: 500;
+	font-size: 12px;
+	color: #777777;
+}
+
+.mtg-card {
+	margin-bottom: 24px;
+}
+
+header {
+	margin-bottom: 36px;
+}
+
+
+.green-color-band {
+	border-left: 10px solid #00d9bd;
+}
+
+.blue-color-band {
+	border-left: 10px solid #4C98F2;
+}
+
+.red-color-band {
+	border-left: 10px solid #FF5F77;
+}
+
+.green-card-team{
+	color: #00d9bd;
+	font-weight: 500;
+	font-size: 0.75em;
+	margin: 0.5em 0;
+}
+.blue-card-team{
+	color: #4C98F2;
+	font-weight: 500;
+	font-size: 0.75em;
+	margin: 0.5em 0;
+}
+.red-card-team{
+	color: #FF5F77;
+	font-weight: 500;
+	font-size: 0.75em;
+	margin: 0.5em 0;
+}
