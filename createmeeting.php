@@ -15,7 +15,7 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
 width: 275px;
 height: 23px;
 left: 25%;
-top: 90%;
+top: 80%;
 
 font-family: Rubik;
 font-style: normal;
@@ -33,7 +33,7 @@ color: #222222;
 width: 300px;
 height: 40px;
 left: 25%;
-top: 150%;
+top: 130%;
 border-radius: 8px;
 text-indent: 8px;
 font-size: 15px;
@@ -51,37 +51,47 @@ box-shadow:  10px  rgba(0,0,0,0.1);
 width: 100px;
 height: 40px;
 left: 120%;
-top: 160%;
+top: 217%;
 
 color: #777777;
 
 
  }
 
+ #date h2{
+   position:absolute;
+   left: 25%;
+   top: 160%;
 
+ }
+
+ #date input{
+   left: 25%;
+   top: 210%;
+ }
 
  #time h2{
    position:absolute;
    left: 130%;
-   top: 90%;
+   top: 160%;
 
  }
 
  #time input{
    left: 130%;
-   top: 150%;
+   top: 210%;
  }
 
  #location h2{
    position:absolute;
   left: 25%;
-   top: 220%;
+   top: 250%;
 
  }
 
  #location input{
    left: 25%;
-   top: 280%;
+   top: 300%;
    width: 500px;
  }
 
@@ -168,12 +178,15 @@ i{
       <h2>Meeting Name</h2>
       <input type="text" name="name" placeholder="set meeting name" ></input>
     </div>
-
+    <div id="date">
+      <h2>Date</h2>
+      <input type="date" name="name"  ></input>
+    </div>
 <div id="at">at</div>
 
     <div id="time">
       <h2>Time</h2>
-      <input type="datetime-local" name="name"  ></input>
+      <input type="time" name="name"  ></input>
     </div>
 
     <div id="location">
