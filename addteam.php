@@ -103,7 +103,9 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
   i{
     margin-left: 350%;
 
+
   }
+
 
   #side-line{
     position: absolute;

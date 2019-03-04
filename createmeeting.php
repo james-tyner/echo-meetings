@@ -175,7 +175,7 @@ i{
 
  		<section>
       <div id="name">
-      <h2>Meeting Name</h2>
+      <h2>Name</h2>
       <input type="text" name="name" placeholder="set meeting name" ></input>
     </div>
     <div id="date">
