@@ -1,10 +1,10 @@
 <nav id="sidebar">
   <img id="logo" src="assets/Logo on Dark.svg" alt="logo-img">
   <div class="nav-items">
-    <a href="home.php" class="nav-item active">Dashboard</a>
-    <a href="meetings.php" class="nav-item">Meetings</a>
-    <a href="tasks.php" class="nav-item">Tasks</a>
-    <a href="teams.php" class="nav-item">Teams</a>
+    <a href="index.php" class="nav-item <?php echo $active == "dashboard" ? 'active' : '' ?>">Dashboard</a>
+    <a href="meetings.php" class="nav-item <?php echo $active == "meetings" ? 'active' : '' ?>">Meetings</a>
+    <a href="tasks.php" class="nav-item <?php echo $active == "tasks" ? 'active' : '' ?>">Tasks</a>
+    <a href="teams.php" class="nav-item <?php echo $active == "teams" ? 'active' : '' ?>">Teams</a>
   </div>
 
   <!-- bottom part -->
