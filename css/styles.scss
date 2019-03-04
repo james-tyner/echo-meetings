@@ -1,3 +1,5 @@
+// compile this...
+
 @import 'fonts';
 @import 'colors';
 @import 'elements';
@@ -9,7 +11,7 @@ body {
 }
 
 nav#sidebar {
-  position:absolute;
+  position:fixed;
   width:18vw;
   min-width:140px;
   max-width:275px;
@@ -77,8 +79,30 @@ nav#sidebar {
 }
 
 header {
+  padding:3vw 3vw 0 3vw;
+  position:absolute;
+  left:18vw;
+  top:0;
+  z-index:30;
+
   .page-title {
     @include heading1;
+  }
+
+  &.scrollable-header {
+    position:fixed;
+    top:0;
+    background-color:$bgGray;
+    width:100%;
+
+    &::after {
+      content: "";
+      background-image: linear-gradient($bgGray, transparent);
+      position: absolute;
+      bottom: -1em;
+      height:1em;
+      width: 100%;
+    }
   }
 }
 
@@ -86,6 +110,8 @@ main {
   position:absolute;
   left:18vw;
   padding:3vw;
+  padding-top:0;
+  margin-top:calc(6vw + 0.67em + 2.1em);
 
   .card {
     @include card-style;
