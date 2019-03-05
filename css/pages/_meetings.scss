@@ -1,5 +1,73 @@
 
+// THIS SECTION WRITTEN BY JAMES
+main.meeting-main {
+	width:56vw;
+	// Total width: 3 + 56 + 3 = 62
+	// Totally covers 18 + 62 = 80
+}
+
+header.meeting-header {
+	width:calc(56vw - 1px); // subtract 1 px for right bar border
+
+	&.scrollable-header {
+		&::after {
+			width:calc(56vw - 1px);
+		}
+	}
+}
+
+.right-bar {
+	border-left: 1px solid $gray2;
+	width:14vw;
+	padding:3vw;
+	position:fixed;
+	right:0;
+	top:0;
+	display:flex;
+	height:calc(100vh - 6vw);
+}
+
+#agenda {
+
+	.agenda-item {
+		@include card-style;
+		background-color:white;
+		padding:2em;
+		margin:2em 0;
+
+		h2 {
+			@include heading2;
+			margin-top:0;
+			margin-bottom:0;
+			font-weight:500;
+		}
+
+		p {
+			@include bodyFont;
+			color:$gray3;
+		}
+
+		h3 {
+			@include itemHeading;
+			margin-top:2em;
+			margin-bottom:0.8em;
+
+			+ p {
+				margin-left:1.2em;
+				width:calc(100% - 1.2em);
+			}
+		}
+	}
+}
+
+
+
+
 // ALL BELOW WRITTEN BY KAT
+
+.filter-bar {
+	margin-bottom:1.5em;
+}
 
 .filter-bar p {
 	display: inline;
@@ -7,7 +75,6 @@
 
 a.filter-group {
 	border-radius: 30px;
-	font-family: Rubik;
 	font-style: normal;
 	font-size: 12px;
 	text-align: center;
@@ -15,7 +82,7 @@ a.filter-group {
 	color: #777777;
 	padding: 10px 24px 10px 24px;
 	border: 0px;
-	display: inline;
+	display: inline-block;
 	margin: 0px 5px 0px 5px;
 	text-decoration: none;
 }
@@ -35,7 +102,7 @@ a.selected {
 }
 
 .card {
-	width: 560px;
+	min-width: 560px;
 }
 
 .mtg-date {
@@ -48,41 +115,21 @@ a.selected {
 }
 
 .mtg-card {
-	margin-bottom: 24px;
-}
-
-header {
-	margin-bottom: 36px;
-}
-
-
-.green-color-band {
-	border-left: 10px solid #00d9bd;
-}
-
-.blue-color-band {
-	border-left: 10px solid #4C98F2;
-}
-
-.red-color-band {
-	border-left: 10px solid #FF5F77;
+	margin-bottom: 1.5em;
 }
 
 .green-card-team{
-	color: #00d9bd;
-	font-weight: 500;
-	font-size: 0.75em;
+	color:$green;
+	@include detailsFont;
 	margin: 0.5em 0;
 }
 .blue-card-team{
-	color: #4C98F2;
-	font-weight: 500;
-	font-size: 0.75em;
+	color:$blue;
+	@include detailsFont;
 	margin: 0.5em 0;
 }
 .red-card-team{
-	color: #FF5F77;
-	font-weight: 500;
-	font-size: 0.75em;
+	color:$red;
+	@include detailsFont;
 	margin: 0.5em 0;
 }

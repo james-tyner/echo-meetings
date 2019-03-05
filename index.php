@@ -15,12 +15,17 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
 <!-- navbar -->
 <?php require 'components/nav.php'; ?>
 
+<header>
+  <h1 class="page-title">Dashboard</h1>
+</header>
+
+<!-- middle area -->
 <!-- middle area -->
 <main>
   <header>
     <h1 class="page-title">Dashboard</h1>
   </header>
-
+<main>
   <section>
     <div class="up-next-div">
       <h2>Up Next</h2>
