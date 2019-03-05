@@ -112,7 +112,7 @@ font-family: Rubik;
   position: absolute;
 width: 230%;
 height: 0px;
-left: 140%;
+left: 170%;
 top: 260%;
 
 /* Gray/3 */
@@ -130,7 +130,7 @@ transform: rotate(90deg);
     position: absolute;
 width: 277px;
 height: 60px;
-left: 300%;
+left: 325%;
 top: 80%;
 font-family: Rubik;
 font-style: normal;
@@ -142,7 +142,7 @@ color: #000000;
   }
 
   #add-team input{
-    left: 288%;
+    left: 310%;
     top: 130%;
     width: 200px;
     height: 30px;
@@ -158,7 +158,7 @@ color: #000000;
   }
 
 i{
-  margin-left: 270%;
+  margin-left: 290%;
 position: absolute;
 top: 135%;
 }

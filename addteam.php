@@ -75,8 +75,8 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
       position: absolute;
   width: 277px;
   height: 60px;
-  left: 350%;
-  top: 80%;
+  left: 370%;
+  top: 90%;
   font-family: Rubik;
   font-style: normal;
   font-weight: 500;
@@ -88,8 +88,8 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
   color: #000000;
     }
     #add-members input{
-      left: 340%;
-      top: 130%;
+      left: 360%;
+      top: 140%;
       width: 200px;
       height: 30px;
       font-size: 11px;
@@ -105,16 +105,16 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
     }
 
     i{
-      margin-left: 320%;
+      margin-left: 340%;
     position: absolute;
-    top: 135%;
+    top: 145%;
     }
 
   #side-line{
     position: absolute;
   width: 260%;
   height: 0px;
-  left: 170%;
+  left: 200%;
   top: 270%;
 
   /* Gray/3 */
