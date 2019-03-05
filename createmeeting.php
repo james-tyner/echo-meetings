@@ -130,7 +130,7 @@ transform: rotate(90deg);
     position: absolute;
 width: 277px;
 height: 60px;
-left: 325%;
+left: 305%;
 top: 80%;
 font-family: Rubik;
 font-style: normal;

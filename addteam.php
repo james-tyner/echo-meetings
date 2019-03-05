@@ -75,7 +75,7 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
       position: absolute;
   width: 277px;
   height: 60px;
-  left: 370%;
+  left: 355%;
   top: 90%;
   font-family: Rubik;
   font-style: normal;
