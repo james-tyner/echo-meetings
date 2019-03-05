@@ -30,6 +30,18 @@
   @include card-corners;
 }
 
+.green-color-band {
+	border-left: 10px solid $green;
+}
+
+.blue-color-band {
+	border-left: 10px solid $blue;
+}
+
+.red-color-band {
+	border-left: 10px solid $red;
+}
+
 
 // INPUTS & BUTTONS
 @mixin input-field-shadow {

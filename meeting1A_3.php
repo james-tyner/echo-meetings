@@ -14,10 +14,12 @@ $active = "meetings";
 	<!-- navbar -->
 	<?php require 'components/nav.php'; ?>
 
+	<header>
+		<h1 class="page-title">Meetings</h1>
+	</header>
+
 	<!-- middle area -->
 	<main>
-		<header>
-			<h1> Meetings </h1>
       <div class="filter-bar">
 				<p>Filter by group:</p>
 				<a class="filter-group" href="meeting1A.php">All</a>
@@ -25,7 +27,6 @@ $active = "meetings";
 				<a class="filter-group selected" href="meeting1A_3.php">WRIT 340</a>
 				<a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
 			</div>
-		</header>
 
 		<section>
       <div class="mtg-card">
