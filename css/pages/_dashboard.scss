@@ -1,15 +1,127 @@
-.up-next-div {
 
+.member-img-div {
+  display: inline-block;
+  margin-right: 3px;
+
+  img {
+    border-radius: 100%;
+    width: 30px;
+  }
+}
+
+.up-next-div {
+  $margin-btw: 25px;
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: calc(25% - 12.5px) calc(25% + 12.5px) calc(25% + 12.5px) calc(25% - 12.5px);
+  }
+
+  .card {
+    width: auto;
+    padding: 18px 15px;
+    margin: 0 25px;
+
+    .card-date {
+      color: $gray3;
+      margin: 0;
+    }
+
+    .card-description {
+      margin-top: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .card:first-of-type {
+    margin-left: 0;
+  }
+
+  .card:last-of-type {
+    margin-right: 0;
+  }
+
+
+  .add-meeting-div {
+    padding-top: 50px;
+
+    i {
+      color: $gray3;
+      padding: 10px;
+      cursor: pointer;
+
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .task-team-flexbox {
-
+  display: flex;
+  margin-top: 80px;
 }
 
 .tasks-div {
+  width: 50%;
+  padding-right: 25px;
 
+  .card {
+    width: 100%;
+    height: 500px;
+    overflow: auto;
+    padding: 10px 15px;
+  }
+
+  .task-item-div {
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+
+    border-bottom: 1px solid $gray1;
+    padding: 16px 0;
+
+
+    .task-due {
+      margin: 0;
+    }
+
+    label {
+      color: $gray3;
+    }
+
+    .task-upcoming {
+      color: $red;
+    }
+
+    .task-progress {
+      color: $blue;
+    }
+
+    select {
+      border-radius: 5px;
+    }
+  }
 }
 
 .team-div {
+  width: 50%;
+  padding-left: 25px;
 
+  .team {
+    margin-bottom: 30px;
+  }
+
+  .team-name {
+    margin: 5px 0;
+  }
+
+  .group-name {
+    margin: 0 0 12px;
+    font-weight: 500;
+    font-size: 0.75em;
+    // TODO: change color
+    color: $green;
+  }
 }

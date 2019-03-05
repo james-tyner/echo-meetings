@@ -3,6 +3,10 @@
 @import 'elements';
 @import 'animations';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color:$bgGray;
   margin:0;
@@ -11,7 +15,7 @@ body {
 nav#sidebar {
   position:absolute;
   width:18vw;
-  min-width:140px;
+  min-width:190px;
   max-width:275px;
   height:100vh;
   left:0;
@@ -20,8 +24,8 @@ nav#sidebar {
   color:$bgGray;
 
   #logo {
-    width:40%;
-    padding:3em 1.5em 3em 1.5em;
+    width:100px;
+    margin:3em 1.5em 3em 1.5em;
   }
 
   * a {
@@ -83,8 +87,7 @@ header {
 }
 
 main {
-  position:absolute;
-  left:18vw;
+  margin-left: 18vw;
   padding:3vw;
 
   .card {
