@@ -11,12 +11,18 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
  </head>
  <style>
 
+h1{
+  position: fixed;
+  left: 25%;
+top: 10%;
+}
+
  h2{
-   position: absolute;
+   position: fixed;
 width: 200%;
-height: 50%;
+height: 100%;
 left: 25%;
-top: 90%;
+top: 20%;
 
 font-family: Rubik;
 font-style: normal;
@@ -30,11 +36,11 @@ color: #222222;
 
 
  input{
-   position: absolute;
-width: 90%;
-height: 30%;
+   position: fixed;
+width: 30%;
+height: 5%;
 left: 25%;
-top: 140%;
+top: 30%;
 border-radius: 8px;
 text-indent: 8px;
 font-size: 15px;
@@ -48,11 +54,11 @@ box-shadow:  10px  rgba(0,0,0,0.1);
  }
 
  #at{
-   position: absolute;
-width: 100%;
+   position: fixed;
+width: 10%;
 height: 35%;
-left: 120%;
-top: 227%;
+left: 42%;
+top: 51%;
 
 color: #777777;
 
@@ -60,48 +66,50 @@ color: #777777;
  }
 
  #date h2{
-   position:absolute;
+   position:fixed;
    left: 25%;
-   top: 170%;
+   top: 40%;
 
  }
 
  #date input{
    left: 25%;
-   top: 220%;
+   top: 50%;
+   width: 15%;
  }
 
  #time h2{
-   position:absolute;
-   left: 130%;
-   top: 170%;
+   position:fixed;
+   left: 46%;
+   top: 40%;
 
  }
 
  #time input{
-   left: 130%;
-   top: 220%;
+   left: 46%;
+   top: 50%;
+   width: 15%;
  }
 
  #location h2{
-   position:absolute;
+   position:fixed;
   left: 25%;
-   top: 260%;
+   top: 60%;
 
  }
 
  #location input{
    left: 25%;
-   top: 310%;
-   width: 150%;
+   top: 70%;
+   width: 40%;
  }
 
 button{
-  position: absolute;
-width: 60%;
-height: 30%;
+  position: fixed;
+width: 15%;
+height: 6%;
 left: 25%;
-top: 400%;
+top: 82%;
 background: #00D9BD;
 border-radius: 50px;
 color: white;
@@ -110,11 +118,11 @@ font-family: Rubik;
 }
 
 #side-line{
-  position: absolute;
-width: 230%;
+  position: fixed;
+width: 50%;
 height: 0px;
-left: 170%;
-top: 260%;
+left: 55%;
+top: 49%;
 
 /* Gray/3 */
 border: 0.5px solid #777777;
@@ -128,11 +136,11 @@ transform: rotate(90deg);
   }
 
   #add-team h3{
-    position: absolute;
+    position: fixed;
 width: 50%;
 height: 50%;
-left: 305%;
-top: 80%;
+left: 86%;
+top: 20%;
 font-family: Rubik;
 font-style: normal;
 font-weight: 500;
@@ -143,10 +151,10 @@ color: #000000;
   }
 
   #add-team input{
-    left: 310%;
-    top: 130%;
-    width: 60%;
-    height: 20%;
+    left: 83%;
+    top: 30%;
+    width: 15%;
+    height: 5%;
     font-size: 11px;
     border: none;
     border-bottom: 1px solid #000000;
@@ -159,9 +167,9 @@ color: #000000;
   }
 
 i{
-  margin-left: 290%;
-position: absolute;
-top: 135%;
+  margin-left: 61%;
+position: fixed;
+top: 32%;
 }
 
 
