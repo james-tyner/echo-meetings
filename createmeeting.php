@@ -15,7 +15,7 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
 width: 275px;
 height: 23px;
 left: 25%;
-top: 80%;
+top: 90%;
 
 font-family: Rubik;
 font-style: normal;
@@ -33,7 +33,7 @@ color: #222222;
 width: 300px;
 height: 40px;
 left: 25%;
-top: 130%;
+top: 140%;
 border-radius: 8px;
 text-indent: 8px;
 font-size: 15px;
@@ -51,7 +51,7 @@ box-shadow:  10px  rgba(0,0,0,0.1);
 width: 100px;
 height: 40px;
 left: 120%;
-top: 217%;
+top: 227%;
 
 color: #777777;
 
@@ -61,37 +61,37 @@ color: #777777;
  #date h2{
    position:absolute;
    left: 25%;
-   top: 160%;
+   top: 170%;
 
  }
 
  #date input{
    left: 25%;
-   top: 210%;
+   top: 220%;
  }
 
  #time h2{
    position:absolute;
    left: 130%;
-   top: 160%;
+   top: 170%;
 
  }
 
  #time input{
    left: 130%;
-   top: 210%;
+   top: 220%;
  }
 
  #location h2{
    position:absolute;
   left: 25%;
-   top: 250%;
+   top: 260%;
 
  }
 
  #location input{
    left: 25%;
-   top: 300%;
+   top: 310%;
    width: 500px;
  }
 
@@ -99,8 +99,8 @@ button{
   position: absolute;
 width: 200px;
 height: 44px;
-left: 90%;
-top: 360%;
+left: 25%;
+top: 400%;
 background: #00D9BD;
 border-radius: 50px;
 color: white;
@@ -110,10 +110,10 @@ font-family: Rubik;
 
 #side-line{
   position: absolute;
-width: 180%;
+width: 230%;
 height: 0px;
-left: 150%;
-top: 230%;
+left: 140%;
+top: 260%;
 
 /* Gray/3 */
 border: 0.5px solid #777777;
@@ -130,8 +130,8 @@ transform: rotate(90deg);
     position: absolute;
 width: 277px;
 height: 60px;
-left: 260%;
-top: 70%;
+left: 300%;
+top: 80%;
 font-family: Rubik;
 font-style: normal;
 font-weight: 500;
@@ -142,8 +142,8 @@ color: #000000;
   }
 
   #add-team input{
-    left: 248%;
-    top: 120%;
+    left: 288%;
+    top: 130%;
     width: 200px;
     height: 30px;
     font-size: 11px;
@@ -153,12 +153,14 @@ color: #000000;
     border-radius: 0px;
     background: transparent;
     opacity: 0%;
+    text-indent: 18px;
 
   }
 
 i{
-  margin-left: 305%;
-
+  margin-left: 270%;
+position: absolute;
+top: 135%;
 }
 
 
