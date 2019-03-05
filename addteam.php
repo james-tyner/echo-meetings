@@ -1,7 +1,7 @@
 <?php
 $title = "Home"; // title of the page is the heading1 and also appears in meta title
 $username = "James"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
-
+$active = "teams";
 ?>
 
 <!-- This page will be a splash screen, eventually. For now, just add a link to login/signup -->
@@ -13,7 +13,7 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
   <style>
   input{
     position: fixed;
- width: 30%;
+ width: 35%;
  height: 5%;
  left: 25%;
  top: 30%;
@@ -67,7 +67,7 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
   #location textarea{
     left: 25%;
     top: 50%;
-    width: 30%;
+    width: 35%;
     height: 20%;
     vertical-align: top;
     text-align: left;
@@ -97,7 +97,7 @@ position: fixed;
     position: fixed;
 width: 50%;
 height: 50%;
-left: 86%;
+left: 85%;
 top: 20%;
 font-family: Rubik;
 font-style: normal;
