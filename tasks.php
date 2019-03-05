@@ -10,7 +10,13 @@ $active = "dashboard";
 	<?php require 'components/metadata.php'; ?>
 	<link rel="stylesheet/scss" type="text/css" href="styles.scss">
 	<style>
+
+		main {
+			margin-top: 15px;
+		}
+
 		body {
+			margin: 0px;
 			background: #FCFCFC;
 			font-family: Rubik;
 			font-style: normal;
@@ -77,7 +83,7 @@ $active = "dashboard";
 			clear: both;
 		}
 		.card {
-			width: 260px;
+			min-width: 260px;
 			margin-bottom: 18px;
 		}
 		.card-team-itp460 {
@@ -109,9 +115,7 @@ $active = "dashboard";
 
 	<!-- middle area -->
 	<main>
-		<header>
-			<h1 class="page-title"> My Tasks </h1>
-		</header>
+		<h1> My Tasks </h1>
 
 		<!-- filter bar -->
 		<section>
