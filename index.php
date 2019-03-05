@@ -20,7 +20,6 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
 </header>
 
 <!-- middle area -->
-<!-- middle area -->
 <main>
   <section>
     <div class="up-next-div">
