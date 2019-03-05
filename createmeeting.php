@@ -12,8 +12,8 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
  <style>
  h2{
    position: absolute;
-width: 275px;
-height: 23px;
+width: 100%;
+height: 50%;
 left: 25%;
 top: 90%;
 
@@ -30,8 +30,8 @@ color: #222222;
 
  input{
    position: absolute;
-width: 300px;
-height: 40px;
+width: 90%;
+height: 30%;
 left: 25%;
 top: 140%;
 border-radius: 8px;
@@ -48,8 +48,8 @@ box-shadow:  10px  rgba(0,0,0,0.1);
 
  #at{
    position: absolute;
-width: 100px;
-height: 40px;
+width: 100%;
+height: 35%;
 left: 120%;
 top: 227%;
 
@@ -92,13 +92,13 @@ color: #777777;
  #location input{
    left: 25%;
    top: 310%;
-   width: 500px;
+   width: 150%;
  }
 
 button{
   position: absolute;
-width: 200px;
-height: 44px;
+width: 60%;
+height: 30%;
 left: 25%;
 top: 400%;
 background: #00D9BD;
@@ -128,8 +128,8 @@ transform: rotate(90deg);
 
   #add-team h3{
     position: absolute;
-width: 277px;
-height: 60px;
+width: 50%;
+height: 50%;
 left: 305%;
 top: 80%;
 font-family: Rubik;
@@ -144,8 +144,8 @@ color: #000000;
   #add-team input{
     left: 310%;
     top: 130%;
-    width: 200px;
-    height: 30px;
+    width: 60%;
+    height: 20%;
     font-size: 11px;
     border: none;
     border-bottom: 1px solid #000000;

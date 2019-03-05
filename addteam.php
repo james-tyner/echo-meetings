@@ -13,8 +13,8 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
   <style>
   input{
     position: absolute;
- width: 300px;
- height: 40px;
+    width: 90%;
+    height: 25%;
  left: 25%;
  top: 150%;
  border-radius: 8px;
@@ -28,11 +28,15 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
   input::placeholder{
     font-style: italic;
   }
+  textarea::placeholder{
+    font-style: italic;
+    padding-top: 2%;
+  }
 
   h2{
     position: absolute;
-  width: 275px;
-  height: 23px;
+  width: 50%;
+  height: 100%;
   left: 25%;
   top: 90%;
 
@@ -51,17 +55,25 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
 
   }
 
-  #location input{
+  #location textarea{
     left: 25%;
     top: 280%;
-    width: 500px;
+    vertical-align: top;
+    text-align: left;
+position: absolute;
+    width: 180%;
+    height: 60%;
+    border-radius: 8px;
+    text-indent: 8px;
+    font-size: 15px;
+    box-shadow:  10px  rgba(0,0,0,0.1);
 
   }
 
   button{
     position: absolute;
-  width: 200px;
-  height: 44px;
+    width: 70%;
+    height: 30%;
   left: 25%;
   top: 380%;
   background: #00D9BD;
@@ -73,8 +85,8 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
 
     #add-members h3{
       position: absolute;
-  width: 277px;
-  height: 60px;
+  width: 50%;
+  height: 50%;
   left: 355%;
   top: 90%;
   font-family: Rubik;
@@ -90,8 +102,8 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
     #add-members input{
       left: 360%;
       top: 140%;
-      width: 200px;
-      height: 30px;
+      width: 60%;
+      height: 20%;
       font-size: 11px;
       border: none;
       border-bottom: 1px solid #000000;
@@ -141,7 +153,7 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
      </div>
      <div id="location">
        <h2>Description</h2>
-       <input type="text" name="name" placeholder="set description" ></input>
+       <textarea type="text" name="name" placeholder="set description" ></textarea>
      </div>
 
      <div id="button">
