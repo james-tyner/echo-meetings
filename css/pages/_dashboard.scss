@@ -4,8 +4,7 @@
   margin-right: 3px;
 
   img {
-    border-radius: 100%;
-    width: 30px;
+    @include profile-photo;
   }
 }
 
