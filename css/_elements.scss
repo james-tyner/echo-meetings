@@ -1,0 +1,42 @@
+// PROFILE ICONS
+@mixin sidebar-photo {
+  width:2.2em;
+  height:2.2em;
+  margin-right:0.3em;
+  border-radius:2.2em;
+  background-size:cover;
+  background-position:center;
+}
+
+@mixin profile-photo {
+  @include sidebar-photo;
+  width:1.8em;
+  height:1.8em;
+  margin-right:0.2em;
+  border-radius:1.8em;
+}
+
+// CARDS & BOXES
+@mixin card-shadow {
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+@mixin card-corners {
+  border-radius: 8px;
+}
+
+@mixin card-style {
+  @include card-shadow;
+  @include card-corners;
+}
+
+
+// INPUTS & BUTTONS
+@mixin input-field-shadow {
+  box-shadow:0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+@mixin input-field-style {
+  @include input-field-shadow;
+  border-radius:10px;
+}
