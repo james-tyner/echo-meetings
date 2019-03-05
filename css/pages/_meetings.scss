@@ -1,0 +1,341 @@
+
+// THIS SECTION WRITTEN BY JAMES
+main.meeting-main {
+	width:56vw;
+	// Total width: 3 + 56 + 3 = 62
+	// Totally covers 18 + 62 = 80
+}
+
+header.meeting-header {
+	width:calc(56vw - 1px); // subtract 1 px for right bar border
+
+	&.scrollable-header {
+		&::after {
+			width:calc(56vw - 1px);
+		}
+	}
+}
+
+.right-bar {
+	border-left: 1px solid $gray2;
+	width:14vw;
+	padding:3vw;
+	position:fixed;
+	right:0;
+	top:0;
+	height:calc(100vh - 6vw);
+	display:grid;
+
+	#meeting-start-btn {
+		padding:0.5em;
+		grid-row-start:1;
+		align-self:flex-start;
+		justify-content:center;
+		align-items:center;
+		border-radius:1em;
+		border:2px solid $green;
+		@include buttonFont;
+		color:$green;
+		cursor:pointer;
+		text-align:center;
+		display:inline-block;
+
+		&:hover {
+			background-color:$green;
+			color:white;
+		}
+	}
+
+	.agenda-list-div {
+		grid-row-start:2;
+		align-self:flex-start;
+
+		.agenda-list-item {
+			@include bodyFont;
+			color:$gray2;
+			cursor:pointer;
+			margin:1em auto;
+			display:flex;
+			justify-content:space-between;
+			text-align:right;
+			flex-wrap:nowrap;
+
+			&:hover {
+				color:$gray3;
+			}
+
+			&::after {
+				content:' ';
+				display:inline-block;
+				margin-left:1.2em;
+				margin-top:0.3em;
+				background-color:$gray2;
+				height:0.6em;
+				width:0.6em;
+				border-radius:0.6em;
+			}
+
+			&.active {
+
+				&::after {
+					background-color:$gray3;
+				}
+			}
+		}
+	}
+}
+
+#agenda {
+	.agenda-item {
+		@include card-style;
+		background-color:white;
+		padding:2em;
+		margin-bottom:2em;
+		position:relative;
+
+		[contenteditable="true"]:active,
+		[contenteditable="true"]:focus{
+			border:2px solid $gray2;
+			@include card-corners;
+			padding:0.5em;
+			outline:none;
+			width:calc(100% - 1em);
+
+			&.agenda-item-note {
+				width:calc(95% - 1em);
+			}
+		}
+
+		.agenda-icon-tray {
+			position:absolute;
+			top:1em;
+			right:0;
+			display:flex;
+			justify-content:flex-end;
+			color:$gray2;
+
+			i {
+				margin-right:1em;
+				font-size:1em;
+				cursor:pointer;
+
+				&:hover {
+					color:$gray3;
+				}
+
+				&.active {
+					color:$green;
+				}
+			}
+		}
+
+		h2 {
+			@include heading2;
+			margin-top:0;
+			margin-bottom:0;
+			font-weight:500;
+		}
+
+		p {
+			@include bodyFont;
+			color:$gray3;
+		}
+
+		h3 {
+			@include itemHeading;
+			margin-top:2em;
+			margin-bottom:0.8em;
+		}
+
+		.agenda-item-note {
+			 margin-left:1.2em;
+			 width:calc(100% - 1.2em);
+		}
+
+		.agenda-action-items {
+			.action-item {
+				padding-top:0.8em;
+				padding-bottom:0.8em;
+				border-bottom:1px solid $gray1;
+				display:flex;
+				justify-content:space-between;
+
+				input[type="checkbox"]{
+					border-color:$gray2;
+					border-radius:0.3em;
+					height:1.2em;
+					width:1.2em;
+				}
+
+				.action-item-text {
+					padding-left:0.6em;
+					margin-right:auto;
+
+					.action-item-description {
+						@include bodyFont;
+						margin-top:0;
+						margin-bottom:0;
+					}
+
+					.due-date {
+						@include taskDetails;
+						margin-top:0;
+						margin-bottom:0;
+					}
+
+					.start-typing-description {
+						@include startTyping;
+						margin-top:0;
+						margin-bottom:0;
+					}
+
+					.start-typing-due-date {
+						@include startTypingDetail;
+						margin-top:0;
+						margin-bottom:0;
+					}
+				}
+
+				.assignees {
+					margin-left:auto;
+					display:flex;
+					flex-wrap:nowrap;
+					align-items:center;
+					position:relative;
+
+					.assignee-photo {
+						@include profile-photo;
+						background:url("../../assets/profile-img-sample.jpg");
+						background-size:cover;
+						margin-left:auto;
+					}
+
+					i {
+						color:$gray1;
+						margin-left:auto;
+						margin-right:0.4em;
+						cursor:pointer;
+
+						&:hover {
+							color:$gray3;
+						}
+					}
+
+					.add-assignee {
+						background-color:$bgGray;
+						@include card-style;
+						display:none;
+
+						p {
+							margin-top:0;
+							margin-bottom:0;
+						}
+
+						.add-team {
+							@include startTyping;
+							padding:0.8em;
+						}
+
+						.add-assignee-row {
+							border-bottom:1px solid $gray1;
+							display:flex;
+							justify-content:flex-start;
+							align-items:center;
+							padding:0.8em;
+							cursor:pointer;
+
+							&:hover {
+								background-color:$gray3;
+								* {
+									color:white;
+								}
+							}
+
+							.add-assignee-img {
+								@include profile-photo;
+								width:1.4em;
+								height:1.4em;
+								background:url("../../assets/profile-img-sample.jpg");
+								background-size:cover;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+// ALL BELOW WRITTEN BY KAT
+
+.filter-bar {
+	margin-bottom:1.5em;
+}
+
+.filter-bar p {
+	display: inline;
+}
+
+a.filter-group {
+	border-radius: 30px;
+	font-style: normal;
+	font-size: 12px;
+	text-align: center;
+	background: #EEEEEE;
+	color: #777777;
+	padding: 10px 24px 10px 24px;
+	border: 0px;
+	display: inline-block;
+	margin: 0px 5px 0px 5px;
+	text-decoration: none;
+}
+
+a:focus {
+	outline: none;
+}
+
+a.selected {
+	background: #777777;
+	color: #FCFCFC;
+}
+
+
+.mtg-date, .card {
+	display: inline-block;
+}
+
+.card {
+	min-width: 560px;
+}
+
+.mtg-date {
+	padding: 0 0 24px 24px;
+	margin: 0px;
+	vertical-align: bottom;
+	font-weight: 500;
+	font-size: 12px;
+	color: #777777;
+}
+
+.mtg-card {
+	margin-bottom: 1.5em;
+}
+
+.green-card-team{
+	color:$green;
+	@include detailsFont;
+	margin: 0.5em 0;
+}
+.blue-card-team{
+	color:$blue;
+	@include detailsFont;
+	margin: 0.5em 0;
+}
+.red-card-team{
+	color:$red;
+	@include detailsFont;
+	margin: 0.5em 0;
+}

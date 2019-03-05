@@ -12,7 +12,7 @@
   @include sidebar-photo;
   width:1.8em;
   height:1.8em;
-  margin-right:0.2em;
+  margin-right:0.4em;
   border-radius:1.8em;
 }
 
@@ -28,6 +28,18 @@
 @mixin card-style {
   @include card-shadow;
   @include card-corners;
+}
+
+.green-color-band {
+	border-left: 10px solid $green;
+}
+
+.blue-color-band {
+	border-left: 10px solid $blue;
+}
+
+.red-color-band {
+	border-left: 10px solid $red;
 }
 
 

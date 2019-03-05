@@ -1,6 +1,6 @@
 <?php
-$title = "";
-$username = ""; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
+$title = "Meetings";
+$username = "James"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
 $active = "meetings";
 
 ?>
