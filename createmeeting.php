@@ -10,9 +10,10 @@ $username = "James"; // this will appear in the bottom of the sidebar. Eventuall
  	<?php require 'components/metadata.php'; ?>
  </head>
  <style>
+
  h2{
    position: absolute;
-width: 100%;
+width: 200%;
 height: 50%;
 left: 25%;
 top: 90%;
