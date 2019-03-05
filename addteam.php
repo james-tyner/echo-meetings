@@ -1,7 +1,6 @@
 <?php
 $title = "Home"; // title of the page is the heading1 and also appears in meta title
-$username = "Jessica"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
-$active = "teams";
+$username = "James"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
 
 ?>
 
@@ -13,11 +12,11 @@ $active = "teams";
 	<?php require 'components/metadata.php'; ?>
   <style>
   input{
-    position: absolute;
-    width: 90%;
-    height: 25%;
+    position: fixed;
+ width: 30%;
+ height: 5%;
  left: 25%;
- top: 150%;
+ top: 30%;
  border-radius: 8px;
  text-indent: 8px;
  font-size: 15px;
@@ -34,12 +33,18 @@ $active = "teams";
     padding-top: 2%;
   }
 
-  h2{
-    position: absolute;
-  width: 50%;
+  h1{
+    position: fixed;
+    left: 25%;
+  top: 10%;
+  }
+
+   h2{
+     position: fixed;
+  width: 200%;
   height: 100%;
   left: 25%;
-  top: 90%;
+  top: 20%;
 
   font-family: Rubik;
   font-style: normal;
@@ -48,22 +53,26 @@ $active = "teams";
   font-size: 24px;
 
   color: #222222;
-  }
-  #location h2{
-    position:absolute;
-   left: 25%;
-    top: 220%;
+   }
 
-  }
+   #location h2{
+     position:fixed;
+     left: 25%;
+     top: 40%;
+
+   }
+
+
 
   #location textarea{
     left: 25%;
-    top: 280%;
+    top: 50%;
+    width: 30%;
+    height: 20%;
     vertical-align: top;
     text-align: left;
-position: absolute;
-    width: 180%;
-    height: 60%;
+position: fixed;
+
     border-radius: 8px;
     text-indent: 8px;
     font-size: 15px;
@@ -72,11 +81,11 @@ position: absolute;
   }
 
   button{
-    position: absolute;
-    width: 70%;
-    height: 30%;
+    position: fixed;
+  width: 15%;
+  height: 6%;
   left: 25%;
-  top: 380%;
+  top: 82%;
   background: #00D9BD;
   border-radius: 50px;
   color: white;
@@ -84,56 +93,56 @@ position: absolute;
   font-family: Rubik;
   }
 
-    #add-members h3{
-      position: absolute;
-  width: 50%;
-  height: 50%;
-  left: 355%;
-  top: 90%;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  font-size: 18px;
+  #add-members h3{
+    position: fixed;
+width: 50%;
+height: 50%;
+left: 86%;
+top: 20%;
+font-family: Rubik;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+font-size: 18px;
 
-  color: #000000;
-
-  color: #000000;
-    }
-    #add-members input{
-      left: 360%;
-      top: 140%;
-      width: 60%;
-      height: 20%;
-      font-size: 11px;
-      border: none;
-      border-bottom: 1px solid #000000;
-      box-shadow: none;
-      border-radius: 0px;
-      background: transparent;
-      opacity: 0%;
-      text-indent: 18px;
-
-
-    }
-
-    i{
-      margin-left: 340%;
-    position: absolute;
-    top: 145%;
-    }
-
-  #side-line{
-    position: absolute;
-  width: 260%;
-  height: 0px;
-  left: 200%;
-  top: 270%;
-
-  /* Gray/3 */
-  border: 0.5px solid #777777;
-  transform: rotate(90deg);
+color: #000000;
   }
+
+  #add-members input{
+    left: 83%;
+    top: 30%;
+    width: 15%;
+    height: 5%;
+    font-size: 11px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    box-shadow: none;
+    border-radius: 0px;
+    background: transparent;
+    opacity: 0%;
+    text-indent: 18px;
+
+  }
+
+i{
+  margin-left: 61%;
+position: fixed;
+top: 32%;
+}
+
+
+    #side-line{
+      position: fixed;
+    width: 50%;
+    height: 0px;
+    left: 55%;
+    top: 49%;
+
+    /* Gray/3 */
+    border: 0.5px solid #777777;
+    transform: rotate(90deg);
+    }
+
   </style>
 </head>
 <body>
