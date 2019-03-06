@@ -14,12 +14,11 @@ $active = "meetings";
 	<!-- navbar -->
 	<?php require 'components/nav.php'; ?>
 
-	<header>
+	<header class="scrollable-header">
+		<div class="add-button align-right">
+		  <a href="createmeeting.php"><i class="material-icons"> add </i></a>
+		</div>
 		<h1 class="page-title"> Meetings </h1>
-	</header>
-
-	<!-- middle area -->
-	<main>
 		<div class="filter-bar">
 			<p>Filter by group:</p>
 			<a class="filter-group selected" href="meeting1A.php">All</a>
@@ -27,12 +26,16 @@ $active = "meetings";
 			<a class="filter-group" href="meeting1A_3.php">WRIT 340</a>
 			<a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
 		</div>
+	</header>
 
-		<section>
+	<!-- middle area -->
+	<main>
+
+		<section class="meeting-cards">
       <div class="mtg-card">
   			<div class="card green-color-band">
-  				<h3 class="green-card-team">ITP 460</h3>
-  				<h2 class="card-heading">Update completed tasks to use React</h2>
+  				<h3 class="card-team green">ITP 460</h3>
+  				<h2 class="card-heading">Work Session</h2>
   			</div>
 
   			<p class="mtg-date"> Feb 27</p>
@@ -40,17 +43,17 @@ $active = "meetings";
 
   		<div class="mtg-card">
   			<div class="card blue-color-band">
-  				<h3 class="blue-card-team">WRIT 340</h3>
-  				<h2 class="card-heading">Solidify Presentation Topic</h2>
+  				<h3 class="card-team blue">WRIT 340</h3>
+  				<h2 class="card-heading">Presentation Planning</h2>
   			</div>
 
   			<p class="mtg-date"> Mar 3</p>
   		</div>
 
   		<div class="mtg-card">
-  			<div class="card blue-color-band">
-  				<h3 class="blue-card-team">WRIT 340</h3>
-  				<h2 class="card-heading">Complete Final Project</h2>
+  			<div class="card blue-color-band centered">
+  				<h3 class="card-team blue">WRIT 340</h3>
+  				<h2 class="card-heading">Giving Project</h2>
   			</div>
 
   			<p class="mtg-date"> Mar 10</p>
@@ -58,8 +61,8 @@ $active = "meetings";
 
   		<div class="mtg-card">
   			<div class="card red-color-band">
-  				<h3 class="red-card-team">SOCCER CLUB</h3>
-  				<h2 class="card-heading">Plan Logistics for Playoffs</h2>
+  				<h3 class="card-team red">SOCCER CLUB</h3>
+  				<h2 class="card-heading">Playoff Logistics</h2>
   			</div>
 
   			<p class="mtg-date"> Mar 20</p>

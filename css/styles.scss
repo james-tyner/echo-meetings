@@ -98,7 +98,7 @@ header {
     position:fixed;
     top:0;
     background-color:$bgGray;
-    width:100%;
+    width:82vw;
 
     &::after {
       content: "";
@@ -154,6 +154,15 @@ main {
     &.color-band {
       border-left:10px solid $green;
     }
+  }
+}
+
+.add-button {
+  @include add-button;
+  z-index:31;
+
+  &.align-right {
+    float:right;
   }
 }
 

@@ -291,54 +291,68 @@ a.filter-group {
 	display: inline-block;
 	margin: 0px 5px 0px 5px;
 	text-decoration: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	&.selected {
+		background: #777777;
+		color: #FCFCFC;
+	}
 }
 
-a:focus {
-	outline: none;
+.meeting-cards {
+	width:56vw;
+	margin:auto;
+
+	.mtg-card {
+		margin-bottom:1.5em;
+		display:flex;
+		align-items:center;
+		justify-content:right;
+		flex-wrap:nowrap;
+		position:relative;
+
+		.card {
+			width:75%;
+			cursor:pointer;
+			margin-left:auto;
+			opacity:0.4;
+
+			&.centered {
+				width:85%;
+				opacity:1;
+
+				&::before {
+					content:"Next up:";
+					@include bodyFont;
+					margin-right:2em;
+					position:absolute;
+					left:-8em;
+					top:calc(50% - 0.375em);
+				}
+			}
+
+			.card-team {
+				margin-top:0;
+			}
+
+			.card-heading {
+				@include itemHeading;
+			}
+		}
+
+		.mtg-date {
+			text-align:left;
+			width:15%;
+			margin-left:2em;
+			@include detailsFont;
+			color:$gray2;
+		}
+	}
 }
 
-a.selected {
-	background: #777777;
-	color: #FCFCFC;
-}
-
-
-.mtg-date, .mtg-card .card {
-	display: inline-block;
-}
-
-.mtg-card .card {
-	min-width: 560px;
-}
-
-.mtg-date {
-	padding: 0 0 24px 24px;
-	margin: 0px;
-	vertical-align: bottom;
-	font-weight: 500;
-	font-size: 12px;
-	color: #777777;
-}
-
-.mtg-card {
-	margin-bottom: 1.5em;
-}
-
-.green-card-team{
-	color:$green;
-	@include detailsFont;
-	margin: 0.5em 0;
-}
-.blue-card-team{
-	color:$blue;
-	@include detailsFont;
-	margin: 0.5em 0;
-}
-.red-card-team{
-	color:$red;
-	@include detailsFont;
-	margin: 0.5em 0;
-}
 
 
 // ALL BELOW WRITTEN BY MARS
@@ -430,6 +444,11 @@ a.selected {
   display: block;
   //background-color: red;
 }
+
+
+
+
+
 
 // BELOW WRITTEN BY JESSICA
 #create-meeting-main {
