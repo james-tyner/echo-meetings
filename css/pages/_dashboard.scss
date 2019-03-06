@@ -3,7 +3,6 @@
 
 .member-img-div {
   display: inline-block;
-  margin-right: 3px;
 
   img {
     @include profile-photo;
@@ -23,10 +22,13 @@
     min-width: auto;
     padding: 18px 15px;
     margin: 0 25px;
+    background-color:white;
 
     .card-date {
       color: $gray3;
       margin: 0;
+      margin-top:5px;
+      @include detailsFont;
     }
 
     .card-description {
@@ -48,14 +50,27 @@
 
   .add-meeting-div {
     align-self:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:2.5em;
+    height:2.5em;
+    border-radius:2.5em;
+    @include card-shadow;
+    background-color:white;
+
+    &:hover {
+      background-color:$green;
+    }
 
     i {
       color: $gray3;
-      padding: 10px;
       cursor: pointer;
+      font-size:2em;
+      transform:translateY(0.05em);
 
       &:hover {
-        color: black;
+        color: white;
       }
     }
   }
@@ -63,34 +78,41 @@
 
 .task-team-flexbox {
   display: flex;
+  flex-wrap:nowrap;
   margin-top: 40px;
 }
 
 .tasks-div {
-  width: 50%;
+  flex-basis: 65%;
+  flex-grow:2;
+  flex-shrink:1;
+  margin-right:auto;
   padding-right: 25px;
 
   .card {
     width: 100%;
     overflow: auto;
     padding: 10px 15px;
+    background-color:white;
   }
 
   .task-item-div {
     display: grid;
     grid-template-columns: 60% 20% 20%;
+    align-items:center;
 
     border-bottom: 1px solid $gray1;
     padding: 16px 0;
 
-
     .task-due {
       margin: 0;
       @include detailsFont;
+      text-align:center;
     }
 
     label {
       color: $gray3;
+      display:block;
     }
 
     .task-upcoming {
@@ -102,28 +124,36 @@
     }
 
     select {
-      border-radius: 5px;
+      border:1px solid $gray2;
+      color:$gray3;
+      padding:5px;
+      @include card-corners;
+      appearance:none;
+        -moz-appearance:none;
+        -webkit-appearance:none;
     }
   }
 }
 
 .team-div {
-  width: 50%;
+  flex-basis: 35%;
+  flex-grow:1;
+  flex-shrink:2;
+  margin-left:auto;
   padding-left: 25px;
+  padding-right:25px;
 
   .team {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .team-name {
-    margin: 5px 0;
+    @include itemHeading;
+    margin:0;
   }
 
   .group-name {
+    @include detailsFont;
     margin: 0 0 12px;
-    font-weight: 500;
-    font-size: 0.75em;
-    // TODO: change color
-    color: $green;
   }
 }

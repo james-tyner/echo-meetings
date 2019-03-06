@@ -93,6 +93,7 @@ header {
     @include heading1;
   }
 
+
   &.scrollable-header {
     position:fixed;
     top:0;
@@ -122,7 +123,6 @@ main {
     padding:0.75em;
 
     .card-team {
-      color:$green;
       @include detailsFont;
       margin:0.5em 0;
     }
