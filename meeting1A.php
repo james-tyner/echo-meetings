@@ -9,6 +9,12 @@ $active = "meetings";
 <html lang='en'>
 <head>
 	<?php require 'components/metadata.php'; ?>
+
+  <style type="text/css">
+    a {
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
 	<!-- navbar -->
@@ -50,14 +56,17 @@ $active = "meetings";
   			<p class="mtg-date"> Mar 3</p>
   		</div>
 
-  		<div class="mtg-card">
-  			<div class="card blue-color-band centered">
-  				<h3 class="card-team blue">WRIT 340</h3>
-  				<h2 class="card-heading">Giving Project</h2>
-  			</div>
+      <a href="meeting2.php">
+        <div class="mtg-card">
+          <div class="card blue-color-band centered">
+            <h3 class="card-team blue">WRIT 340</h3>
+            <h2 class="card-heading">Giving Project</h2>
+          </div>
 
-  			<p class="mtg-date"> Mar 10</p>
-  		</div>
+          <p class="mtg-date"> Mar 10</p>
+        </div>
+      </a>
+  		
 
   		<div class="mtg-card">
   			<div class="card red-color-band">

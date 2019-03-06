@@ -10,6 +10,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
 <html lang='en'>
 <head>
   <?php require 'components/metadata.php'; ?>
+  
 </head>
 <body>
 <!-- navbar -->
@@ -26,9 +27,11 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
       <h2>Up Next</h2>
 
       <div class="grid-4">
+
+        
         <div class="card">
-          <h2 class="card-heading">Website Redesign Meeting</h2>
-          <p class="card-date">Jan. 1 at 8 pm</p>
+          <h2 class="card-heading">Giving Project</h2>
+          <p class="card-date">Mar 10 at 8 pm</p>
           <div class="card-description">
             <div class="team-members">
               <div class="member-img-div">
@@ -38,9 +41,10 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
                 <img src="assets/profile-img-sample.jpg" alt="profile-img-james">
               </div>
             </div>
-            <h3 class="card-team green">ITP 460</h3>
+            <h3 class="card-team blue">WRIT 340</h3>
           </div>
         </div>
+        
         <div class="card">
           <h2 class="card-heading">Prototype Review Meeting</h2>
           <p class="card-date">Jan. 18 at 12 pm</p>
@@ -72,7 +76,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
           </div>
         </div>
         <div class="add-meeting-div">
-          <a href="#"><i class="material-icons"> add </i></a>
+          <a href="createmeeting.php"><i class="material-icons"> add </i></a>
         </div>
       </div>
     </div>
