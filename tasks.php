@@ -1,122 +1,24 @@
 <?php
 $title = "Tasks";
 $username = "Angella"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
-$active = "dashboard";
+$active = "tasks";
 ?>
 
 <!DOCTYPE html>
 <html lang='en'>
 <head>
 	<?php require 'components/metadata.php'; ?>
-	<link rel="stylesheet/scss" type="text/css" href="styles.scss">
-	<style>
-
-		main {
-			margin-top: 15px;
-		}
-
-		body {
-			margin: 0px;
-			background: #FCFCFC;
-			font-family: Rubik;
-			font-style: normal;
-			line-height: normal;
-		}
-		hr {
-			border: 1px solid #EEEEEE;
-		}
-		#filterbar {
-			color: #777777;
-			height: 50px;
-			font-weight: 500;
-			font-size: 14px;
-		}
-		#options {
-			margin-left: 20px;
-		}
-		#options button {
-			padding: 12px 30px;
-			margin: 0px 5px;
-			border: none;
-			border-radius: 30px;
-			color: #777777;
-			background-color: #EEEEEE;
-			font-size: 12px;
-			text-align: center;
-		}
-		#options button#selected {
-			color: #FCFCFC;
-			background-color: #777777;
-		}
-		#not-started, #in-progress, #complete {
-			width: calc(33% - 20px);
-			float: left;
-			padding: 0px 10px;
-		}
-		button.num-circle {
-			width: 26px;
-			height: 26px;
-			border-radius: 50%;
-			border: 2px solid #CCCCCC;
-			font-weight: 500;
-			font-size: 14px;
-			color: #CCCCCC;
-			background: #FCFCFC;
-			float: left;
-			margin: 21px 10px 0px 45px;
-		}
-		#in-progress .num-circle {
-			margin-left: 50px;
-		}
-		#complete .num-circle {
-			margin-left: 60px;
-		}
-		#not-started > h2, #in-progress > h2, #complete > h2 {
-			font-weight: 500;
-			font-size: 24px;
-			color: #777777;
-			width: 143.87px;
-			float: left;
-		}
-
-		.clear-float {
-			clear: both;
-		}
-		.card {
-			min-width: 260px;
-			margin-bottom: 18px;
-		}
-		.card-team-itp460 {
-			color: #00d9bd !important;
-		}
-		.color-band-itp460 {
-	    	border-left: 10px solid #00d9bd;
-	    }
-	    .card-team-writ340 {
-			color: #ff5f77 !important;
-		}
-	    .color-band-writ340 {
-	    	border-left: 10px solid #ff5f77;
-	    }
-	    .card-team-soccerclub {
-			color: #4c98f2 !important;
-		}
-	    .color-band-soccerclub {
-	    	border-left: 10px solid #4c98f2;
-	    }
-		.red {
-			color: #ff5f77;
-		}
-	</style>
 </head>
 <body>
 	<!-- navbar -->
 	<?php require 'components/nav.php'; ?>
 
+	<header>
+		<h1 class="page-title">My Tasks</h1>
+	</header>
+
 	<!-- middle area -->
 	<main>
-		<h1> My Tasks </h1>
-
 		<!-- filter bar -->
 		<section>
 			<div id="filterbar">
