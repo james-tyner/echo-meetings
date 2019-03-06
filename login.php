@@ -13,13 +13,13 @@
 	<div id="logo"> <img src="assets/Logo on White.svg" alt="logo-img"></div>
 	<div class="bg-window" id="login-bg">
 		<div id="outside-prompt">
-			<p>Already have an account?</p>
+			<p>Create an account to start organizing your meetings</p>
 			<a href="signup.php" class="prompt-button" id="signup-prompt" type="button">SIGN UP</a>
 		</div>
 	</div>
 	<div class="input-window" id="login-input">
 		<div id="input-container">
-			<h1>Create Your Account</h1>
+			<h1>Welcome back!</h1>
 			<a href="#"><img id="google" src="assets/google-sign-in@2x.png" alt="Sign-in with Google"></a>
 
 			<p>Or register with your email account:</p>
