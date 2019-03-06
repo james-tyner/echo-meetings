@@ -19,45 +19,43 @@ $active = "meetings";
   </header>
 
  	<!-- middle area -->
- 	<main id="create-meeting-main">
+ 	<main id="create-meeting-main" class="meeting-main">
 
- 		<section>
+ 		<section id="meeting-form">
       <div id="name">
-      <h2>Name</h2>
-      <input type="text" name="name" placeholder="set meeting name"></input>
-    </div>
-    <div id="date">
-      <h2>Date</h2>
-      <input type="date" name="name"  ></input>
-    </div>
-<div id="at">at</div>
+        <label for="meeting-name">Name</label>
+        <input id="meeting-name" type="text" name="name" placeholder="Planning extravaganza…"></input>
+      </div>
 
-    <div id="time">
-      <h2>Time</h2>
-      <input type="time" name="name"  ></input>
-    </div>
+      <div id="date-time-block">
+        <div id="label-row">
+          <label id="date-label" for="meeting-date">Date</label>
+          <label id="time-label" for="meeting-time">Time</label>
+        </div>
 
-    <div id="location">
-      <h2>Location</h2>
-      <input type="text" name="name" placeholder="set location"></input>
-    </div>
+        <div id="field-row">
+          <input id="meeting-date" type="date" name="name"  ></input>
+          <div id="at">at</div>
+          <input id="meeting-time" type="time" name="name"  ></input>
+        </div>
+      </div>
 
-    <div id="button">
-      <button type="button">Create New Meeting</button>
-    </div>
+      <div id="location">
+        <label for="meeting-loc">Location</label>
+        <input id="meeting-loc" type="text" name="name" placeholder="Timberwolves Room…"></input>
+      </div>
 
-<hr id="side-line">
-
+      <button class="submit-button" type="button">Create Meeting</button>
  		</section>
 
-    <section>
+    <section class="right-bar">
 
       <div id="add-team">
-
         <h3>Add Team</h2>
-
-        <input type="text" name="name" placeholder="search teams" ><i class="fa fa-search" aria-hidden="true" ></i></input>
-
+        <div id="team-search">
+          <i class="fa fa-search" aria-hidden="true" ></i>
+          <input type="text" name="name" placeholder="search teams" ></input>
+        </div>
       </div>
 
     </section>

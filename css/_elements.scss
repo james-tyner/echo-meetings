@@ -52,6 +52,11 @@
 @mixin input-field-style {
   @include input-field-shadow;
   border-radius:10px;
+  border:1px solid $gray2;
+
+  &:active, &:focus {
+    border:2px solid $green;
+  }
 }
 
 @mixin add-button {
@@ -77,5 +82,37 @@
     &:hover {
       color: white;
     }
+  }
+}
+
+@mixin start-button {
+  padding:0.5em;
+  border-radius:1em;
+  border:2px solid $green;
+  @include buttonFont;
+  color:$green;
+  cursor:pointer;
+  text-align:center;
+  display:inline-block;
+
+  &:hover {
+    background-color:$green;
+    color:white;
+  }
+}
+
+@mixin submit-button {
+  @include card-shadow;
+  border-radius:2.4em;
+  background-color:$green;
+  padding:0.5em;
+  @include buttonFont;
+  color:white;
+  border:none;
+  cursor:pointer;
+
+  &:hover {
+    color:$green;
+    background-color:white;
   }
 }

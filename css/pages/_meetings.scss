@@ -1,29 +1,29 @@
 
 // THIS SECTION WRITTEN BY JAMES
 main.meeting-main {
-	width:56vw;
+	width:62vw;
 	// Total width: 3 + 56 + 3 = 62
 	// Totally covers 18 + 62 = 80
 }
 
 header.meeting-header {
-	width:calc(56vw - 1px); // subtract 1 px for right bar border
+	width:calc(62vw - 1px); // subtract 1 px for right bar border
 
 	&.scrollable-header {
 		&::after {
-			width:calc(56vw - 1px);
+			width:calc(62vw - 1px);
 		}
 	}
 }
 
 .right-bar {
 	border-left: 1px solid $gray2;
-	width:14vw;
-	padding:3vw;
+	width:20vw;
+	padding:1.5vw;
 	position:fixed;
 	right:0;
 	top:0;
-	height:calc(100vh - 6vw);
+	height:100vh;
 	display:grid;
 
 	#meeting-start-btn {
@@ -453,165 +453,82 @@ a.filter-group {
 // BELOW WRITTEN BY JESSICA
 #create-meeting-main {
 
-	h1{
-	  position: fixed;
-	  left: 25%;
-	top: 10%;
+	label {
+		@include heading2;
+		font-weight:500;
+		display:block;
+		width:100%;
+		margin-bottom:10px;
 	}
 
-	 h2{
-	   position: fixed;
-	width: 200%;
-	height: 100%;
-	left: 25%;
-	top: 20%;
+	input{
+		@include input-field-style;
+		@include card-corners;
+		font-size: 15px;
+		padding:7px;
+		margin-bottom:40px;
 
-	font-family: Rubik;
-	font-style: normal;
-	font-weight: 500;
-	line-height: normal;
-	font-size: 24px;
-
-	color: #222222;
-	 }
-
-
-
-	 input{
-	   position: fixed;
-	width: 30%;
-	height: 5%;
-	left: 25%;
-	top: 30%;
-	border-radius: 8px;
-	text-indent: 8px;
-	font-size: 15px;
-	box-shadow:  10px  rgba(0,0,0,0.1);
-
-
-	 }
-
-	 input::placeholder{
-	   font-style: italic;
-	 }
-
-	 #at{
-	   position: fixed;
-	width: 10%;
-	height: 35%;
-	left: 42%;
-	top: 51%;
-
-	color: #777777;
-
-
-	 }
-
-	 #date h2{
-	   position:fixed;
-	   left: 25%;
-	   top: 40%;
-
-	 }
-
-	 #date input{
-	   left: 25%;
-	   top: 50%;
-	   width: 15%;
-	 }
-
-	 #time h2{
-	   position:fixed;
-	   left: 46%;
-	   top: 40%;
-
-	 }
-
-	 #time input{
-	   left: 46%;
-	   top: 50%;
-	   width: 15%;
-	 }
-
-	 #location h2{
-	   position:fixed;
-	  left: 25%;
-	   top: 60%;
-
-	 }
-
-	 #location input{
-	   left: 25%;
-	   top: 70%;
-	   width: 40%;
-	 }
-
-	button{
-	  position: fixed;
-	width: 15%;
-	height: 6%;
-	left: 25%;
-	top: 82%;
-	background: #00D9BD;
-	border-radius: 50px;
-	color: white;
-	font-size: 14px;
-	font-family: Rubik;
+		&::placeholder{
+			@include startTyping;
+		}
 	}
 
-	#side-line{
-	  position: fixed;
-	width: 50%;
-	height: 0px;
-	left: 55%;
-	top: 49%;
+	#date-time-block {
+		#label-row, #field-row {
+			display:grid;
+			grid-template-columns:40% 20% 40%;
+		}
 
-	/* Gray/3 */
-	border: 0.5px solid #777777;
-	transform: rotate(90deg);
+		#date-label {
+			grid-column-start:1;
+		}
+
+		#time-label {
+			grid-column-start:3;
+		}
+
+		#meeting-date {
+			grid-column-start:1;
+		}
+
+		#at {
+			grid-column-start:2;
+			text-align:center;
+		}
+
+		#meeting-time {
+			grid-column-start:3;
+		}
 	}
 
-	#time input::before {
+	#add-team {
+		grid-row-start:2;
+		align-self:flex-start;
 
-	    color: #777777;
+		h3 {
+			@include itemHeading;
+			text-align:center;
+		}
 
-	  }
+		#team-search {
+			display:flex;
+			flex-wrap:nowrap;
 
-	  #add-team h3{
-	    position: fixed;
-	width: 50%;
-	height: 50%;
-	left: 86%;
-	top: 20%;
-	font-family: Rubik;
-	font-style: normal;
-	font-weight: 500;
-	line-height: normal;
-	font-size: 18px;
+			input {
+				box-shadow:none;
+				border:none;
+				border-radius:0;
+				border-bottom:1px solid $gray3;
+				outline:none;
+		    background: transparent;
+				display:inline-block;
+				margin:0;
+			}
 
-	color: #000000;
-	  }
-
-	  #add-team input{
-	    left: 83%;
-	    top: 30%;
-	    width: 15%;
-	    height: 5%;
-	    font-size: 11px;
-	    border: none;
-	    border-bottom: 1px solid #000000;
-	    box-shadow: none;
-	    border-radius: 0px;
-	    background: transparent;
-	    opacity: 0%;
-	    text-indent: 18px;
-
-	  }
-
-	i{
-	  margin-left: 61%;
-	position: fixed;
-	top: 32%;
+			i {
+				margin-right:0.3em;
+				align-self:center;
+			}
+		}
 	}
-
 }

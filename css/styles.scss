@@ -166,6 +166,14 @@ main {
   }
 }
 
+.submit-button {
+  @include submit-button;
+}
+
+.start-button {
+  @include start-button;
+}
+
 // PAGES
 @import 'pages/dashboard';
 @import 'pages/meetings';
