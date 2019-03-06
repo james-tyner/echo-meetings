@@ -14,127 +14,119 @@ $active = "meetings";
 <!-- navbar -->
 <?php require 'components/nav.php'; ?>
 
-<header class="scrollable-header meeting-header">
-  <h1 class="page-title">Website Redesign Meeting</h1>
-</header>
+  <header class="scrollable-header meeting-header">
+    <h1 class="page-title">Giving Project</h1>
+  </header>
 
-<!-- middle area -->
-<main class="meeting-main">
-  <section id="agenda">
-    <!-- Agenda Item 1 -->
-    <div class="agenda-item">
-      <div class="agenda-icon-tray">
-        <i class="far fa-sticky-note active"></i>
-        <i class="fas fa-tasks active"></i>
-      </div>
-      <h2>Agenda Item One</h2>
-      <p contenteditable="true" class="agenda-item-description">
-        Front-end framework: React, Angular, Vue. Which one should we use?
-      </p>
+	<!-- middle area -->
+	<main class="meeting-main">
+		<section id="agenda">
+			<!-- Agenda Item 1 -->
+			<div class="agenda-item">
+        <div class="agenda-icon-tray">
+          <i class="far fa-sticky-note active"></i>
+          <i class="fas fa-tasks active"></i>
+        </div>
+        <h2>Fundraising</h2>
+        <p contenteditable="true" class="agenda-item-description">We want to fundraise at least $3,000 to fund this project.</p>
 
-      <h3>Notes</h3>
-      <p contenteditable="true" class="agenda-item-note">
-        A menu structure would be created based on the results of user interviews,
-        and card sorting would be tested for whether it satisfies the user’s mental model.
-        UX researchers use a technique called “tree testing” to prove that it will work.
-        This happens before designing the actual interface.</p>
+        <h3>Notes</h3>
+        <p contenteditable="true" class="agenda-item-note">We need to contact different companies who would potentially partner with us to fundraise and then come back with different options.</p>
 
-      <h3>Action Items</h3>
-      <div class="agenda-action-items">
-        <div class="action-item">
-          <input type="checkbox">
-          <div class="action-item-text">
-            <p contenteditable="true" class="action-item-description">Learn how to use React</p>
-            <p contenteditable="true" class="due-date">due Thursday</p>
+        <h3>Action Items</h3>
+        <div class="agenda-action-items">
+          <div class="action-item">
+            <input type="checkbox">
+            <div class="action-item-text">
+              <p contenteditable="true" class="action-item-description">Contact Krispy Kreme, get fundraiser info.</p>
+              <p contenteditable="true" class="due-date">due Thursday</p>
+            </div>
+            <div class="assignees">
+              <div class="assignee-photo"></div>
+            </div>
           </div>
-          <div class="assignees">
-            <div class="assignee-photo"></div>
+          <div class="action-item">
+            <input type="checkbox">
+            <div class="action-item-text">
+              <p contenteditable="true" class="action-item-description">Contact Porto's and receive fundraising quotes.</p>
+              <p contenteditable="true" class="due-date">due Thursday</p>
+            </div>
+            <div class="assignees">
+              <div class="assignee-photo"></div>
+              <div class="assignee-photo"></div>
+            </div>
           </div>
-        </div>
-        <div class="action-item">
-          <input type="checkbox">
-          <div class="action-item-text">
-            <p contenteditable="true" class="action-item-description">Hello World, from React</p>
-            <p contenteditable="true" class="due-date">due Thursday</p>
+          <div class="action-item">
+            <input type="checkbox">
+            <div class="action-item-text">
+              <p contenteditable="true" class="action-item-description">Talk to USG about potential fundraising opportunities.</p>
+              <p contenteditable="true" class="due-date">due Thursday</p>
+            </div>
+            <div class="assignees">
+              <div class="assignee-photo"></div>
+            </div>
           </div>
-          <div class="assignees">
-            <div class="assignee-photo"></div>
-            <div class="assignee-photo"></div>
-          </div>
-        </div>
-        <div class="action-item">
-          <input type="checkbox">
-          <div class="action-item-text">
-            <p contenteditable="true" class="action-item-description">Start writing unit testings</p>
-            <p contenteditable="true" class="due-date">due Thursday</p>
-          </div>
-          <div class="assignees">
-            <div class="assignee-photo"></div>
-          </div>
-        </div>
-        <div class="action-item">
-          <input type="checkbox" disabled>
-          <div class="action-item-text">
-            <p contenteditable="true" class="start-typing-description">Start typing…</p>
-            <p contenteditable="true" class="start-typing-due-date">due…</p>
-          </div>
-          <div class="assignees">
-            <i class="fas fa-user-plus"></i>
-            <div class="add-assignee">
-              <p class="add-team">Add team members…</p>
-              <div class="add-assignee-row">
-                <div class="add-assignee-img"></div>
-                <p class="add-assignee-name">James</p>
-              </div>
-              <div class="add-assignee-row">
-                <div class="add-assignee-img"></div>
-                <p class="add-assignee-name">Mars</p>
-              </div>
-              <div class="add-assignee-row">
-                <div class="add-assignee-img"></div>
-                <p class="add-assignee-name">Katlyn</p>
+          <div class="action-item">
+            <input type="checkbox" disabled>
+            <div class="action-item-text">
+              <p contenteditable="true" class="start-typing-description">Start typing…</p>
+              <p contenteditable="true" class="start-typing-due-date">due…</p>
+            </div>
+            <div class="assignees">
+              <i class="fas fa-user-plus"></i>
+              <div class="add-assignee">
+                <p class="add-team">Add team members…</p>
+                <div class="add-assignee-row">
+                  <div class="add-assignee-img"></div>
+                  <p class="add-assignee-name">James</p>
+                </div>
+                <div class="add-assignee-row">
+                  <div class="add-assignee-img"></div>
+                  <p class="add-assignee-name">Mars</p>
+                </div>
+                <div class="add-assignee-row">
+                  <div class="add-assignee-img"></div>
+                  <p class="add-assignee-name">Katlyn</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Agenda Item 2 -->
-    <div class="agenda-item">
-      <div class="agenda-icon-tray">
-        <i class="far fa-sticky-note"></i>
-        <i class="fas fa-tasks"></i>
+			<!-- Agenda Item 2 -->
+			<div class="agenda-item">
+        <div class="agenda-icon-tray">
+          <i class="far fa-sticky-note"></i>
+          <i class="fas fa-tasks"></i>
+        </div>
+        <h2>Touch Base with Charity</h2>
+        <p contenteditable="true" class="agenda-item-description">This year, we will focus our giving project to Red Cross. We need a club representative to contact the organization and figure out logistics in donation.</p>
       </div>
-      <h2>Agenda Item Two</h2>
-      <p contenteditable="true" class="agenda-item-description">There are so many back-end frameworks. Which one should
-        we use?</p>
-    </div>
 
-    <div class="agenda-item">
-      <div class="agenda-icon-tray">
-        <i class="far fa-sticky-note"></i>
-        <i class="fas fa-tasks"></i>
+      <div class="agenda-item">
+        <div class="agenda-icon-tray">
+          <i class="far fa-sticky-note"></i>
+          <i class="fas fa-tasks"></i>
+        </div>
+        <h2>Promote Event</h2>
+        <p contenteditable="true" class="agenda-item-note">We want to engage our entire campus, both undergraduate and graduate students, to contribute to this giving project. We are looking for donations or engagements from at least 2,000 students. So we will need extensive efforts in promoting the event the next month.</p>
       </div>
-      <h2>Agenda Item Three</h2>
-      <p contenteditable="true" class="agenda-item-note">We can deploy our application to DigitalOcean for $5 a
-        month.</p>
-    </div>
-  </section>
-</main>
+		</section>
+	</main>
 
 <!-- right sidebar -->
 <section class="right-bar">
   <!-- Start/End Button -->
   <div id="meeting-start-btn">Start Meeting</div>
 
-  <!-- Agenda Item ToC -->
-  <div class="agenda-list-div">
-    <div class="agenda-list-item active"> Agenda Item One</div>
-    <div class="agenda-list-item"> Agenda Item Two</div>
-    <div class="agenda-list-item"> Agenda Item Three</div>
-  </div>
-</section>
+		<!-- Agenda Item ToC -->
+		<div class="agenda-list-div">
+				<div class="agenda-list-item active"> Fundraising</div>
+				<div class="agenda-list-item"> Touch Base with Charity</div>
+				<div class="agenda-list-item"> Promote Event</div>
+		</div>
+	</section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="js/lib/autoresize.jquery.js"></script>
