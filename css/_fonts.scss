@@ -1,0 +1,60 @@
+// -------- FONTS ---------
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,700');
+
+* {
+  font-family: "Rubik", sans-serif;
+}
+
+@mixin heading1 {
+  font-weight: 700;
+  font-size: 2.1em;
+  margin-top: 0;
+}
+
+@mixin heading2 {
+  font-weight: 700;
+  font-size: 1.7em;
+}
+
+@mixin itemHeading {
+  font-weight: 500;
+  font-size: 1em; // 1em here = 14px on Figma
+}
+
+@mixin navBarLink {
+  color: white;
+  @include itemHeading;
+}
+
+@mixin buttonFont {
+  color: white;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+@mixin bodyFont {
+  font-size: 0.9em;
+}
+
+@mixin detailsFont {
+  font-weight: 400;
+  font-size: 0.75em;
+}
+
+@mixin taskDetails {
+  font-size: 0.65em;
+  font-weight: 300;
+  color: $gray3;
+}
+
+@mixin startTyping {
+  font-size: 0.9em;
+  color: $gray2;
+  font-style: italic;
+}
+
+@mixin startTypingDetail {
+  font-size: 0.75em;
+  color: $gray2;
+  font-style: italic;
+}
