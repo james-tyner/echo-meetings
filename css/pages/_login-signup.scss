@@ -1,12 +1,28 @@
 
-// STYLES BY MAYANK
+// STYLES BY JAMES
 
 #login-signup-main {
+
+  #logo {
+    width:100px;
+    position:absolute;
+    top:1.5em;
+    left:1.5em;
+  }
+
   .input-window {
     height: 50vw;
     width: 60%;
-    float: left;
+
+    &#signup-input {
+      float:left;
+    }
+
+    &#login-input {
+      float:right;
+    }
   }
+
   .bg-window {
     background-image:url("../assets/signup-background.svg");
     background-position:center;
@@ -15,96 +31,110 @@
     float: left;
     height: 100vh;
 
-    #logo {
-      width:100px;
-      margin:3em 1.5em 3em 1.5em;
+    &#signup-bg {
+      float: left;
+    }
+
+    &#login-bg {
+      float:right;
     }
 
     #outside-prompt {
       width: 55%;
-      height: 50%;
       margin: auto;
+      margin-top:calc(50vh - 2em);
       text-align: center;
       color:white;
 
       .prompt-button {
+        display:block;
+        text-transform:uppercase;
+        @include submit-button;
+        width:50%;
+        margin:auto;
 
-
-        &.signin-prompt {
-
+        &#signin-prompt {
+          background-color:$blue;
+          border-color:$blue;
         }
 
-        &.login-prompt {
-          
+        &#signup-prompt {
+          background-color:$red;
+          border-color:$red;
         }
       }
     }
   }
 
-  #box{
-    width: 50%;
-    height: 50%;
-    margin: auto;
-    text-align: center;
-  }
-  #google img{
-    width: 5vw;
-  }
-  #box p{
-    font-size: 12px;
-    color: #222222;
-  }
-  .input-window button{
-    width: 12em;
-    height: 3em;
-    left: 25%;
-    top: 400%;
-    background: #FF5F77;
-    border-radius: 50px;
-    color: white;
-    font-size: 14px;
-    font-family: "Rubik";
-    box-shadow: 0px 2px 10px
-    }
-    .entry-row{
-    height: 40px;
-    width: 250px;
-    border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .entry-row img{
-    height: 1.2em;
-    margin-left: 1%;
-    margin-top: 1%;
-    float: left;
-    }
-    input{
-    font-size: 12px;
-    color: #222222;
-    width: 13em;
-    margin-left: 10px;
-    background-color: transparent;
-    border: 0px solid;
-    margin-top: 1%;
-    float: left;
-    }
-    .entry-row:after {
-    content: "";
-    display: table;
-    clear: both;
+  .input-window {
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    p {
+      color:$gray4;
     }
 
-    .small-window button{
-    width: 12em;
-    height: 3em;
-    left: 25%;
-    top: 400%;
-    background: #4C98F2;
-    border-radius: 50px;
-    color: white;
-    font-size: 14px;
-    font-family: "Rubik";
+    #google {
+      height:50px;
     }
+
+    .entry-row {
+      margin-bottom:25px;
+      @include input-field-style;
+      display:grid;
+      grid-template-columns:15% 85%;
+      align-items:center;
+
+      i {
+        color:$gray2;
+        display:block;
+        font-size: 1.2em;
+        padding:0 6px;
+      }
+
+      input {
+        color:$gray4;
+        background-color: transparent;
+        border:none;
+        @include bodyFont;
+        padding:0.6em;
+      }
+    }
+
+    .input-button {
+      display:block;
+      text-transform:uppercase;
+      @include submit-button;
+      width:50%;
+      margin:auto;
+
+      &#signin-button {
+        background-color:$blue;
+        border-color:$blue;
+      }
+
+      &#signup-button {
+        background-color:$red;
+        border-color:$red;
+      }
+    }
+  }
+
+  a {
+    text-decoration:none;
+  }
+
+  a:hover {
+    &#signup-button, &#signup-prompt {
+      color:$red !important;
+      background-color:white !important;
+    }
+
+    &#signin-button, &#signin-prompt {
+      color:$blue !important;
+      background-color:white !important;
+    }
+  }
 }
