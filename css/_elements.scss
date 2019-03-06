@@ -1,20 +1,19 @@
-
 // PROFILE ICONS
 @mixin sidebar-photo {
-  width:2.2em;
-  height:2.2em;
-  margin-right:0.3em;
-  border-radius:2.2em;
-  background-size:cover;
-  background-position:center;
+  width: 2.2em;
+  height: 2.2em;
+  margin-right: 0.3em;
+  border-radius: 2.2em;
+  background-size: cover;
+  background-position: center;
 }
 
 @mixin profile-photo {
   @include sidebar-photo;
-  width:1.8em;
-  height:1.8em;
-  margin-right:0.4em;
-  border-radius:1.8em;
+  width: 1.8em;
+  height: 1.8em;
+  margin-right: 0.4em;
+  border-radius: 1.8em;
 }
 
 // CARDS & BOXES
@@ -32,52 +31,52 @@
 }
 
 .green-color-band {
-	border-left: 10px solid $green;
+  border-left: 10px solid $green;
 }
 
 .blue-color-band {
-	border-left: 10px solid $blue;
+  border-left: 10px solid $blue;
 }
 
 .red-color-band {
-	border-left: 10px solid $red;
+  border-left: 10px solid $red;
 }
 
 
 // INPUTS & BUTTONS
 @mixin input-field-shadow {
-  box-shadow:0px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 @mixin input-field-style {
   @include input-field-shadow;
-  border-radius:10px;
-  border:1px solid $gray2;
+  border-radius: 10px;
+  border: 1px solid $gray2;
 
   &:active, &:focus {
-    border:2px solid $green;
+    border: 2px solid $green;
   }
 }
 
 @mixin add-button {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:2.5em;
-  height:2.5em;
-  border-radius:2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 2.5em;
   @include card-shadow;
-  background-color:white;
+  background-color: white;
 
   &:hover {
-    background-color:$green;
+    background-color: $green;
   }
 
   i {
     color: $gray3;
     cursor: pointer;
-    font-size:2em;
-    transform:translateY(0.05em);
+    font-size: 2em;
+    transform: translateY(0.05em);
 
     &:hover {
       color: white;
@@ -86,33 +85,33 @@
 }
 
 @mixin start-button {
-  padding:0.5em;
-  border-radius:1em;
-  border:2px solid $green;
+  padding: 0.5em;
+  border-radius: 1em;
+  border: 2px solid $green;
   @include buttonFont;
-  color:$green;
-  cursor:pointer;
-  text-align:center;
-  display:inline-block;
+  color: $green;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
 
   &:hover {
-    background-color:$green;
-    color:white;
+    background-color: $green;
+    color: white;
   }
 }
 
 @mixin submit-button {
   @include card-shadow;
-  border-radius:2.4em;
-  background-color:$green;
-  padding:0.5em;
+  border-radius: 2.4em;
+  background-color: $green;
+  padding: 0.5em;
   @include buttonFont;
-  color:white;
-  border:none;
-  cursor:pointer;
+  color: white;
+  border: none;
+  cursor: pointer;
 
   &:hover {
-    color:$green;
-    background-color:white;
+    color: $green;
+    background-color: white;
   }
 }

@@ -7,53 +7,52 @@ $active = "teams";
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<?php require 'components/metadata.php'; ?>
+  <?php require 'components/metadata.php'; ?>
   <style>
 
 
   </style>
 </head>
 <body>
-	<!-- navbar -->
-	<?php require 'components/nav.php'; ?>
+<!-- navbar -->
+<?php require 'components/nav.php'; ?>
 
-	<!-- middle area -->
-	<main id="add-team-main">
-		<header>
-			<h1 class="page-title">Create Team</h1>
-		</header>
+<!-- middle area -->
+<main id="add-team-main">
+  <header>
+    <h1 class="page-title">Create Team</h1>
+  </header>
 
-		<section>
+  <section>
 
-       <div id="name">
-       <h2>Team Name</h2>
-       <input type="text" name="name" placeholder="set team name"></input>
-     </div>
-     <div id="location">
-       <h2>Description</h2>
-       <textarea type="text" name="name" placeholder="set description" ></textarea>
-     </div>
+    <div id="name">
+      <h2>Team Name</h2>
+      <input type="text" name="name" placeholder="set team name"></input>
+    </div>
+    <div id="location">
+      <h2>Description</h2>
+      <textarea type="text" name="name" placeholder="set description"></textarea>
+    </div>
 
-     <div id="button">
-       <button type="button">Create New Team</button>
-     </div>
-		</section>
-    <hr id="side-line">
+    <div id="button">
+      <button type="button">Create New Team</button>
+    </div>
+  </section>
+  <hr id="side-line">
 
-     		</section>
+  <section>
 
-        <section>
+    <div id="add-members">
 
-          <div id="add-members">
+      <h3>Add Members</h3>
 
-            <h3>Add Members</h2>
+      <input type="text" name="name" placeholder="search members">
+      <i class="fa fa-search" aria-hidden="true"></i>
 
-            <input type="text" name="name" placeholder="search members" ><i class="fa fa-search" aria-hidden="true" ></i></input>
+    </div>
 
-          </div>
-
-        </section>
-	</main>
+  </section>
+</main>
 
 </body>
 </html>
