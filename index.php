@@ -76,7 +76,6 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
         </div>
       </div>
     </div>
-
     <div class="task-team-flexbox">
       <div class="tasks-div">
         <h2>Tasks</h2>
@@ -154,7 +153,6 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
         </div>
       </div>
     </div>
-
   </section>
 </main>
 
