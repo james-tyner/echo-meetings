@@ -1,3 +1,4 @@
+
 // PROFILE ICONS
 @mixin sidebar-photo {
   width:2.2em;
@@ -51,4 +52,67 @@
 @mixin input-field-style {
   @include input-field-shadow;
   border-radius:10px;
+  border:1px solid $gray2;
+
+  &:active, &:focus {
+    border:2px solid $green;
+  }
+}
+
+@mixin add-button {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:2.5em;
+  height:2.5em;
+  border-radius:2.5em;
+  @include card-shadow;
+  background-color:white;
+
+  &:hover {
+    background-color:$green;
+  }
+
+  i {
+    color: $gray3;
+    cursor: pointer;
+    font-size:2em;
+    transform:translateY(0.05em);
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+@mixin start-button {
+  padding:0.5em;
+  border-radius:1em;
+  border:2px solid $green;
+  @include buttonFont;
+  color:$green;
+  cursor:pointer;
+  text-align:center;
+  display:inline-block;
+
+  &:hover {
+    background-color:$green;
+    color:white;
+  }
+}
+
+@mixin submit-button {
+  @include card-shadow;
+  border-radius:2.4em;
+  background-color:$green;
+  padding:0.5em;
+  @include buttonFont;
+  color:white;
+  border:none;
+  cursor:pointer;
+
+  &:hover {
+    color:$green;
+    background-color:white;
+  }
 }

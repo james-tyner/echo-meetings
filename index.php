@@ -38,7 +38,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
                 <img src="assets/profile-img-sample.jpg" alt="profile-img-james">
               </div>
             </div>
-            <h3 class="card-team">ITP 460</h3>
+            <h3 class="card-team green">ITP 460</h3>
           </div>
         </div>
         <div class="card">
@@ -53,7 +53,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
                 <img src="assets/profile-img-sample.jpg" alt="profile-img-james">
               </div>
             </div>
-            <h3 class="card-team">ITP 460</h3>
+            <h3 class="card-team green">ITP 460</h3>
           </div>
         </div>
         <div class="card">
@@ -68,7 +68,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
                 <img src="assets/profile-img-sample.jpg" alt="profile-img-james">
               </div>
             </div>
-            <h3 class="card-team">E-Board (Soccer Club)</h3>
+            <h3 class="card-team blue">E-Board (Soccer Club)</h3>
           </div>
         </div>
         <div class="add-meeting-div">
@@ -114,7 +114,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
         <h2>Team</h2>
         <div class="team">
           <h3 class="team-name">Designers</h3>
-          <h4 class="group-name">ITP 460</h4>
+          <h4 class="group-name green">ITP 460</h4>
           <div class="team-members">
             <div class="member-img-div">
               <img src="assets/profile-img-sample.jpg" alt="profile-img-james">
@@ -126,7 +126,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
         </div>
         <div class="team">
           <h3 class="team-name">Programmers</h3>
-          <h4 class="group-name">ITP 460</h4>
+          <h4 class="group-name green">ITP 460</h4>
           <div class="team-members">
             <div class="member-img-div">
               <img src="assets/profile-img-sample.jpg" alt="profile-img-james">
@@ -138,7 +138,7 @@ $active = "dashboard"; // controls which sidebar item is highlighted. Options ar
         </div>
         <div class="team">
           <h3 class="team-name">E-Board</h3>
-          <h4 class="group-name">Soccer Club</h4>
+          <h4 class="group-name blue">Soccer Club</h4>
           <div class="team-members">
             <div class="member-img-div">
               <img src="assets/profile-img-sample.jpg" alt="profile-img-james">

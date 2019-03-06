@@ -14,34 +14,37 @@ $active = "meetings";
 	<!-- navbar -->
 	<?php require 'components/nav.php'; ?>
 
-	<header>
-		<h1 class="page-title">Meetings</h1>
+	<header class="scrollable-header">
+		<div class="add-button align-right">
+		  <a href="createmeeting.php"><i class="material-icons"> add </i></a>
+		</div>
+		<h1 class="page-title"> Meetings </h1>
+		<div class="filter-bar">
+			<p>Filter by group:</p>
+			<a class="filter-group" href="meeting1A.php">All</a>
+			<a class="filter-group" href="meeting1A_2.php">ITP 460</a>
+			<a class="filter-group selected" href="meeting1A_3.php">WRIT 340</a>
+			<a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
+		</div>
 	</header>
 
 	<!-- middle area -->
 	<main>
-      <div class="filter-bar">
-				<p>Filter by group:</p>
-				<a class="filter-group" href="meeting1A.php">All</a>
-				<a class="filter-group" href="meeting1A_2.php">ITP 460</a>
-				<a class="filter-group selected" href="meeting1A_3.php">WRIT 340</a>
-				<a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
-			</div>
 
-		<section>
-      <div class="mtg-card">
+		<section class="meeting-cards">
+  		<div class="mtg-card">
   			<div class="card blue-color-band">
-  				<h3 class="blue-card-team">WRIT 340</h3>
-  				<h2 class="card-heading">Solidify Presentation Topic</h2>
+  				<h3 class="card-team blue">WRIT 340</h3>
+  				<h2 class="card-heading">Presentation Planning</h2>
   			</div>
 
   			<p class="mtg-date"> Mar 3</p>
   		</div>
 
   		<div class="mtg-card">
-  			<div class="card blue-color-band">
-  				<h3 class="blue-card-team">WRIT 340</h3>
-  				<h2 class="card-heading">Complete Final Project</h2>
+  			<div class="card blue-color-band centered">
+  				<h3 class="card-team blue">WRIT 340</h3>
+  				<h2 class="card-heading">Giving Project</h2>
   			</div>
 
   			<p class="mtg-date"> Mar 10</p>
