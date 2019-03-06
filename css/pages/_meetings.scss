@@ -339,3 +339,94 @@ a.selected {
 	@include detailsFont;
 	margin: 0.5em 0;
 }
+
+
+// ALL BELOW WRITTEN BY MARS
+
+.card.meeting-end-card {
+  max-width: 1440px;
+  margin: 120px auto 0;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+
+  .card-header {
+    background-color: $gray4;
+    text-align: center;
+    padding: 35px 0 30px;
+
+    h2 {
+      margin: 0;
+      color: white;
+      padding: 10px 0;
+      font-size: 2.5em;
+    }
+
+    p {
+      color: white;
+      margin: 5px;
+    }
+  }
+
+  .card-body {
+    padding: 20px 50px;
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .date {
+      color: $gray3;
+      margin: 0;
+    }
+
+  }
+
+  .tasks-div {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.button-group {
+  max-width: 500px;
+  margin: 40px auto 0;
+
+  .button {
+    width: 230px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: none;
+    border: none;
+    font-size: 1.1em;
+  }
+
+  .button.create-meeting-btn {
+    color: white;
+    background-color: $green;
+    margin-right: 30px;
+
+    &:hover {
+      background-color: desaturate($green, 20);
+    }
+  }
+
+  .button.dashboard-btn {
+    color: $gray3;
+    background-color: $gray1;
+
+    &:hover {
+      background-color: $gray2;
+    }
+  }
+}
+
+.confetti-launcher {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  height: 5px;
+  width: 5px;
+  display: block;
+  //background-color: red;
+}
