@@ -1,7 +1,13 @@
 <?php
 $title = "Home"; // title of the page is the heading1 and also appears in meta title
+<<<<<<< HEAD
 $username = "James"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
 $active = "teams";
+=======
+$username = "Jessica"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
+$active = "teams";
+
+>>>>>>> 6f6804611fb9a4dd9b372bf609c40a88c19ee484
 ?>
 
 <!-- This page will be a splash screen, eventually. For now, just add a link to login/signup -->
