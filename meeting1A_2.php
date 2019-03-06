@@ -35,7 +35,7 @@ $active = "meetings";
       <div class="mtg-card" style="top:5em;">
   			<div class="card green-color-band centered">
   				<h3 class="card-team green">ITP 460</h3>
-  				<h2 class="card-heading">Work Session</h2>
+  				<h2 class="card-heading">Website Redesign Meeting</h2>
   			</div>
 
   			<p class="mtg-date"> Feb 27</p>

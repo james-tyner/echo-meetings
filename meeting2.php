@@ -8,11 +8,11 @@ $active = "meetings";
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<?php require 'components/metadata.php'; ?>
+  <?php require 'components/metadata.php'; ?>
 </head>
 <body>
-	<!-- navbar -->
-	<?php require 'components/nav.php'; ?>
+<!-- navbar -->
+<?php require 'components/nav.php'; ?>
 
   <header class="scrollable-header meeting-header">
     <h1 class="page-title">Giving Project</h1>
@@ -115,10 +115,10 @@ $active = "meetings";
 		</section>
 	</main>
 
-	<!-- right sidebar -->
-	<section class="right-bar">
-		<!-- Start/End Button -->
-		<div id="meeting-start-btn">Start Meeting</div>
+<!-- right sidebar -->
+<section class="right-bar">
+  <!-- Start/End Button -->
+  <div id="meeting-start-btn">Start Meeting</div>
 
 		<!-- Agenda Item ToC -->
 		<div class="agenda-list-div">
@@ -128,8 +128,8 @@ $active = "meetings";
 		</div>
 	</section>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="js/lib/autoresize.jquery.js"></script>
-  <script src="js/meetings-scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/lib/autoresize.jquery.js"></script>
+<script src="js/meetings-scripts.js"></script>
 </body>
 </html>
