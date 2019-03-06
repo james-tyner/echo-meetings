@@ -10,38 +10,36 @@
 	<?php require 'components/metadata.php'; ?>
 </head>
 <body id="login-signup-main">
-	<div class="bg-window">
-		<div id="logo"> <img src="assets/Logo on Dark.svg" alt="logo-img"></div>
+	<div id="logo"> <img src="assets/Logo on Dark.svg" alt="logo-img"></div>
+	<div class="bg-window" id="signup-bg">
+
 		<div id="outside-prompt">
 			<p>Already have an account?</p>
-			<a class="prompt-button" id="signin-prompt" type="button">SIGN IN</a>
-			</div>
+			<a href="login.php" class="prompt-button" id="signin-prompt" type="button">SIGN IN</a>
 		</div>
 	</div>
-	<div class="input-window">
-		<div id="box">
+	<div class="input-window" id="signup-input">
+		<div id="input-container">
 			<h1>Create Your Account</h1>
-			<a href="#"><div id="google"><img src="assets/sign-google.png" alt="Sign-in with Google"></div></a>
+			<a href="#"><img id="google" src="assets/google-sign-in@2x.png" alt="Sign-in with Google"></a>
+
 			<p>Or register with your email account:</p>
 			<div class="entry-row">
-				<img src="assets/profile.png" alt="profile icon">
+				<i class="fas fa-signature"></i>
 				<input type="text" name="name" value="" placeholder="Name">
 			</div>
-			<br>
 			<div class="entry-row">
-				<img src="assets/contact.png" alt="email icon">
+				<i class="fas fa-at"></i>
 				<input type="text" name="email" value="" placeholder="Email">
 			</div>
-			<br>
 			<div class="entry-row">
-				<img src="assets/lock.png" alt="lock icon">
+				<i class="fas fa-key"></i>
 				<input type="text" name="password" value="" placeholder="Password">
 			</div>
-			<br>
-			<div id="button">
-				<a href="#"><button type="button">SIGN UP</button></a>
+			<a href="login.php" class="input-button" id="signup-button">SIGN UP</a>
 			</div>
 		</div>
+
 	</div>
 </body>
 </html>
