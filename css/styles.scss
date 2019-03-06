@@ -115,6 +115,7 @@ main {
   padding:3vw;
   padding-top:0;
   margin-top:calc(6vw + 0.67em + 2.1em);
+  position: relative;
 
   .card {
     @include card-style;
