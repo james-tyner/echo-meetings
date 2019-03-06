@@ -24,8 +24,8 @@ $active = "tasks";
 			<div id="filterbar">
 				Filter by group:
 				<span id="options">
-					<a href="tasks.php" class="filter-group selected">ALL</a>
-					<a href="tasks1.php" class="filter-group">ITP 460</a>
+					<a href="tasks.php" class="filter-group">ALL</a>
+					<a href="tasks1.php" class="filter-group selected">ITP 460</a>
 					<a href="tasks2.php" class="filter-group">WRIT 340</a>
 					<a href="tasks3.php" class="filter-group">SOCCER CLUB</a>
 				</span> <!-- #options -->
@@ -64,27 +64,7 @@ $active = "tasks";
 						</div>
 					</div>
 
-					<!-- card 3 -->
-					<div class="card color-band-writ340">
-						<h3 class="card-team card-team-writ340">WRIT 340</h3>
-						<h2 class="card-heading">Update program brainstorming for class page</h2>
-						<div class="card-icons">
-					    	<div class="icon-group"><i class="fas fa-user-circle"></i> 4</div>
-					    	<div class="icon-group"><i class="fas fa-comment"></i> 5</div>
-					    	<div class="icon-group"><i class="fas fa-clock"></i> 3 days</div>
-						</div>
-					</div>
-
-					<!-- card 4 -->
-					<div class="card color-band-soccerclub">
-						<h3 class="card-team card-team-soccerclub">SOCCER CLUB</h3>
-						<h2 class="card-heading">Plan bake sale fundraiser for new uniforms</h2>
-						<div class="card-icons">
-					    	<div class="icon-group"><i class="fas fa-user-circle"></i> 11</div>
-					    	<div class="icon-group"><i class="fas fa-comment"></i> 1</div>
-					    	<div class="icon-group"><i class="fas fa-clock"></i> 6 days</div>
-						</div>
-					</div>
+					
 
 				</div> <!-- #not-started -->
 
@@ -93,16 +73,6 @@ $active = "tasks";
 					<h2>In Progress</h2>
 					<div class="clear-float"></div>
 
-					<!-- card 1 -->
-					<div class="card color-band-soccerclub">
-						<h3 class="card-team card-team-soccerclub">SOCCER CLUB</h3>
-						<h2 class="card-heading">Fill out player agreement form and email it to Jane</h2>
-						<div class="card-icons">
-					    	<div class="icon-group"><i class="fas fa-user-circle"></i> 1</div>
-					    	<div class="icon-group"><i class="fas fa-comment"></i> 0</div>
-					    	<div class="icon-group red"><i class="fas fa-clock"></i> yesterday</div>
-						</div>
-					</div>
 				</div> <!-- #in-progress -->
 
 				<div id="complete">
@@ -121,16 +91,7 @@ $active = "tasks";
 						</div>
 					</div>
 
-					<!-- card 2 -->
-					<div class="card color-band-writ340">
-						<h3 class="card-team card-team-writ340">WRIT 340</h3>
-						<h2 class="card-heading">Conduct field research with students on campus</h2>
-						<div class="card-icons">
-					    	<div class="icon-group"><i class="fas fa-user-circle"></i> 9</div>
-					    	<div class="icon-group"><i class="fas fa-comment"></i> 13</div>
-					    	<div class="icon-group"><i class="fas fa-clock"></i> yesterday</div>
-						</div>
-					</div>
+					
 
 				</div> <!-- #complete -->
 
