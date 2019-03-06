@@ -1,6 +1,6 @@
 <?php
-$title = "";
-$username = ""; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
+$title = "Tasks";
+$username = "Angella"; // this will appear in the bottom of the sidebar. Eventually should be managed by session variables
 $active = "dashboard";
 ?>
 
@@ -49,7 +49,7 @@ $active = "dashboard";
 			background-color: #777777;
 		}
 		#not-started, #in-progress, #complete {
-			width: 325px;
+			width: calc(33% - 20px);
 			float: left;
 			padding: 0px 10px;
 		}
@@ -78,7 +78,7 @@ $active = "dashboard";
 			width: 143.87px;
 			float: left;
 		}
-		
+
 		.clear-float {
 			clear: both;
 		}
@@ -231,7 +231,7 @@ $active = "dashboard";
 					</div>
 
 				</div> <!-- #complete -->
-				
+
 				<div class="clear-float"></div>
 			</div> <!-- #kanban -->
 		</section>
