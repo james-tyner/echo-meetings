@@ -15,7 +15,7 @@ $active = "meetings";
 	<?php require 'components/nav.php'; ?>
 
   <header class="scrollable-header meeting-header">
-    <h1 class="page-title">Website Redesign Meeting</h1>
+    <h1 class="page-title">Giving Project</h1>
   </header>
 
 	<!-- middle area -->
@@ -27,18 +27,18 @@ $active = "meetings";
           <i class="far fa-sticky-note active"></i>
           <i class="fas fa-tasks active"></i>
         </div>
-        <h2>Agenda Item One</h2>
-        <p contenteditable="true" class="agenda-item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae velit ligula. Praesent accumsan lacus urna, ut blandit libero viverra ac. Maecenas leo magna, efficitur sit amet ipsum a, placerat varius nisi.</p>
+        <h2>Fundraising</h2>
+        <p contenteditable="true" class="agenda-item-description">We want to fundraise at least $3,000 to fund this project.</p>
 
         <h3>Notes</h3>
-        <p contenteditable="true" class="agenda-item-note">Etiam eget elit vel est egestas ornare. Quisque nisl nisi, tempor tincidunt urna maximus, tincidunt pellentesque sem. Praesent feugiat odio vitae imperdiet sollicitudin. Mauris a cursus orci, id venenatis mi. Integer in dui et augue tincidunt pretium. Sed id placerat tortor. Fusce aliquam molestie risus, in fringilla lacus auctor ut.</p>
+        <p contenteditable="true" class="agenda-item-note">We need to contact different companies who would potentially partner with us to fundraise and then come back with different options.</p>
 
         <h3>Action Items</h3>
         <div class="agenda-action-items">
           <div class="action-item">
             <input type="checkbox">
             <div class="action-item-text">
-              <p contenteditable="true" class="action-item-description">Sed vitae rhoncus lectus, eget sagittis nibh</p>
+              <p contenteditable="true" class="action-item-description">Contact Krispy Kreme, get fundraiser info.</p>
               <p contenteditable="true" class="due-date">due Thursday</p>
             </div>
             <div class="assignees">
@@ -48,7 +48,7 @@ $active = "meetings";
           <div class="action-item">
             <input type="checkbox">
             <div class="action-item-text">
-              <p contenteditable="true" class="action-item-description">Sed vitae rhoncus lectus, eget sagittis nibh</p>
+              <p contenteditable="true" class="action-item-description">Contact Porto's and receive fundraising quotes.</p>
               <p contenteditable="true" class="due-date">due Thursday</p>
             </div>
             <div class="assignees">
@@ -59,7 +59,7 @@ $active = "meetings";
           <div class="action-item">
             <input type="checkbox">
             <div class="action-item-text">
-              <p contenteditable="true" class="action-item-description">Sed vitae rhoncus lectus, eget sagittis nibh</p>
+              <p contenteditable="true" class="action-item-description">Talk to USG about potential fundraising opportunities.</p>
               <p contenteditable="true" class="due-date">due Thursday</p>
             </div>
             <div class="assignees">
@@ -100,8 +100,8 @@ $active = "meetings";
           <i class="far fa-sticky-note"></i>
           <i class="fas fa-tasks"></i>
         </div>
-        <h2>Agenda Item Two</h2>
-        <p contenteditable="true" class="agenda-item-description">Praesent efficitur egestas tellus, at viverra purus facilisis vitae. Mauris sit amet feugiat nisl. Nulla facilisi. Nunc bibendum a mi id tristique. Vestibulum tincidunt turpis metus, at malesuada arcu mattis ut.</p>
+        <h2>Touch Base with Charity</h2>
+        <p contenteditable="true" class="agenda-item-description">This year, we will focus our giving project to Red Cross. We need a club representative to contact the organization and figure out logistics in donation.</p>
       </div>
 
       <div class="agenda-item">
@@ -109,8 +109,8 @@ $active = "meetings";
           <i class="far fa-sticky-note"></i>
           <i class="fas fa-tasks"></i>
         </div>
-        <h2>Agenda Item Three</h2>
-        <p contenteditable="true" class="agenda-item-note">Fusce sed ligula aliquam, hendrerit purus id, dictum felis. Sed pharetra mauris id justo sollicitudin molestie. Phasellus at magna sit amet sem consectetur consequat. Nunc placerat felis nec nulla.</p>
+        <h2>Promote Event</h2>
+        <p contenteditable="true" class="agenda-item-note">We want to engage our entire campus, both undergraduate and graduate students, to contribute to this giving project. We are looking for donations or engagements from at least 2,000 students. So we will need extensive efforts in promoting the event the next month.</p>
       </div>
 		</section>
 	</main>
@@ -122,9 +122,9 @@ $active = "meetings";
 
 		<!-- Agenda Item ToC -->
 		<div class="agenda-list-div">
-				<div class="agenda-list-item active"> Agenda Item One</div>
-				<div class="agenda-list-item"> Agenda Item Two</div>
-				<div class="agenda-list-item"> Agenda Item Three</div>
+				<div class="agenda-list-item active"> Fundraising</div>
+				<div class="agenda-list-item"> Touch Base with Charity</div>
+				<div class="agenda-list-item"> Promote Event</div>
 		</div>
 	</section>
 
