@@ -2,10 +2,10 @@
   <nav id="sidebar">
     <img id="logo" src="../assets/logo_dark.svg" alt="logo-img">
     <div class="nav-items">
-      <a href="#" class="nav-item">Dashboard</a>
-      <a href="#" class="nav-item">Meetings</a>
-      <a href="#" class="nav-item">Tasks</a>
-      <a href="#" class="nav-item">Teams</a>
+      <router-link class="nav-item" to="/">Dashboard</router-link>
+      <router-link class="nav-item" to="/">Meetings</router-link>
+      <router-link class="nav-item" to="/tasks">Tasks</router-link>
+      <router-link class="nav-item" to="/">Teams</router-link>
     </div>
     <!-- test -->
     <!-- bottom part -->

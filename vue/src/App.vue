@@ -3,13 +3,13 @@
     <Navbar></Navbar>
 
     <header>
-      <h1 class="page-title">Dashboard</h1>
+      <h1 class="page-title">{{pageName}}</h1>
     </header>
 
     <!-- middle area -->
     <main>
       <section>
-        <Dashboard></Dashboard>
+        <router-view></router-view>
       </section>
     </main>
   </div>
@@ -17,23 +17,15 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Dashboard from './views/dashboard'
 
 export default {
   name: 'app',
   components: {
-    Navbar,
-    Dashboard
+    Navbar
   },
   data: function () {
     return {
-      items: [{
-        id: 1,
-        msg: 'Name 1'
-      }, {
-        id: 2,
-        msg: 'Name 2'
-      }]
+      pageName: 'Dashboard'
     }
   }
 }
