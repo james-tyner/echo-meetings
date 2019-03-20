@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Dashboard from './views/dashboard'
 import Tasks from './views/tasks'
+import Meetings from './views/meetings'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,13 @@ const router = new VueRouter({
       name: 'Tasks',
       meta: {
         title: 'Tasks - echo'
+      }
+    }, {
+      path: '/meetings',
+      component: Meetings,
+      name: 'Meetings',
+      meta: {
+        title: 'Meetings - echo'
       }
     }
   ]
