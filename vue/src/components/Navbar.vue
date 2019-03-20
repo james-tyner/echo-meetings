@@ -1,6 +1,6 @@
 <template>
   <nav id="sidebar">
-    <img id="logo" src="../assets/logo_dark.svg" alt="logo-img">
+    <img id="logo" src="assets/logo_dark.svg" alt="logo-img">
     <div class="nav-items">
       <router-link class="nav-item" to="/">Dashboard</router-link>
       <router-link class="nav-item" to="/">Meetings</router-link>

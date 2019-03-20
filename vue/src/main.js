@@ -14,8 +14,8 @@ Vue.use(VueRouter)
 // keep it simple for now.
 const router = new VueRouter({
   routes: [
-    { path: '/', component: Dashboard },
-    { path: '/tasks', component: Tasks }
+    { path: '/', component: Dashboard, name: 'Dashboard' },
+    { path: '/tasks', component: Tasks, name: 'Tasks' }
   ] // short for `routes: routes`
 })
 

@@ -17,6 +17,7 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
+import data from './data'
 
 export default {
   name: 'app',
@@ -25,8 +26,18 @@ export default {
   },
   data: function () {
     return {
-      pageName: 'Dashboard'
+      pageName: data['page']
     }
+  },
+  watch: {
+    $route (to) {
+      this.pageName = to.name
+    }
+  },
+  mounted: function () {
+    this.$nextTick(function () {
+      this.pageName = this.$route.name
+    })
   }
 }
 </script>
