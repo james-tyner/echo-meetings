@@ -1,8 +1,9 @@
-let express = require("express");
+
+// connect mongodb
+
 let mongoose = require('mongoose');
 require('dotenv').config();
 
-// connect mongodb
 mongoose.connect(process.env.MONGO_URL);
 
 let db = mongoose.connection;
@@ -11,12 +12,23 @@ db.once('open', function () {
   console.log('mongo success');
 });
 
+
 // models
+
 require('./models/User');
+require('./models/Team');
 const User = mongoose.model('User');
+const Team = mongoose.model('Team');
+
 
 // express
+
+let express = require("express");
+let bodyParser = require('body-parser');
 let app = express();
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -34,7 +46,14 @@ app.get("/user/:name/:password", async (req, res) => {
       console.log(e);
     }
   });
-  res.json(req.params['name'] + " " + req.params['password']);
+  res.json('success');
+});
+
+app.post("/team", async (req, res) => {
+  // const name = req.params['name'];
+  console.log('team post');
+  console.log(req.body);
+  res.json(req.body);
 });
 
 app.listen(3000, () => {
