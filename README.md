@@ -14,15 +14,15 @@ Everything has a unique ID and is assigned to it automatically.
 ### Team
 - name
 - description
-- members: [u_id]
+- members: [user_id]
 
 ### Meeting
 - title
 - time: timestamp
 - location
-- invitees: [u_id]
+- invitees: [user_id]
 - agenda items: [agenda]
-- team: t_id
+- team: team_id
 - start: timestamp
 - end: timestamp
 
@@ -30,17 +30,17 @@ Everything has a unique ID and is assigned to it automatically.
 - title
 - description
 - notes
-- task items: [t_id]
+- task items: [task_id]
 
 ### Task
 - name
 - descirption
 - due: timestamp
-- assignees: [u_id]
+- assignees: [user_id]
 - status: int
-- team: t_id
-- meeting: m_id
-- agenda: a_id
+- team: team_id
+- meeting: meeting_id
+- agenda: agenda_id
 ​
 ## API Spec
 ### JSON Objects returned by API
@@ -80,7 +80,7 @@ Everything has a unique ID and is assigned to it automatically.
 }
 ```
 
-### Meeting
+#### Meeting
 ```json
 {
   "meeting": {
@@ -99,8 +99,7 @@ Everything has a unique ID and is assigned to it automatically.
       "email": "jianxuat@usc.edu",
       "image": null
     }],
-    "agendas": [{
-    }],
+    "agendas": [],
     "team": {
       "id": "",
       "name": "Team Echo",
@@ -123,7 +122,7 @@ Everything has a unique ID and is assigned to it automatically.
 }
 ```
 
-### Agenda (nested in meeting)
+#### Agenda (nested in meeting)
 ```json
 {
   "agenda": {
@@ -131,12 +130,18 @@ Everything has a unique ID and is assigned to it automatically.
     "title": "",
     "description": "",
     "notes": "",
-    "tasks": ["", ""]
+    "tasks": [{
+      "id": "",
+      "name": "",
+      "description": "",
+      "due": "1553479225106",
+      "status": "1"
+    }]
   }
 }
 ```
 
-### Task
+#### Task
 ```json
 {
   "task": {
@@ -144,15 +149,12 @@ Everything has a unique ID and is assigned to it automatically.
     "name": "",
     "description": "",
     "due": "1553479225106",
-    "status": "1",
-    "team": "",
-    "meeting": "",
-    "agenda": ""
+    "status": "1"
   }
 }
 ```
 
-### Errors and Status Codes
+#### Errors and Status Codes
 If a request fails any validations, expect a 422 and errors in the following format:
 
 ```json
@@ -165,7 +167,7 @@ If a request fails any validations, expect a 422 and errors in the following for
 }
 ```
 
-#### Other status codes
+##### Other status codes
 401 for Unauthorized requests, when a request requires authentication but it isn't provided
 
 403 for Forbidden requests, when a request may be valid but the user doesn't have permissions to perform the action
@@ -188,12 +190,6 @@ Example response:
     "name": "Team Echo",
     "description": "",
     "members": [{
-      "id": "",
-      "name": "Tommy Trojan",
-      "username": "trojan.echo",
-      "email": "trojan@usc.edu",
-      "image": null
-    }, {
       "id": "",
       "name": "Mars Tan",
       "username": "mars.tanjx",
@@ -219,17 +215,135 @@ Example request body:
 }
 ```
 
-Authentication required, will return an Team
+Authentication required, will return a Team
 
 Required fields: name
 
-Optional fields: description, body, and members as an array of Strings
+Optional fields: description, body, members as an array of Strings
 
 ##### Update Team
-`PUT /:team/:t_id`
+`PUT /api/team/:team_id`
 
-Optional fields: name, description, body, and members
+Optional fields: name, description, body, members
 
 ##### Delete Team
+`DELETE /api/team/:team_id`
 
-`DELETE /:team/:t_id`
+#### Meeting
+##### Get all Meetings
+`GET /api/meeting`
+
+Example response:
+
+```json
+{
+  "meetings": [{
+    "id": "",
+    "title": "",
+    "time": "1553479225106",
+    "location": "TTH 110",
+    "invitees": [{
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }],
+    "agendas": [{
+      "id": "",
+      "title": "",
+      "description": "",
+      "notes": "",
+      "tasks": [{
+        "id": "",
+        "name": "",
+        "description": "",
+        "due": "1553479225106",
+        "status": "1"
+      }]
+    }],
+    "team": {
+      "id": "",
+      "name": "Team Echo",
+      "description": "",
+      "members": [{
+        "name": "Mars Tan",
+        "username": "mars.tanjx",
+        "email": "jianxuat@usc.edu",
+        "image": null
+      }]
+    },
+    "start": "1553479225106",
+    "end": "1553480225106"
+  }]
+}
+```
+
+##### Create Meeting
+`POST /api/meeting`
+
+Example request body:
+
+```json
+{
+  "meeting": {
+    "title": "",
+    "time": "1553479225106",
+    "location": "TTH 110",
+    "invitees": [{
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }],
+    "team": {"id": ""}
+  }
+}
+```
+
+Authentication required, will return a Meeting
+
+Required fields: title, time, team
+
+Optional fields: location, invitees
+
+##### Update Meeting
+`PUT /api/meeting/:meeting_id`
+
+Optional fields: title, time, location, invitees
+
+##### Delete Meeting
+`DELETE /api/meeting/:meeting_id`
+
+#### Task
+##### Get all Tasks
+`GET /api/task​`
+
+Example response:
+
+```json
+{
+  "tasks": [{
+    "id": "",
+    "name": "",
+    "description": "",
+    "due": "1553479225106",
+    "status": "1"
+  }]
+}
+```
+
+##### Update Task
+`PUT /api/task/:task_id​`
+
+```json
+{
+  "task": {
+    "name": "",
+    "description": "",
+    "due": "1553479225106",
+    "status": "1"
+  }
+}
+```
+
+Optional fields: name, description, due, status
