@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 router.use('/user', require('./user'));
-// router.use('/meeting', require('./meeting'));
-// router.use('/task', require('./task'));
+router.use('/meeting', require('./meeting'));
+router.use('/task', require('./task'));
 router.use('/team', require('./team'));
 
 router.use(function(err, req, res, next){
