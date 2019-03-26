@@ -1,5 +1,5 @@
 <?php
 
 // Temporary for development environment
-header('Location: addteam.php');
+header('Location: teams1.php');
 exit();
