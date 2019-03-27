@@ -2,7 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const Team = mongoose.model('Team');
 const User = mongoose.model('User');
-const auth = require('../auth_required');
+const auth = require('../auth');
 
 router.post("/", async (req, res) => {
   // const name = req.params['name'];

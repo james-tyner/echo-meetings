@@ -1,34 +1,27 @@
-const router = require('express').Router();
-const mongoose = require('mongoose');
-const passport = require('passport');
-const User = mongoose.model('User');
+const jwt = require('express-jwt');
+const secret = 'adlfkjas324jbdfadkjfas';
 
-// auth logout
-router.get('/logout', (req, res) => {
-  // handle with passport
-  res.send('logging out');
-});
-
-// auth with google+
-router.get('/google', passport.authenticate('google', {
-  scope: ['profile']
-}));
-
-// auth with google+
-router.get('/google/redirect', (req, res, next) => {
-    passport.authenticate('google', {}, (err, user, info) => {
-      if(err) {
-        console.log(err);
-        return;
-      }
-      if (!user) {
-        res.json(info);
-      } else {
-        user.token = user.generateJWT();
-        return res.json({user: user.toAuthJSON()});
-      }
-    })(req, res, next)
+function getTokenFromHeader(req){
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
+    req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    return req.headers.authorization.split(' ')[1];
   }
-);
 
-module.exports = router;
+  return null;
+}
+
+const auth = {
+  required: jwt({
+    secret: secret,
+    userProperty: 'payload',
+    getToken: getTokenFromHeader
+  }),
+  optional: jwt({
+    secret: secret,
+    userProperty: 'payload',
+    credentialsRequired: false,
+    getToken: getTokenFromHeader
+  })
+};
+
+module.exports = auth;

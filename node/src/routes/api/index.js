@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.use('/user', require('./user'));
+router.use('/auth', require('./auth'));
 router.use('/meeting', require('./meeting'));
 router.use('/task', require('./task'));
 router.use('/team', require('./team'));
