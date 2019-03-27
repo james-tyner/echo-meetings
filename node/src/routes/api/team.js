@@ -2,6 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const Team = mongoose.model('Team');
 const User = mongoose.model('User');
+const auth = require('../auth_required');
 
 router.post("/", async (req, res) => {
   // const name = req.params['name'];
@@ -16,10 +17,13 @@ router.post("/", async (req, res) => {
   res.json(req.body);
 });
 
-router.get("/", async (req, res) => {
-  Team.find({}).then((response) => {
-    res.json(response);
-  });
+router.get("/", auth.required, async (req, res) => {
+  User.findById(req.payload.id).then(function (user) {
+    console.log(user.id);
+    Team.find({members: user.id}).then((response) => {
+      res.json(response);
+    });
+  })
 });
 
 router.get("/:t_id/users", async (req, res) => {

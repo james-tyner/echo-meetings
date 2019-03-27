@@ -24,7 +24,8 @@ router.get('/google/redirect', (req, res, next) => {
       if (!user) {
         res.json(info);
       } else {
-        res.json(user);
+        user.token = user.generateJWT();
+        return res.json({user: user.toAuthJSON()});
       }
     })(req, res, next)
   }
