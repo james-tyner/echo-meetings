@@ -3,11 +3,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const User = mongoose.model('User');
 
-// return a list of tags
-router.get('/', function (req, res) {
-  res.send('you\'re at auth /')
-});
-
 // auth logout
 router.get('/logout', (req, res) => {
   // handle with passport
@@ -20,9 +15,19 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 // auth with google+
-router.get('/google/redirect', (req, res) => {
-
-  res.send('redirect');
-});
+router.get('/google/redirect', (req, res, next) => {
+    passport.authenticate('google', {}, (err, user, info) => {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      if (!user) {
+        res.json(info);
+      } else {
+        res.json(user);
+      }
+    })(req, res, next)
+  }
+);
 
 module.exports = router;
