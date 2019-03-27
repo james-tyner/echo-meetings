@@ -25,6 +25,9 @@ require('./models/Task');
 
 let express = require("express");
 let bodyParser = require('body-parser');
+
+require('./config/passport-setup');
+
 let app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
