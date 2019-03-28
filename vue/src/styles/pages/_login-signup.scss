@@ -1,0 +1,140 @@
+
+// STYLES BY JAMES
+
+#login-signup-main {
+
+  #logo {
+    width:100px;
+    position:absolute;
+    top:1.5em;
+    left:1.5em;
+  }
+
+  .input-window {
+    height: 50vw;
+    width: 60%;
+
+    &#signup-input {
+      float:left;
+    }
+
+    &#login-input {
+      float:right;
+    }
+  }
+
+  .bg-window {
+    background-image:url("../public/assets/signup-background.svg");
+    background-position:center;
+    background-size:cover;
+    width: 40vw;
+    float: left;
+    height: 100vh;
+
+    &#signup-bg {
+      float: left;
+    }
+
+    &#login-bg {
+      float:right;
+    }
+
+    #outside-prompt {
+      width: 55%;
+      margin: auto;
+      margin-top:calc(50vh - 2em);
+      text-align: center;
+      color:white;
+
+      .prompt-button {
+        display:block;
+        text-transform:uppercase;
+        @include submit-button;
+        width:50%;
+        margin:auto;
+
+        &#signin-prompt {
+          background-color:$blue;
+          border-color:$blue;
+        }
+
+        &#signup-prompt {
+          background-color:$red;
+          border-color:$red;
+        }
+      }
+    }
+  }
+
+  .input-window {
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    p {
+      color:$gray4;
+    }
+
+    #google {
+      height:50px;
+    }
+
+    .entry-row {
+      margin-bottom:25px;
+      @include input-field-style;
+      display:grid;
+      grid-template-columns:15% 85%;
+      align-items:center;
+
+      i {
+        color:$gray2;
+        display:block;
+        font-size: 1.2em;
+        padding:0 6px;
+      }
+
+      input {
+        color:$gray4;
+        background-color: transparent;
+        border:none;
+        @include bodyFont;
+        padding:0.6em;
+      }
+    }
+
+    .input-button {
+      display:block;
+      text-transform:uppercase;
+      @include submit-button;
+      width:50%;
+      margin:auto;
+
+      &#signin-button {
+        background-color:$blue;
+        border-color:$blue;
+      }
+
+      &#signup-button {
+        background-color:$red;
+        border-color:$red;
+      }
+    }
+  }
+
+  a {
+    text-decoration:none;
+  }
+
+  a:hover {
+    &#signup-button, &#signup-prompt {
+      color:$red !important;
+      background-color:white !important;
+    }
+
+    &#signin-button, &#signin-prompt {
+      color:$blue !important;
+      background-color:white !important;
+    }
+  }
+}

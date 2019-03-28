@@ -1,36 +1,349 @@
-# **echo**
+# echo
 
-#### Created by
-James Tyner, Angella Qian, Katlyn Lee, Mars Tan, Mayank Gwalani, and Jessica Jones
+## Database data structure
+Mongodb
 
-## Modification instructions
-1. Pull/Fetch from develop branch
-2. Branch off develop onto one for your feature or page set
-3. Make changes
-4. Create pull request back into develop
+Everything has a unique ID and is assigned to it automatically.
 
-After all pages are merged back into develop, we will push develop to release and then master
+### User
+- name
+- username
+- password (encrypted)
+- email
 
-## Where to find and add things
-### Sass docs and folder structure
-*Find documentation for Sass here: https://sass-lang.com*
+### Team
+- name
+- description
+- members: [user_id]
 
-Changes to styles that reflect only one page of the site should be made on that page's Sass partial in `/css/pages`.
+### Meeting
+- title
+- time: timestamp
+- location
+- invitees: [user_id]
+- agenda items: [agenda]
+- team: team_id
+- start: timestamp
+- end: timestamp
 
-`styles.scss` imports all of the Sass partials from the `/css` and `/css/pages` folders. As you make changes to the Sass partials, you should save and re-export `styles.scss` to `styles.min.css` in order to preview those changes.
+### Agenda (nested in meeting)
+- title
+- description
+- notes
+- task items: [task_id]
 
-You can set up Scout-App to automatically compile and export Sass to CSS as you code: https://scout-app.io/.
+### Task
+- name
+- descirption
+- due: timestamp
+- assignees: [user_id]
+- status: int
+- team: team_id
+- meeting: meeting_id
+- agenda: agenda_id
+​
+## API Spec
+### JSON Objects returned by API
+#### User
+```json
+{
+  "user": {
+    "id": "",
+    "name": "Tommy Trojan",
+    "token": "",
+    "username": "trojan.echo",
+    "email": "trojan@usc.edu",
+    "image": null
+  }
+}
+```
 
-### Mixins
-Many Sass mixins and variables have been created for common site elements. For fonts, those are in `_fonts.scss`. Color variables are in `_colors.scss`. And some styles for buttons, cards, and inputs are in `_elements.scss`.
+#### Team
+```json
+{
+  "team": {
+    "id": "",
+    "name": "Team Echo",
+    "description": "",
+    "members": [{
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }, {
+      "name": "Mars Tan",
+      "username": "mars.tanjx",
+      "email": "jianxuat@usc.edu",
+      "image": null
+    }]
+  }
+}
+```
 
-## FontAwesome
-*Search for icons at https://fontawesome.com*
+#### Meeting
+```json
+{
+  "meeting": {
+    "id": "",
+    "title": "",
+    "time": "1553479225106",
+    "location": "TTH 110",
+    "invitees": [{
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }, {
+      "name": "Mars Tan",
+      "username": "mars.tanjx",
+      "email": "jianxuat@usc.edu",
+      "image": null
+    }],
+    "agendas": [],
+    "team": {
+      "id": "",
+      "name": "Team Echo",
+      "description": "",
+      "members": [{
+        "name": "Tommy Trojan",
+        "username": "trojan.echo",
+        "email": "trojan@usc.edu",
+        "image": null
+      }, {
+        "name": "Mars Tan",
+        "username": "mars.tanjx",
+        "email": "jianxuat@usc.edu",
+        "image": null
+      }]
+    },
+    "start": "1553479225106",
+    "end": "1553480225106"
+  }
+}
+```
 
-FontAwesome allows us to import and use icons throughout the site as a font. You can see this in action on the card template in `/templates`.
+#### Agenda (nested in meeting)
+```json
+{
+  "agenda": {
+    "id": "",
+    "title": "",
+    "description": "",
+    "notes": "",
+    "tasks": [{
+      "id": "",
+      "name": "",
+      "description": "",
+      "due": "1553479225106",
+      "status": "1"
+    }]
+  }
+}
+```
 
-## Assets
-All images are in the `/assets` folder. Included in this folder already are favicons and logos. You can use SVG logos in a website just like you would use any other image format, but SVGs can be scaled perfectly to any size.
+#### Task
+```json
+{
+  "task": {
+    "id": "",
+    "name": "",
+    "description": "",
+    "due": "1553479225106",
+    "status": "1"
+  }
+}
+```
 
-## Components
-The `/components` folder includes pieces of the site that are imported to multiple pages. Included here already are `metadata.php`, which includes common metadata and stylesheet for all pages, and `nav.php`, which includes the code for the sidebar nav that's on all pages.
+#### Errors and Status Codes
+If a request fails any validations, expect a 422 and errors in the following format:
+
+```json
+{
+  "errors":{
+    "body": [
+      "can't be empty"
+    ]
+  }
+}
+```
+
+##### Other status codes
+401 for Unauthorized requests, when a request requires authentication but it isn't provided
+
+403 for Forbidden requests, when a request may be valid but the user doesn't have permissions to perform the action
+
+404 for Not found requests, when a resource can't be found to fulfill the request
+
+### Endpoints
+every request is scoped and requires authentication except login
+
+#### Team
+##### Get all Teams
+`GET /api/team`
+
+Example response:
+
+```json
+{
+  "teams": [{
+    "id": "",
+    "name": "Team Echo",
+    "description": "",
+    "members": [{
+      "id": "",
+      "name": "Mars Tan",
+      "username": "mars.tanjx",
+      "email": "jianxuat@usc.edu",
+      "image": null
+    }]
+  }]
+}
+```
+
+##### Create a Team
+`POST /api/team`
+
+Example request body:
+
+```json
+{
+  "team": {
+    "name": "Team Echo",
+    "description": "",
+    "members": [{"id": ""}, {"id": ""}]
+  }
+}
+```
+
+Authentication required, will return a Team
+
+Required fields: name
+
+Optional fields: description, body, members as an array of Strings
+
+##### Update Team
+`PUT /api/team/:team_id`
+
+Optional fields: name, description, body, members
+
+##### Delete Team
+`DELETE /api/team/:team_id`
+
+#### Meeting
+##### Get all Meetings
+`GET /api/meeting`
+
+Example response:
+
+```json
+{
+  "meetings": [{
+    "id": "",
+    "title": "",
+    "time": "1553479225106",
+    "location": "TTH 110",
+    "invitees": [{
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }],
+    "agendas": [{
+      "id": "",
+      "title": "",
+      "description": "",
+      "notes": "",
+      "tasks": [{
+        "id": "",
+        "name": "",
+        "description": "",
+        "due": "1553479225106",
+        "status": "1"
+      }]
+    }],
+    "team": {
+      "id": "",
+      "name": "Team Echo",
+      "description": "",
+      "members": [{
+        "name": "Mars Tan",
+        "username": "mars.tanjx",
+        "email": "jianxuat@usc.edu",
+        "image": null
+      }]
+    },
+    "start": "1553479225106",
+    "end": "1553480225106"
+  }]
+}
+```
+
+##### Create Meeting
+`POST /api/meeting`
+
+Example request body:
+
+```json
+{
+  "meeting": {
+    "title": "",
+    "time": "1553479225106",
+    "location": "TTH 110",
+    "invitees": [{
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }],
+    "team": {"id": ""}
+  }
+}
+```
+
+Authentication required, will return a Meeting
+
+Required fields: title, time, team
+
+Optional fields: location, invitees
+
+##### Update Meeting
+`PUT /api/meeting/:meeting_id`
+
+Optional fields: title, time, location, invitees
+
+##### Delete Meeting
+`DELETE /api/meeting/:meeting_id`
+
+#### Task
+##### Get all Tasks
+`GET /api/task​`
+
+Example response:
+
+```json
+{
+  "tasks": [{
+    "id": "",
+    "name": "",
+    "description": "",
+    "due": "1553479225106",
+    "status": "1"
+  }]
+}
+```
+
+##### Update Task
+`PUT /api/task/:task_id​`
+
+```json
+{
+  "task": {
+    "name": "",
+    "description": "",
+    "due": "1553479225106",
+    "status": "1"
+  }
+}
+```
+
+Optional fields: name, description, due, status
