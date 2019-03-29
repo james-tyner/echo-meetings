@@ -1,42 +1,40 @@
 <template>
   <div id="app">
-    <Navbar></Navbar>
+    <Navbar v-bind:pageGroup="pageGroup"></Navbar>
 
-    <header>
-      <h1 class="page-title">{{pageName}}</h1>
-    </header>
+    <Header v-bind:pageName="pageName"></Header>
 
-    <!-- middle area -->
-    <main>
-      <section>
-        <router-view></router-view>
-      </section>
-    </main>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
+import Header from './components/Header.vue'
 import data from './data'
 
 export default {
   name: 'app',
   components: {
-    Navbar
+    Navbar,
+    Header
   },
   data: function () {
     return {
-      pageName: data['page']
+      pageName: data['page'],
+      pageGroup: data["group"]
     }
   },
   watch: {
     $route (to) {
       this.pageName = to.name
+      this.pageGroup = to.group
     }
   },
   mounted: function () {
     this.$nextTick(function () {
       this.pageName = this.$route.name
+      this.pageGroup = this.$route.group
     })
   }
 }

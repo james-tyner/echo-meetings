@@ -1,5 +1,6 @@
 let data = {
-  page: 'Dashboard'
+  page: 'Dashboard',
+  group:"dashboard"
 }
 
 export default data

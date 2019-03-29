@@ -1,0 +1,60 @@
+<template>
+
+    <main id="teams-main">
+      <section class="team-list">
+        <div v-for="team in fakeTeams">
+          <TeamCard v-bind:team="team"></TeamCard>
+        </div>
+      </section>
+    </main>
+
+</template>
+
+<script>
+import TeamCard from "../../components/teams/TeamCard.vue"
+
+export default {
+  name: 'teams',
+  components:{
+    TeamCard
+  },
+  data:function(){
+    return {
+      fakeTeams:{
+        "echo": {
+          "id": 1,
+          "name": "Team Echo",
+          "description": "This team isn't even real.",
+          "members": [{
+            "name": "Tommy Trojan",
+            "username": "trojan.echo",
+            "email": "trojan@usc.edu",
+            "image": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+          }, {
+            "name": "Mars Tan",
+            "username": "mars.tanjx",
+            "email": "jianxuat@usc.edu",
+            "image": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+          }]
+        },
+        "omega": {
+          "id": 2,
+          "name": "Team Omega",
+          "description": "This team is super not real.",
+          "members": [{
+            "name": "Courtney Dunlap",
+            "username": "trojan.echo",
+            "email": "courtney@usc.edu",
+            "image": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+          }, {
+            "name": "James Tyner",
+            "username": "james",
+            "email": "jtyner@usc.edu",
+            "image": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
+          }]
+        }
+      }
+    }
+  }
+}
+</script>

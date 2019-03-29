@@ -324,6 +324,10 @@ a.filter-group {
 				width:85%;
 				opacity:1;
 
+				.card-team, .card-heading {
+					text-decoration:none !important;
+				}
+
 				&::before {
 					content:"Next up:";
 					@include bodyFont;
