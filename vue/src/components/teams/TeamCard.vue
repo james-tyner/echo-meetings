@@ -1,5 +1,5 @@
 <template>
-  <div class="card team-card">
+  <div class="card team-card" :class="colorBand">
     <h2 class="card-heading" v-on:click="toggle()">{{team.name}}</h2>
     <div class="team-info" v-if="showAll">
       <p class="team-desc" contenteditable="true">{{team.description}}</p>
@@ -25,6 +25,14 @@
     name:"team-card",
     props:{
       team:Object
+    },
+    computed:{
+      colorBand:function(){
+        return (this.team.color + '-color-band')
+      },
+      teamText:function(){
+        return (this.team.color)
+      }
     },
     methods:{
       toggle(){

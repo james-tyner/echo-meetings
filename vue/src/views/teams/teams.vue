@@ -23,6 +23,7 @@ export default {
       fakeTeams:{
         "echo": {
           "id": 1,
+          "color":"blue",
           "name": "Team Echo",
           "description": "This team isn't even real.",
           "members": [{
@@ -39,6 +40,7 @@ export default {
         },
         "omega": {
           "id": 2,
+          "color":"red",
           "name": "Team Omega",
           "description": "This team is super not real.",
           "members": [{
