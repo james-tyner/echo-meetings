@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <section>
       <div id="filterbar">
         Filter by group:
@@ -117,7 +117,7 @@
         <div class="clear-float"></div>
       </div> <!-- #kanban -->
     </section>
-  </div>
+  </main>
 </template>
 
 <script>

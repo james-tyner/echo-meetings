@@ -1,18 +1,5 @@
 <template>
-  <div>
-    <header class="scrollable-header">
-      <div class="add-button align-right">
-        <a href="createmeeting.php"><i class="material-icons"> add </i></a>
-      </div>
-      <h1 class="page-title"> Meetings </h1>
-      <div class="filter-bar">
-        <p>Filter by group:</p>
-        <a class="filter-group selected" href="meeting1A.php">All</a>
-        <a class="filter-group" href="meeting1A_2.php">ITP 460</a>
-        <a class="filter-group" href="meeting1A_3.php">WRIT 340</a>
-        <a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
-      </div>
-    </header>
+  <main>
 
     <section class="meeting-cards">
       <div class="mtg-card">
@@ -54,5 +41,6 @@
         <p class="mtg-date"> Mar 20</p>
       </div>
     </section>
-  </div>
+    
+  </main>
 </template>

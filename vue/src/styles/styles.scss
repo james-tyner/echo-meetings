@@ -6,6 +6,19 @@
 
 * {
   box-sizing: border-box;
+
+  *:link {
+    text-decoration:none;
+    color:inherit;
+  }
+}
+
+[contentEditable=true]:empty::before {
+  @include startTyping;
+}
+
+[contenteditable]:focus {
+    outline: 0px solid transparent;
 }
 
 body {
@@ -92,8 +105,7 @@ header {
     @include heading1;
   }
 
-
-  &.scrollable-header {
+  &.scrollable {
     position: fixed;
     top: 0;
     background-color: $bgGray;
