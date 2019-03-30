@@ -1,4 +1,10 @@
 # echo
+## Authentication
+1. `/login` User clicks Google Login button
+2. `/api/auth/google` Redirect to Google, user logins using Google
+3. `/api/auth/google/redirect` Redirected from Google
+4. `/?token=` Front-end receives token; ajax to back-end and verify
+5. `/` Redirected to Dashboard
 
 ## Database data structure
 Mongodb
@@ -14,6 +20,7 @@ Everything has a unique ID and is assigned to it automatically.
 ### Team
 - name
 - description
+- color
 - members: [user_id]
 
 ### Meeting
@@ -65,6 +72,7 @@ Everything has a unique ID and is assigned to it automatically.
     "id": "",
     "name": "Team Echo",
     "description": "",
+    "color": "green",
     "members": [{
       "name": "Tommy Trojan",
       "username": "trojan.echo",
@@ -103,6 +111,7 @@ Everything has a unique ID and is assigned to it automatically.
     "team": {
       "id": "",
       "name": "Team Echo",
+      "color": "green",
       "description": "",
       "members": [{
         "name": "Tommy Trojan",
@@ -189,6 +198,7 @@ Example response:
     "id": "",
     "name": "Team Echo",
     "description": "",
+    "color": "green",
     "members": [{
       "id": "",
       "name": "Mars Tan",
@@ -210,6 +220,7 @@ Example request body:
   "team": {
     "name": "Team Echo",
     "description": "",
+    "color": "green",
     "members": [{"id": ""}, {"id": ""}]
   }
 }
@@ -265,6 +276,7 @@ Example response:
       "id": "",
       "name": "Team Echo",
       "description": "",
+      "color": "green",
       "members": [{
         "name": "Mars Tan",
         "username": "mars.tanjx",
