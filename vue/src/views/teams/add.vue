@@ -1,34 +1,60 @@
 <template>
   <main id="add-team-main">
-    <section>
+    <form action="/api/team" method="post">
+      <div id="name">
+        <h3>Team Name</h3>
+        <input type="text" name="name" placeholder="The Best Team Ever…"></input>
+      </div>
+      <div id="location">
+        <h3>Description</h3>
+        <textarea type="text" name="name" placeholder="A group dedicated to world peace" ></textarea>
+      </div>
+      <button type="submit">Create New Team</button>
+    </form>
 
-       <div id="name">
-       <h2>Team Name</h2>
-       <input type="text" name="name" placeholder="set team name"></input>
-     </div>
-     <div id="location">
-       <h2>Description</h2>
-       <textarea type="text" name="name" placeholder="set description" ></textarea>
-     </div>
-
-     <div id="button">
-       <button type="button">Create New Team</button>
-     </div>
+    <section id="add-members" class="right-bar">
+        <h4>Add Members</h4>
+        <PersonSearch :people="fakePeople"></PersonSearch>
     </section>
-    <hr id="side-line">
-
-        </section>
-
-        <section>
-
-          <div id="add-members">
-
-            <h3>Add Members</h3>
-
-            <input type="text" name="name" placeholder="search members" ><i class="fa fa-search" aria-hidden="true" ></i></input>
-
-          </div>
-
-        </section>
   </main>
 </template>
+
+<script>
+import PersonSearch from "../../components/PersonSearch.vue"
+
+export default {
+  name: 'add-team',
+  components: {
+    PersonSearch
+  },
+  data:function(){
+    return {
+      fakePeople:[{
+      "id":1,
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }, {
+      "id":2,
+      "name": "Mars Tan",
+      "username": "mars.tanjx",
+      "email": "jianxuat@usc.edu",
+      "image": null
+    }, {
+      "id":3,
+      "name": "Tommy Trojan",
+      "username": "trojan.echo",
+      "email": "trojan@usc.edu",
+      "image": null
+    }, {
+      "id":4,
+      "name": "Mars Tan",
+      "username": "mars.tanjx",
+      "email": "jianxuat@usc.edu",
+      "image": null
+    }]
+    }
+  }
+}
+</script>

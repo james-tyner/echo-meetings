@@ -41,7 +41,7 @@ export default {
         "omega": {
           "id": 2,
           "color":"red",
-          "name": "Team Omega",
+          "name": "Dance Club",
           "description": "This team is super not real.",
           "members": [{
             "name": "Courtney Dunlap",
@@ -53,6 +53,11 @@ export default {
             "username": "james",
             "email": "jtyner@usc.edu",
             "image": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
+          }, {
+            "name": "Joy Verve",
+            "username": "joy",
+            "email": "verve@usc.edu",
+            "image": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
           }]
         }
       }
