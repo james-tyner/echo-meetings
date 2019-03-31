@@ -4,6 +4,7 @@ router.use('/auth', require('./auth'));
 router.use('/meeting', require('./meeting'));
 router.use('/task', require('./task'));
 router.use('/team', require('./team'));
+router.use('/user', require('./user'));
 
 router.use(function(err, req, res, next){
   if(err.name === 'ValidationError'){
