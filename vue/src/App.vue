@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Navbar v-bind:pageGroup="pageGroup"></Navbar>
+    <Navbar v-bind:pageGroup="pageGroup" v-if="this.pageName !== 'Login'"></Navbar>
 
-    <Header v-bind:pageName="pageName"></Header>
+    <Header v-bind:pageName="pageName" v-if="this.pageName !== 'Login'"></Header>
 
     <router-view></router-view>
   </div>
