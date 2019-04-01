@@ -10,7 +10,7 @@
       <div class="input-window">
         <div id="input-container">
           <!--          <h1>Welcome back!</h1>-->
-          <a href="#"><img id="google" src="/assets/google-sign-in@2x.png" alt="Sign-in with Google"></a>
+          <a :href="login_url"><img id="google" src="/assets/google-sign-in@2x.png" alt="Sign-in with Google"></a>
         </div>
       </div>
     </div>
@@ -18,8 +18,20 @@
 </template>
 
 <script>
+import data from '../data'
+
 export default {
-  name: 'login'
+  name: 'login',
+  data: function () {
+    return {
+      back_url: data['back_url']
+    }
+  },
+  computed: {
+    login_url: function () {
+      return this.back_url + '/api/auth/google'
+    }
+  }
 }
 </script>
 
