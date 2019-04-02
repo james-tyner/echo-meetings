@@ -17,49 +17,49 @@ const router = new VueRouter({
       path: '/',
       component: Dashboard,
       name: 'Dashboard',
-      group: "dashboard",
       meta: {
-        title: 'Dashboard - echo'
+        title: 'Dashboard - echo',
+        group: "dashboard"
       }
     }, {
       path: '/login',
       component: Login,
       name: 'Login',
-      group: "login",
       meta: {
-        title: 'Login - echo'
+        title: 'Login - echo',
+        group: "login"
       }
     }, {
       path: '/tasks',
       component: Tasks,
       name: 'Tasks',
-      group: "tasks",
       meta: {
-        title: 'Tasks - echo'
+        title: 'Tasks - echo',
+        group: "tasks"
       }
     }, {
       path: '/meetings',
       component: Meetings,
       name: 'Meetings',
-      group: "meetings",
       meta: {
-        title: 'Meetings - echo'
+        title: 'Meetings - echo',
+        group: "meetings"
       }
     }, {
       path: "/teams",
       component: Teams,
       name: "Teams",
-      group: "teams",
       meta: {
-        title: "Teams - echo"
+        title: "Teams - echo",
+        group: "teams"
       }
     }, {
       path: "/teams/add",
       component: AddTeam,
       name: "Create a Team",
-      group: "teams",
       meta: {
-        title: "Create a Team - echo"
+        title: "Create a Team - echo",
+        group: "teams"
       }
     }
   ]

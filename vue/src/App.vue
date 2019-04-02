@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Navbar v-bind:pageGroup="pageGroup" v-if="this.pageName !== 'Login'"></Navbar>
+    <Navbar v-bind:username="this.firstName" v-if="data.page !== 'Login'"></Navbar>
 
-    <Header v-bind:pageName="pageName" v-if="this.pageName !== 'Login'"></Header>
+    <Header v-bind:pageName="data.page" v-if="data.page !== 'Login'"></Header>
 
     <router-view></router-view>
   </div>
@@ -13,7 +13,7 @@ import VueCookies from 'vue-cookies'
 
 import Navbar from './components/Navbar.vue'
 import Header from './components/Header.vue'
-import data from './data'
+import { data } from './data'
 
 export default {
   name: 'app',
@@ -42,23 +42,24 @@ export default {
   },
   data: function () {
     return {
-      pageName: data['page'],
-      pageGroup: data["group"]
+      data
     }
   },
   watch: {
     $route(to) {
-      this.pageName = to.name
-      this.pageGroup = to.group
+      data.updatePage(to.name)
+      console.log(to)
+      data.updateGroup(to.meta.group)
       this.checkToken();
     }
   },
   mounted: function () {
     this.$nextTick(function () {
       console.log('from App mounted ' + this.$route.name);
-      this.pageName = this.$route.name
-      this.pageGroup = this.$route.group
+      data.updatePage(this.$route.name)
+      data.updateGroup(this.$route.meta.group)
       this.checkToken();
+      data.updateUser();
     })
   }
 }

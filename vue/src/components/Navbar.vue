@@ -4,8 +4,8 @@
     <div class="nav-items">
       <router-link class="nav-item" v-bind:class="{active : currentDashboard}" to="/">Dashboard</router-link>
       <router-link class="nav-item" v-bind:class="{active : currentMeetings}" to="/meetings">Meetings</router-link>
-      <router-link class="nav-item" to="/tasks">Tasks</router-link>
-      <router-link class="nav-item" to="/teams">Teams</router-link>
+      <router-link class="nav-item" v-bind:class="{active : currentTasks}" to="/tasks">Tasks</router-link>
+      <router-link class="nav-item" v-bind:class="{active : currentTeams}" to="/teams">Teams</router-link>
     </div>
     <!-- test -->
     <!-- bottom part -->
@@ -14,7 +14,7 @@
       <div id="profile-photo"></div>
       <div id="profile-info">
         <!-- User Name -->
-        <a href="#">{{firstName}}</a>
+        <a href="#">{{this.firstName}}</a>
         <!-- Sign Out -->
         <a id="signout" href="#">Sign Out</a>
       </div>
@@ -24,41 +24,35 @@
 </template>
 
 <script>
-import data from '../data'
+import { data } from '../data'
 
 export default {
   name: 'Navbar',
+  data:function(){
+    let navData = data
+    return {
+      navData
+    }
+  },
   computed: {
-    firstName: function() {
-      return data.username
+    firstName:function(){
+      return this.navData.username.split(" ")[0]
     },
     currentDashboard: function () {
-      if (this.pageGroup === "dashboard") {
-        return true
-      }
+      return this.navData.group == "dashboard"
     },
     currentMeetings: function () {
-      if (this.pageGroup === "meetings") {
-        return true
-      }
+      return this.navData.group == "meetings"
     },
     currentTasks: function () {
-      if (this.pageGroup === "tasks") {
-        return true
-      }
+      return this.navData.group == "tasks"
     },
     currentTeams: function () {
-      if (this.pageGroup === "teams") {
-        return true
-      }
+      return this.navData.group == "teams"
     }
   },
   props: {
-    items: Object,
-    pageGroup: {
-      type: String,
-      default: "dashboard"
-    }
+    username:String
   }
 }
 </script>
