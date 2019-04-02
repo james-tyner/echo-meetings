@@ -16,7 +16,7 @@
         <!-- User Name -->
         <a href="#">{{this.firstName}}</a>
         <!-- Sign Out -->
-        <a id="signout" href="#">Sign Out</a>
+        <a id="signout" v-on:click="logout()">Sign Out</a>
       </div>
     </div>
   </nav>
@@ -25,6 +25,7 @@
 
 <script>
 import { data } from '../data'
+import VueCookies from 'vue-cookies'
 
 export default {
   name: 'Navbar',
@@ -49,6 +50,13 @@ export default {
     },
     currentTeams: function () {
       return this.navData.group == "teams"
+    }
+  },
+  methods:{
+    logout:function(){
+      VueCookies.remove('token');
+      this.$router.push('login');
+      // TODO: fully make this work (no back browsing)
     }
   },
   props: {
