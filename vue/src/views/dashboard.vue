@@ -137,9 +137,8 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 </template>
 
 <script>
