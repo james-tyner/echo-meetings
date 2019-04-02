@@ -12,6 +12,7 @@ let data = {
   },
   back_url: process.env.VUE_APP_BACK_URL,
   username: "",
+  avatar: "",
   updateUser: async function () {
     if(!VueCookies.isKey('token')) {
       return;
@@ -21,6 +22,7 @@ let data = {
       { 'headers': { 'Authorization': 'Token ' + VueCookies.get('token') } })
       .then(res => {
         this.username = res.data.name;
+        this.avatar = res.data.avatar;
         console.log(this.username);
       }).catch(err => {
       console.log(err);

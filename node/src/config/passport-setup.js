@@ -20,7 +20,7 @@ passport.use(
         const new_user = new User({
           googleid: profile.id,
           name: profile.displayName,
-          email: ''
+          avatar: profile.photos[0].value
         });
         new_user.save(function () {
           return done(null, new_user);

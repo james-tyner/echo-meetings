@@ -29,13 +29,11 @@ export default {
           "members": [{
             "name": "Tommy Trojan",
             "username": "trojan.echo",
-            "email": "trojan@usc.edu",
-            "image": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
           }, {
             "name": "Mars Tan",
             "username": "mars.tanjx",
-            "email": "jianxuat@usc.edu",
-            "image": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
           }]
         },
         "omega": {
@@ -46,18 +44,15 @@ export default {
           "members": [{
             "name": "Courtney Dunlap",
             "username": "trojan.echo",
-            "email": "courtney@usc.edu",
-            "image": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+            "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
           }, {
             "name": "James Tyner",
             "username": "james",
-            "email": "jtyner@usc.edu",
-            "image": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
+            "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
           }, {
             "name": "Joy Verve",
             "username": "joy",
-            "email": "verve@usc.edu",
-            "image": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
+            "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
           }]
         }
       }

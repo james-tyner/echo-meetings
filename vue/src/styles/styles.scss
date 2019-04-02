@@ -69,7 +69,6 @@ nav#sidebar {
     #profile-photo {
       float: left;
       @include sidebar-photo;
-      background-image: url("../public/assets/profile-img-sample.jpg");
     }
 
     #profile-info {

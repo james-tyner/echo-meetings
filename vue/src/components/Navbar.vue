@@ -11,7 +11,7 @@
     <!-- bottom part -->
     <div class="profile">
       <!-- User Photo -->
-      <div id="profile-photo"></div>
+      <div id="profile-photo" :style="{ 'background-image': 'url(' + this.navData.avatar + ')' }"></div>
       <div id="profile-info">
         <!-- User Name -->
         <a href="#">{{this.firstName}}</a>
