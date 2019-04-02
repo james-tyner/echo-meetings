@@ -18,7 +18,7 @@ const router = new VueRouter({
       name: 'Dashboard',
       group:"dashboard",
       meta: {
-        title: 'Dashboard - echo'
+        title: 'echo'
       }
     }, {
       path: '/tasks',
