@@ -19,7 +19,7 @@ const router = new VueRouter({
       name: 'Dashboard',
       group: "dashboard",
       meta: {
-        title: 'Dashboard - echo'
+        title: 'echo'
       }
     }, {
       path: '/login',
@@ -54,12 +54,12 @@ const router = new VueRouter({
         title: "Teams - echo"
       }
     }, {
-      path: "/teams/add",
-      component: AddTeam,
-      name: "Create a Team",
-      group: "teams",
+      path:"/teams/add",
+      component:AddTeam,
+      name: "Create a team",
+      group:"teams",
       meta: {
-        title: "Create a Team - echo"
+        title: "Create a team - echo"
       }
     }
   ]
