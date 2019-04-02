@@ -68,138 +68,39 @@
 
 // WRITTEN BY JESSICA
 
-#add-team-main {
+#add-team-main form {
 
-  input{
-    position: fixed;
-  width: 35%;
-  height: 5%;
-  left: 25%;
-  top: 30%;
-  border-radius: 8px;
-  text-indent: 8px;
-  font-size: 15px;
-  box-shadow:  10px  rgba(0,0,0,0.1);
-
-
+  h3 {
+    margin-bottom:0.5em;
   }
 
-  input::placeholder{
-    font-style: italic;
-  }
-  textarea::placeholder{
-    font-style: italic;
-    padding-top: 2%;
+  input, textarea {
+    @include input-field-style;
+    margin-bottom:2em;
   }
 
-  h1{
-    position: fixed;
-    left: 25%;
-  top: 10%;
+  input[type="text"], textarea {
+    padding:0.5em;
+    min-width:50%;
+    font-size:1.1em;
   }
 
-   h2{
-     position: fixed;
-  width: 200%;
-  height: 100%;
-  left: 25%;
-  top: 20%;
-
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  font-size: 24px;
-
-  color: #222222;
-   }
-
-   #location h2{
-     position:fixed;
-     left: 25%;
-     top: 40%;
-
-   }
-
-
-
-  #location textarea{
-    left: 25%;
-    top: 50%;
-    width: 35%;
-    height: 20%;
-    vertical-align: top;
-    text-align: left;
-  position: fixed;
-
-    border-radius: 8px;
-    text-indent: 8px;
-    font-size: 15px;
-    box-shadow:  10px  rgba(0,0,0,0.1);
-
+  input::placeholder, textarea::placeholder {
+    @include startTyping;
   }
 
-  // button{
-  //   position: fixed;
-  // width: 15%;
-  // height: 6%;
-  // left: 25%;
-  // top: 82%;
-  // background: #00D9BD;
-  // border-radius: 50px;
-  // color: white;
-  // font-size: 14px;
-  // font-family: Rubik;
-  // }
-
-  #add-members h3{
-    position: fixed;
-  width: 50%;
-  height: 50%;
-  left: 85%;
-  top: 20%;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  font-size: 18px;
-
-  color: #000000;
+  button {
+    @include submit-button;
   }
+}
 
-  #add-members input{
-    left: 83%;
-    top: 30%;
-    width: 15%;
-    height: 5%;
-    font-size: 11px;
-    border: none;
-    border-bottom: 1px solid #000000;
-    box-shadow: none;
-    border-radius: 0px;
-    background: transparent;
-    opacity: 0%;
-    text-indent: 18px;
+#add-members {
+  display:flex;
+  flex-wrap:wrap;
+  align-content:center;
 
+  h4 {
+    margin-bottom:0.8em;
+    width:100%;
   }
-
-  i{
-  margin-left: 61%;
-  position: fixed;
-  top: 32%;
-  }
-
-
-    #side-line{
-      position: fixed;
-    width: 50%;
-    height: 0px;
-    left: 55%;
-    top: 49%;
-
-    /* Gray/3 */
-    border: 0.5px solid #777777;
-    transform: rotate(90deg);
-    }
-
 }

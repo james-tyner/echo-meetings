@@ -54,12 +54,12 @@ const router = new VueRouter({
         group: "teams"
       }
     }, {
-      path: "/teams/add",
-      component: AddTeam,
-      name: "Create a Team",
+      path:"/teams/add",
+      component:AddTeam,
+      name: "Create a team",
       meta: {
-        title: "Create a Team - echo",
-        group: "teams"
+        title: "Create a team - echo",
+        group:"teams"
       }
     }
   ]
