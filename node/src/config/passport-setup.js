@@ -13,6 +13,8 @@ passport.use(
   }, (accessToken, refreshToken, profile, done) => {
     // passport callback function
     console.log('passport cb fired');
+    console.log(profile);
+    console.log(profile.emails);
     // console.log(profile.photos[0].value);
     User.findOne({ googleid: profile.id }).then(function (user) {
       if (!user) {
@@ -20,7 +22,8 @@ passport.use(
         const new_user = new User({
           googleid: profile.id,
           name: profile.displayName,
-          avatar: profile.photos[0].value
+          avatar: profile.photos[0].value,
+          email: profile.emails[0].value
         });
         new_user.save(function () {
           return done(null, new_user);
