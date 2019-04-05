@@ -1,6 +1,6 @@
 # echo
 
-![echo](https://raw.githubusercontent.com/james-tyner/echo-meetings/develop/archive/assets/Logo%20on%20White.svg)
+![echo](http://marstanjx.com/journal/img/2019-3/echo.png)
 
 ## Wiki
 [Get Started](https://github.com/james-tyner/echo-meetings/wiki)
