@@ -1,14 +1,17 @@
+require('dotenv').config();
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 // connect mongodb
 
 let mongoose = require('mongoose');
-require('dotenv').config();
 
 mongoose.connect(process.env.MONGO_URL);
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-  console.log('mongo success');
+  console.log('Connected to MongoDB');
 });
 
 
@@ -44,6 +47,44 @@ app.use(function (req, res, next) {
 
 app.use(require('./routes'));
 
+/// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+/// error handlers
+
+// development error handler
+// will print stacktrace
+if (!isProduction) {
+  app.use(function (err, req, res, next) {
+    console.log(err.stack);
+
+    res.status(err.status || 500);
+
+    res.json({
+      'errors': {
+        message: err.message,
+        error: err
+      }
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    'errors': {
+      message: err.message,
+      error: {}
+    }
+  });
+});
+
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.log(`Server ${isProduction ? '(Production)' : '(Debug)'} running on port 3000`);
 });
