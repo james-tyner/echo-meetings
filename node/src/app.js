@@ -1,17 +1,24 @@
 require('dotenv').config();
+const log = require('./util/log')
 
 const isProduction = process.env.NODE_ENV === 'production';
+const mongo_url = process.env.MONGO_URL;
+
+if (mongo_url == null || mongo_url === '') {
+  log.error('MONGO_URL missing. Did you create a .env file?')
+  process.exit(1);
+}
 
 // connect mongodb
 
 let mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URL);
+mongoose.connect(mongo_url, { useNewUrlParser: true });
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-  console.log('Connected to MongoDB');
+  log.log('Connected to MongoDB');
 });
 
 
@@ -21,7 +28,6 @@ require('./models/User');
 require('./models/Team');
 require('./models/Meeting');
 require('./models/Task');
-
 
 // express
 
@@ -35,15 +41,17 @@ let app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.use(function (err, req, res, next) {
-  console.log(err);
-});
-
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "*");
   next();
 });
+
+app.use(function (req, res, next) {
+  log.log(req.method + ' ' + req.path);
+  next();
+});
+
 
 app.use(require('./routes'));
 
@@ -56,14 +64,21 @@ app.use(function (req, res, next) {
 
 /// error handlers
 
+app.use(function (err, req, res, next) {
+  if (err.message === 'Not Found' || err.message === 'No authorization token was found') {
+    log.error(err.message)
+  } else {
+    log.error(err.stack)
+  }
+  next(err);
+});
+
+
 // development error handler
 // will print stacktrace
 if (!isProduction) {
   app.use(function (err, req, res, next) {
-    console.log(err.stack);
-
     res.status(err.status || 500);
-
     res.json({
       'errors': {
         message: err.message,

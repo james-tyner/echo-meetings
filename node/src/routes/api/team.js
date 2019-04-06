@@ -1,3 +1,4 @@
+const log = require('../../util/log')
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const Team = mongoose.model('Team');
@@ -6,8 +7,8 @@ const auth = require('../auth');
 
 router.post("/", async (req, res) => {
   // const name = req.params['name'];
-  console.log('team post');
-  console.log(req.body);
+  log.log('Creating a team post');
+  log.log(req.body);
   const newteam = new Team(req.body);
   newteam.save(e => {
     if (e) {
