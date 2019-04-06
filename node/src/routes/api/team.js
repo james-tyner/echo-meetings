@@ -5,40 +5,108 @@ const Team = mongoose.model('Team');
 const User = mongoose.model('User');
 const auth = require('../auth');
 
+
+// always perform auth check
 router.use(auth.required, async function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
+    if (!user) {
+      return res.sendStatus(401);
+    }
     req.locals = {};
     req.locals.user = user;
     next();
   })
 });
 
-// Create a Team
-router.post("/", async (req, res) => {
-  const user = req.locals.user;
-  log.log('Creating a team post');
-  log.log(req.body);
-  const newteam = new Team(req.body);
-  newteam.save(e => {
-    if (e) {
-      console.error(e);
-    }
-  });
-  res.json(req.body);
-});
 
 // Get all Teams
 router.get("/", async (req, res) => {
   const user = req.locals.user;
   Team.find({ members: user.id }).then((response) => {
-    res.json(response);
+    res.json({ "teams": response });
   });
 });
 
-// Update Team
-router.put("/", auth.required, async (req, res) => {
+
+// Create a Team
+router.post("/", async (req, res, next) => {
   const user = req.locals.user;
+  log.log('Creating a team');
+  const req_team = req.body.team;
+  if (!req_team) {
+    return res.status(422).json({
+      errors: {
+        message: "no team field"
+      }
+    });
+  }
+  // required fields: name, color
+  if (!req_team.name) {
+    return res.status(422).json({
+      errors: {
+        message: "name can't be blank"
+      }
+    });
+  }
+  if (!req_team.color) {
+    return res.status(422).json({
+      errors: {
+        message: "color can't be blank"
+      }
+    });
+  }
+  // build the team
+  const team = new Team();
+  team.name = req_team.name;
+  team.color = req_team.color;
+  // only update fields that were actually passed...
+  if (typeof req_team.description !== 'undefined') {
+    team.description = req_team.description
+  }
+  // add the creator to the team
+  team.members = [];
+  team.members.push(user.id);
+
+  team.save().then(() => {
+    log.log(`Team (${team.name}) created`);
+    return res.json({ team: team });
+  }).catch(next);
 });
+
+
+// Update Team
+router.put("/:t_id", auth.required, async (req, res) => {
+  const user = req.locals.user;
+  Team.findOne({ _id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id) })
+    .then(function (team) {
+      if (!team) {
+        return res.status(422).json({
+          errors: {
+            message: "team does not exist, or this user does not permission to access the team"
+          }
+        });
+      }
+      const req_team = req.body.team;
+      // only update fields that were actually passed...
+      if (typeof req_team.name !== 'undefined') {
+        team.name = req_team.name
+      }
+      if (typeof req_team.description !== 'undefined') {
+        team.description = req_team.description
+      }
+      team.save().then(() => {
+        log.log(`Team (${team.name}) modified`);
+        return res.json({ team: team });
+      })
+    }).catch(function () {
+    return res.status(422).json({
+      errors: {
+        message: "team does not exist, or this user does not permission to access the team"
+      }
+    });
+  })
+});
+
 
 router.get("/:t_id/users", async (req, res) => {
   try {
