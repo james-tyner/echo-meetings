@@ -5,6 +5,7 @@ const Team = mongoose.model('Team');
 const User = mongoose.model('User');
 const auth = require('../auth');
 
+const TEAM_NONEXISTENT_MSG = 'Team does not exist, or this user does not permission to access the team';
 
 // always perform auth check
 router.use(auth.required, async function (req, res, next) {
@@ -82,7 +83,7 @@ router.put("/:t_id", auth.required, async (req, res) => {
       if (!team) {
         return res.status(422).json({
           errors: {
-            message: "team does not exist, or this user does not permission to access the team"
+            message: TEAM_NONEXISTENT_MSG
           }
         });
       }
@@ -101,14 +102,38 @@ router.put("/:t_id", auth.required, async (req, res) => {
     }).catch(function () {
     return res.status(422).json({
       errors: {
-        message: "team does not exist, or this user does not permission to access the team"
+        message: TEAM_NONEXISTENT_MSG
       }
     });
   })
 });
 
 
-router.get("/:t_id/users", async (req, res) => {
+router.delete("/:t_id", async (req, res) => {
+  const user = req.locals.user;
+  Team.findOneAndDelete({ _id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id) })
+    .then(function (team) {
+      if (!team) {
+        return res.status(422).json({
+          errors: {
+            message: TEAM_NONEXISTENT_MSG
+          }
+        });
+      } else {
+        log.log(`Team (${team.name}) deleted`);
+        res.json({ team: team });
+      }
+    }).catch(function () {
+    return res.status(422).json({
+      errors: {
+        message: TEAM_NONEXISTENT_MSG
+      }
+    });
+  })
+});
+
+
+router.get("/:t_id/members", async (req, res) => {
   try {
     let result = [];
     const response = await Team.findById(req.params['t_id']);
@@ -122,5 +147,6 @@ router.get("/:t_id/users", async (req, res) => {
     res.json(e);
   }
 });
+
 
 module.exports = router;
