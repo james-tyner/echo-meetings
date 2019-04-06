@@ -101,5 +101,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(3000, () => {
-  console.log(`Server ${isProduction ? '(Production)' : '(Debug)'} running on port 3000`);
+  log.log(`Server ${isProduction ? '(Production)' : '(Debug)'} running on port 3000`);
 });
