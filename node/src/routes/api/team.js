@@ -5,7 +5,7 @@ const Team = mongoose.model('Team');
 const User = mongoose.model('User');
 const auth = require('../auth');
 
-const TEAM_NONEXISTENT_MSG = 'Team does not exist, or this user does not permission to access the team';
+const TEAM_NONEXISTENT_MSG = "Team does not exist, or user doesn't have permission to access this team";
 
 // always perform auth check
 router.use(auth.required, async function (req, res, next) {
