@@ -11,7 +11,7 @@ const ApiService = {
   },
 
   setHeader() {
-    console.log('header set');
+    console.log('ApiService header set');
     Vue.axios.defaults.headers.common[
       "Authorization"
       ] = `Token ${VueCookies.get('token')}`;
@@ -30,10 +30,12 @@ const ApiService = {
   },
 
   put(resource, params) {
+    console.log(`Sending PUT ${resource}/${params}`)
     return Vue.axios.put(`${resource}`, params);
   },
 
   delete(resource) {
+    console.log(`Sending DELETE ${resource}/${params}`)
     return Vue.axios.delete(resource).catch(error => {
       throw new Error(`ApiService ${error}`);
     });
@@ -72,10 +74,12 @@ let team_data = {
   all_teams: {},
   get() {
     ApiService.get('/team').then(res => {
-      console.log(res);
       this.all_teams = res.data.teams;
     })
-  }
+  },
+  post(name, description) {
+
+  },
 }
 
 export {ApiService, app_data, user_data, team_data}
