@@ -32,6 +32,7 @@ require('./models/Task');
 // express
 
 let express = require("express");
+let cors = require('cors');
 let bodyParser = require('body-parser');
 
 require('./config/passport-setup');
@@ -41,11 +42,7 @@ let app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "*");
-  next();
-});
+app.use(cors());
 
 app.use(function (req, res, next) {
   log.log(req.method + ' ' + req.path);
