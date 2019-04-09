@@ -15,10 +15,11 @@
     <!-- kanban -->
     <section>
       <div id="kanban">
-        <div id="not-started">
-          <button class="num-circle" disabled>{{notStartedTasks.length}}</button>
-          <h2>Not Started</h2>
-          <div class="clear-float"></div>
+        <div class="task-column">
+          <div class="column-header">
+            <div class="num-circle">{{notStartedTasks.length}}</div>
+            <h2>Not Started</h2>
+          </div>
           <section class="task-list">
             <div v-for="task in notStartedTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
@@ -26,10 +27,11 @@
           </section>
         </div> <!-- #not-started -->
 
-        <div id="in-progress">
-          <button class="num-circle" disabled>{{inProgressTasks.length}}</button>
-          <h2>In Progress</h2>
-          <div class="clear-float"></div>
+        <div class="task-column">
+          <div class="column-header">
+            <div class="num-circle">{{inProgressTasks.length}}</div>
+            <h2>In Progress</h2>
+          </div>
           <section class="task-list">
             <div v-for="task in inProgressTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
@@ -37,10 +39,11 @@
           </section>
         </div> <!-- #in-progress -->
 
-        <div id="complete">
-          <button class="num-circle" disabled>{{completedTasks.length}}</button>
-          <h2>Complete</h2>
-          <div class="clear-float"></div>
+        <div class="task-column">
+          <div class="column-header">
+            <div class="num-circle">{{completedTasks.length}}</div>
+            <h2>Complete</h2>
+          </div>
           <section class="task-list">
             <div v-for="task in completedTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
