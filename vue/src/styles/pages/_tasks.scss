@@ -14,10 +14,7 @@ hr {
 
   .filter-group {
     text-transform:uppercase;
-
-    a {
-      cursor:pointer;
-    }
+    cursor:pointer;
   }
 }
 
@@ -77,9 +74,55 @@ hr {
 
 #kanban .card {
    margin-bottom: 1em;
+   cursor:move;
 
    .card-team {
      @include detailsFont;
      text-transform:uppercase;
+   }
+
+   .card-team, .card-heading {
+     cursor:pointer;
+   }
+
+   .card-desc {
+     @include bodyFont;
+     margin-bottom:0.5em;
+   }
+
+   .card-date {
+     @include detailsFont;
+     color:$gray3;
+   }
+
+   .task-assignees {
+     .assignee-heading {
+       border-top:1px solid $gray2;
+       padding-top:1em;
+       @include detailsFont;
+       text-transform:uppercase;
+       margin-bottom:0.5em;
+     }
+
+     .assignee {
+       @include detailsFont;
+       color:$gray3;
+       display:flex;
+       align-items:center;
+       margin-bottom:0.5em;
+
+       &:last-of-type {
+         margin-bottom:0;
+       }
+
+       .profile-photo {
+         @include profile-photo;
+         margin-right:0.5em;
+       }
+
+       p {
+         margin:0;
+       }
+     }
    }
  }
