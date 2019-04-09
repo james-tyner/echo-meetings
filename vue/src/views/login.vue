@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     login_url: function () {
-      return this.back_url + '/api/auth/google'
+      return this.back_url + '/auth/google'
     }
   }
 }

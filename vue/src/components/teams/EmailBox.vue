@@ -2,7 +2,7 @@
   <div class="email-box">
     <div class="email-box__wrapper">
       <span class="email">{{ email }}</span>
-      <i class="material-icons email-delete" @click="$emit('delete_email')">close</i>
+      <i class="material-icons email-delete" @click="onClickClose">close</i>
     </div>
   </div>
 </template>
@@ -12,6 +12,11 @@ export default {
   name: "EmailBox",
   props: {
     email: String
+  },
+  methods: {
+    onClickClose() {
+      this.$emit('delete-email', this)
+    }
   }
 }
 </script>
