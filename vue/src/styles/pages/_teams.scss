@@ -18,7 +18,8 @@
         @include bodyFont;
         color: $gray3;
         padding-bottom: 1.2em;
-        border-bottom: 1px solid $gray1;
+        //border-bottom: 1px solid $gray1;
+        width: 100%;
       }
 
       .team-members {

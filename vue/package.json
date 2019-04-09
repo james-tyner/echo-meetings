@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "lodash": "^4.17.11",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.6.6",
     "vue-axios": "^2.1.4",
     "vue-cookies": "^1.5.13",

@@ -25,17 +25,17 @@ const ApiService = {
   },
 
   post(resource, params) {
-    console.log(`Sending POST ${resource}/${params}`)
+    console.log(`Sending POST ${resource}`)
     return Vue.axios.post(`${resource}`, params);
   },
 
   put(resource, params) {
-    console.log(`Sending PUT ${resource}/${params}`)
+    console.log(`Sending PUT ${resource}`)
     return Vue.axios.put(`${resource}`, params);
   },
 
   delete(resource) {
-    console.log(`Sending DELETE ${resource}/${params}`)
+    console.log(`Sending DELETE ${resource}`)
     return Vue.axios.delete(resource).catch(error => {
       throw new Error(`ApiService ${error}`);
     });
@@ -77,8 +77,9 @@ let team_data = {
       this.all_teams = res.data.teams;
     })
   },
-  post(name, description) {
-
+  put(id, name = null, description = null) {
+    ApiService.put(`/team/${id}`,
+      { 'team': { 'description': description } })
   },
 }
 

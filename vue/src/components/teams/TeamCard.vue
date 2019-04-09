@@ -2,7 +2,12 @@
   <div class="card team-card" :class="colorBand">
     <h2 class="card-heading" v-on:click="toggle()">{{team.name}}</h2>
     <div class="team-info" v-if="showAll">
-      <p class="team-desc" contenteditable="true" @keydown="updateDescription">{{team.description}}</p>
+      <textarea
+              class="editable team-desc"
+              placeholder="Description"
+              v-model='team.description'
+      >
+      </textarea>
       <div class="team-members">
         <div v-for="member in team.members" class="member">
           <div class="profile-photo" :style="{ 'background-image' : 'url(' + member.avatar + ')'}"></div>
@@ -12,7 +17,7 @@
           <textarea
                   name="new-member-email-textarea"
                   class="new-member editable" rows="1"
-                  placeholder="Add someone…"
+                  placeholder="Invite members by email"
                   v-model='email_input'
                   @keydown.tab.stop.prevent="addEmail"
                   @keydown.enter.stop.prevent="addEmail"
@@ -36,6 +41,8 @@
 <script>
 import Vue from 'vue'
 import EmailBox from './EmailBox'
+import debounce from 'lodash.debounce'
+import {team_data} from "../../data";
 
 export default {
   name: "team-card",
@@ -53,6 +60,17 @@ export default {
       invitation_list: []
     }
   },
+  watch: {
+    team: {
+      handler: function (val, oldVal) {
+          this.debouncedUpdateDescription(val.description, oldVal.description)
+      },
+      deep: true
+    }
+  },
+  created: function () {
+    this.debouncedUpdateDescription = debounce(this.updateDescription, 1000)
+  },
   computed: {
     colorBand: function () {
       return (this.team.color + '-color-band')
@@ -65,9 +83,12 @@ export default {
     toggle() {
       this.showAll = !this.showAll
     },
-    updateDescription() {
-
+    updateDescription(description, old) {
+      if(old!==description)
+      console.log(description);
+      team_data.put(this.team._id, null, description)
     },
+
     addEmail() {
       const email = this.email_input;
       if (this.invitation_list.includes(email)) return;
@@ -107,6 +128,7 @@ export default {
     sendInvitation() {
       if (this.invitation_list.length < 0) return;
       console.log(this.invitation_list);
+      // TODO send invitation from API
     }
   }
 }
@@ -115,13 +137,10 @@ export default {
 <style lang="scss" scoped>
 
   textarea.editable {
-    height: 28px;
     border: none;
-    font-size: 14px;
     background: transparent;
     outline: none;
     resize: none;
-    padding-top: 6px;
 
     &:focus {
       border: 0 !important;
@@ -139,6 +158,11 @@ export default {
       flex-grow: 1;
     }
 
+    textarea.new-member.editable {
+      height: 28px;
+      padding-top: 6px;
+      font-size: 14px;
+    }
 
     button {
       outline: none;
@@ -146,6 +170,7 @@ export default {
       font-size: 12px;
       border: none;
       color: #00D9BD;
+      background-color: #fff;
       letter-spacing: 0.11rem;
       height: 24px;
       width: 55px;
