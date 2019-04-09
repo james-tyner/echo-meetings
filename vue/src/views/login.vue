@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import { data } from '../data'
+import {app_data} from '../data'
 
 export default {
   name: 'login',
   data: function () {
     return {
-      back_url: data['back_url']
+      back_url: app_data.back_url
     }
   },
   computed: {

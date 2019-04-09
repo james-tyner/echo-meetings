@@ -1,24 +1,27 @@
 import axios from 'axios';
 import VueCookies from 'vue-cookies'
 
-let data = {
+const app_data = {
   page: 'Dashboard',
   group: 'dashboard',
-  updatePage(newPage){
+  updatePage(newPage) {
     this.page = newPage;
   },
-  updateGroup(newGroup){
+  updateGroup(newGroup) {
     this.group = newGroup;
   },
-  back_url: process.env.VUE_APP_BACK_URL,
-  username: "",
-  avatar: "",
+  back_url: process.env.VUE_APP_BACK_URL
+}
+
+let user_data = {
+  username: '',
+  avatar: '',
   updateUser: async function () {
-    if(!VueCookies.isKey('token')) {
+    if (!VueCookies.isKey('token')) {
       return;
     }
-    console.log(this.back_url + '/api/user/')
-    axios.get(this.back_url + '/api/user/',
+    console.log(app_data.back_url + '/api/user/')
+    axios.get(app_data.back_url + '/api/user/',
       { 'headers': { 'Authorization': 'Token ' + VueCookies.get('token') } })
       .then(res => {
         this.username = res.data.name;
@@ -30,4 +33,4 @@ let data = {
   }
 }
 
-export { data }
+export {app_data, user_data}

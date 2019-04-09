@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Navbar v-bind:username="this.firstName" v-if="data.page !== 'Login'"></Navbar>
+    <Navbar v-bind:username="user_data.firstName" v-if="app_data.page !== 'Login'"></Navbar>
 
-    <Header v-bind:pageName="data.page" v-if="data.page !== 'Login'"></Header>
+    <Header v-bind:pageName="app_data.page" v-if="app_data.page !== 'Login'"></Header>
 
     <router-view></router-view>
   </div>
@@ -13,7 +13,7 @@ import VueCookies from 'vue-cookies'
 
 import Navbar from './components/Navbar.vue'
 import Header from './components/Header.vue'
-import { data } from './data'
+import {app_data, user_data} from './data'
 
 export default {
   name: 'app',
@@ -32,7 +32,7 @@ export default {
           let url = window.location.href;
           url.replace(/\?token.*/, '');
           history.pushState(null, "", url.replace(/\?token.*/, ''));
-          data.updateUser();
+          user_data.updateUser();
         }
       }
       if (!VueCookies.isKey('token')) {
@@ -42,24 +42,25 @@ export default {
   },
   data: function () {
     return {
-      data
+      user_data: user_data,
+      app_data: app_data
     }
   },
   watch: {
     $route(to) {
-      data.updatePage(to.name)
+      app_data.updatePage(to.name)
       console.log(to)
-      data.updateGroup(to.meta.group)
+      app_data.updateGroup(to.meta.group)
       this.checkToken();
     }
   },
   mounted: function () {
     this.$nextTick(function () {
       console.log('from App mounted ' + this.$route.name);
-      data.updatePage(this.$route.name)
-      data.updateGroup(this.$route.meta.group)
+      app_data.updatePage(this.$route.name)
+      app_data.updateGroup(this.$route.meta.group)
       this.checkToken();
-      data.updateUser();
+      user_data.updateUser();
     })
   }
 }
