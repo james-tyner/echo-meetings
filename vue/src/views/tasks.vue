@@ -58,7 +58,7 @@
 import TaskCard from "../components/tasks/TaskCard.vue"
 export default {
   name: 'tasks',
-  components: {
+  components:{
     TaskCard
   },
   data:function(){
