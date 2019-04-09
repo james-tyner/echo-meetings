@@ -139,7 +139,7 @@ export default {
           "id": 2,
           "name": "Finish Everything",
           "description": "please finish everything",
-          "due": 1556730000000,
+          "due": 1554867187000,
           "status": 2,
           "assignees":[{
             "name": "Courtney Dunlap",

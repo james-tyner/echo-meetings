@@ -36,14 +36,14 @@
         return (this.task.team.color)
       },
 			humanDate:function(){
-				var now = new Date(now);
+				var now = Date.now();
 				var dueDate = new Date(this.task.due);
-			  var dateDiff = Math.abs(now.getTime() - dueDate.getTime());
+			  var dateDiff = Math.abs(now - dueDate.getTime());
 
-			  dateDiff = dateDiff / (1000 * 60 * 60 * 24);
+			  dateDiff = Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
 
-				var dueDateYear = dueDate.getYear();
-				var thisYear = now.getYear();
+				var dueDateYear = moment(dueDate).format('YY');
+				var thisYear = moment(now).format('YY');
 
 				var dateFormatted;
 				// if date is less than two weeks from now, say as "days from now" or "in XX days"
