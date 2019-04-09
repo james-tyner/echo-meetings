@@ -23,8 +23,8 @@ router.use(auth.required, async function (req, res, next) {
 // Get all Teams
 router.get("/", async (req, res) => {
   const user = req.locals.user;
-  Team.find({ members: user.id }).then((response) => {
-    res.json({ "teams": response });
+  Team.find({ members: user.id }).populate('members').then((teams) => {
+    res.json({ "teams": teams });
   });
 });
 
