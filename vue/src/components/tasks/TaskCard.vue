@@ -4,7 +4,7 @@
 		<h2 class="card-heading" v-on:click="toggle()">{{task.name}}</h2>
 		<div class="task-info" v-if="showAll">
       <p class="card-desc">{{task.description}}</p>
-			<p class="card-date">due {{humanDate}}</p>
+			<p class="card-date" v-bind:class="{'red' : overdueColor}">due {{humanDate}}</p>
       <div class="task-assignees">
 				<p class="assignee-heading">Assigned to</p>
         <div v-for="assignee in task.assignees" class="assignee">
@@ -16,7 +16,7 @@
     <div v-else v-on:click="toggle()" class="card-icons">
 			<div class="icon-group"><i class="fas fa-user-circle"></i> {{task.assignees.length}}</div>
 		  <!-- <div class="icon-group"><i class="fas fa-comment"></i> 5</div> -->
-		  <div class="icon-group"><i class="fas fa-clock"></i> due {{humanDate}}</div>
+		  <div class="icon-group" v-bind:class="{'red' : overdueColor}"><i class="fas fa-clock"></i> due {{humanDate}}</div>
     </div>
 
 	</div>
@@ -60,6 +60,17 @@
 				}
 
 				return dateFormatted;
+			},
+			overdueColor:function(){
+				var now = Date.now();
+				var dueDate = new Date(this.task.due);
+				dueDate = dueDate.getTime();
+
+				if (now > dueDate){
+					return true
+				} else {
+					return false
+				}
 			}
     },
     methods:{

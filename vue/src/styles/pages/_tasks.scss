@@ -93,6 +93,10 @@ hr {
    .card-date {
      @include detailsFont;
      color:$gray3;
+
+     &.red {
+       color:$red;
+     }
    }
 
    .task-assignees {
