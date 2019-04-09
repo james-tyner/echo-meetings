@@ -1,53 +1,52 @@
-
 // WRITTEN BY KAT
 #teams-main {
   .team-card {
     margin-bottom: 2em;
-    max-width:675px;
+    max-width: 675px;
 
     .card-heading, .team-photos {
-      cursor:pointer;
+      cursor: pointer;
     }
 
     .profile-photo {
       @include profile-photo;
-      margin-right:0.5em;
+      margin-right: 0.5em;
     }
 
     .team-info {
       .team-desc {
         @include bodyFont;
-        color:$gray3;
-        padding-bottom:1.2em;
-        border-bottom:1px solid $gray1;
+        color: $gray3;
+        padding-bottom: 1.2em;
+        border-bottom: 1px solid $gray1;
       }
 
       .team-members {
         .member {
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
 
           .member-name {
-            margin-right:auto;
+            margin-right: auto;
           }
 
           .member-email {
-            margin-left:auto;
+            margin-left: auto;
             @include bodyFont;
-            color:$gray3;
+            color: $gray3;
 
             i {
-              margin-left:0.5em;
+              margin-left: 0.5em;
             }
           }
         }
 
         .new-member {
-          padding-left:2em;
+          padding-left: 12px;
 
           &:empty::before {
-            content:"Add someone…"
+            content: "Add someone…"
           }
         }
       }
@@ -65,24 +64,23 @@
 }
 
 
-
 // WRITTEN BY JESSICA
 
 #add-team-main form {
 
   h3 {
-    margin-bottom:0.5em;
+    margin-bottom: 0.5em;
   }
 
   input, textarea {
     @include input-field-style;
-    margin-bottom:2em;
+    margin-bottom: 2em;
   }
 
   input[type="text"], textarea {
-    padding:0.5em;
-    min-width:50%;
-    font-size:1.1em;
+    padding: 0.5em;
+    min-width: 50%;
+    font-size: 1.1em;
   }
 
   input::placeholder, textarea::placeholder {
@@ -95,12 +93,12 @@
 }
 
 #add-members {
-  display:flex;
-  flex-wrap:wrap;
-  align-content:center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
 
   h4 {
-    margin-bottom:0.8em;
-    width:100%;
+    margin-bottom: 0.8em;
+    width: 100%;
   }
 }

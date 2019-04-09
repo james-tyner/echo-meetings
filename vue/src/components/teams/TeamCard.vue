@@ -9,13 +9,16 @@
           <p class="member-name">{{member.name}}</p>
         </div>
         <div class="member new-member-input">
-          <div class="email-box">
-            <div class="email-box__wrapper">
-              <span class="email">jianxuat@usc.edu</span>
-              <span class="cancel"></span>
-            </div>
-          </div>
-          <p class="new-member" contenteditable="true"></p>
+          <EmailBox email="jianxuat@usc.edu" @delete_email="onDeleteEmail(1)"></EmailBox>
+          <textarea
+                  name="new-member-email-textarea"
+                  class="new-member" rows="1"
+                  v-model='email_input'
+                  @keydown.tab.stop.prevent="addEmail"
+                  @keydown.enter.stop.prevent="addEmail"
+          >
+          </textarea>
+          <button>SEND</button>
         </div>
       </div>
     </div>
@@ -27,10 +30,16 @@
 </template>
 
 <script>
+
+import EmailBox from './EmailBox'
+
 export default {
   name: "team-card",
   props: {
     team: Object
+  },
+  components: {
+    EmailBox
   },
   computed: {
     colorBand: function () {
@@ -43,11 +52,21 @@ export default {
   methods: {
     toggle() {
       this.showAll = !this.showAll
+    },
+    addEmail() {
+      console.log('adding email ' + this.email_input);
+      this.email_input = '';
+      // create EmailBox comp
+      console.log(this.$el);
+    },
+    onDeleteEmail(event) {
+      console.log(event);
     }
   },
   data: function () {
     return {
-      showAll: false
+      showAll: false,
+      email_input: ''
     }
   }
 }
@@ -59,43 +78,10 @@ export default {
     flex-wrap: wrap;
     margin: -2px 0;
     width: 100%;
-  }
+    justify-content: left;
 
-  .email-box {
-    margin-right: .33333333em;
-    padding: 0;
-    vertical-align: baseline;
-  }
-
-  .email-box__wrapper {
-    align-items: center;
-    background-color: #fff;
-    border: 1px solid #dadce0;
-    border-radius: 10px;
-    box-sizing: border-box;
-    display: inline-flex;
-    height: 20px;
-    line-height: 20px;
-    margin: 2px 0;
-    padding-left: 8px;
-    padding-right: 4px;
-  }
-
-  .email {
-    font-size: .75rem;
-    letter-spacing: .3px;
-    box-sizing: border-box;
-    color: #5f6368;
-    font-weight: 500;
-    margin: 0;
-    max-height: 20px;
-    display: inline-block;
-  }
-
-  .close {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 16px;
-    background-image: url('https://www.gstatic.com/images/icons/material/system/2x/close_black_16dp.png')
+    .new-member {
+      flex-grow: 1;
+    }
   }
 </style>
