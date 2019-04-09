@@ -20,8 +20,8 @@ export default {
   },
   data:function(){
     return {
-      fakeTeams:{
-        "echo": {
+      fakeTeams:[
+        {
           "id": 1,
           "color":"blue",
           "name": "Team Echo",
@@ -36,7 +36,7 @@ export default {
             "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
           }]
         },
-        "omega": {
+        {
           "id": 2,
           "color":"red",
           "name": "Dance Club",
@@ -55,7 +55,7 @@ export default {
             "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
           }]
         }
-      }
+      ]
     }
   }
 }

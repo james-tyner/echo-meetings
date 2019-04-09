@@ -12,6 +12,12 @@ hr {
   display:inline-flex;
   align-items:center;
 }
+#filterbar .filter-group {
+  text-transform:uppercase;
+}
+#filterbar .filter-group a {
+  cursor:pointer;
+}
 #options {
   margin-left: 20px;
 }
@@ -66,24 +72,11 @@ button.num-circle {
 #kanban .card {
    margin-bottom: 18px;
  }
-.card-team-itp460 {
-  color: #00d9bd !important;
+
+#kanban .card .card-team {
+  @include detailsFont;
+  text-transform:uppercase;
 }
-.color-band-itp460 {
-    border-left: 10px solid #00d9bd;
-  }
-  .card-team-writ340 {
-  color: #ff5f77 !important;
-}
-  .color-band-writ340 {
-    border-left: 10px solid #ff5f77;
-  }
-  .card-team-soccerclub {
-  color: #4c98f2 !important;
-}
-  .color-band-soccerclub {
-    border-left: 10px solid #4c98f2;
-  }
 .red {
   color: #ff5f77;
 }
