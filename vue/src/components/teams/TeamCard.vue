@@ -2,7 +2,7 @@
   <div class="card team-card" :class="colorBand">
     <h2 class="card-heading" v-on:click="toggle()">{{team.name}}</h2>
     <div class="team-info" v-if="showAll">
-      <p class="team-desc" contenteditable="true">{{team.description}}</p>
+      <p class="team-desc" contenteditable="true" @keydown="updateDescription">{{team.description}}</p>
       <div class="team-members">
         <div v-for="member in team.members" class="member">
           <div class="profile-photo" :style="{ 'background-image' : 'url(' + member.avatar + ')'}"></div>
@@ -11,7 +11,7 @@
         <div class="member new-member-input">
           <textarea
                   name="new-member-email-textarea"
-                  class="new-member" rows="1"
+                  class="new-member editable" rows="1"
                   placeholder="Add someone…"
                   v-model='email_input'
                   @keydown.tab.stop.prevent="addEmail"
@@ -20,7 +20,9 @@
                   @focusout="email_input_focused = false"
           >
           </textarea>
-          <button v-if="email_input_focused || invitation_list.length > 0" @click="sendInvitation">SEND</button>
+          <button v-if="(email_input_focused && invitation_list.length > 0) || invitation_list.length > 0"
+                  @click="sendInvitation">SEND
+          </button>
         </div>
       </div>
     </div>
@@ -62,6 +64,9 @@ export default {
   methods: {
     toggle() {
       this.showAll = !this.showAll
+    },
+    updateDescription() {
+
     },
     addEmail() {
       const email = this.email_input;
@@ -108,6 +113,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+  textarea.editable {
+    height: 28px;
+    border: none;
+    font-size: 14px;
+    background: transparent;
+    outline: none;
+    resize: none;
+    padding-top: 6px;
+
+    &:focus {
+      border: 0 !important;
+    }
+  }
+
   .new-member-input {
     display: flex;
     flex-wrap: wrap;
@@ -119,28 +139,16 @@ export default {
       flex-grow: 1;
     }
 
-    textarea {
-      height: 24px;
-      border: none;
-      font-size: 14px;
-      background: transparent;
-      outline: none;
-      resize: none;
-
-      &:focus {
-        border: 0 !important;
-      }
-    }
 
     button {
       outline: none;
       box-shadow: none;
-      font-size: 14px;
+      font-size: 12px;
       border: none;
       color: #00D9BD;
-      letter-spacing: 0.12rem;
+      letter-spacing: 0.11rem;
       height: 24px;
-      width: 70px;
+      width: 55px;
       border-radius: 12px;
       padding: 2px 0 0;
       margin: 0;
