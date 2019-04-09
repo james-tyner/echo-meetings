@@ -1,5 +1,44 @@
-import axios from 'axios';
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import VueCookies from 'vue-cookies'
+
+
+const ApiService = {
+  init() {
+    Vue.use(VueAxios, axios);
+    Vue.axios.defaults.baseURL = app_data.back_url;
+  },
+
+  setHeader() {
+    console.log('header set');
+    Vue.axios.defaults.headers.common[
+      "Authorization"
+      ] = `Token ${VueCookies.get('token')}`;
+  },
+
+  get(resource, slug = "") {
+    console.log(`Sending GET ${resource}/${slug}`)
+    return Vue.axios.get(`${resource}/${slug}`).catch(error => {
+      throw new Error(`ApiService ${error}`);
+    });
+  },
+
+  post(resource, params) {
+    console.log(`Sending POST ${resource}/${params}`)
+    return Vue.axios.post(`${resource}`, params);
+  },
+
+  put(resource, params) {
+    return Vue.axios.put(`${resource}`, params);
+  },
+
+  delete(resource) {
+    return Vue.axios.delete(resource).catch(error => {
+      throw new Error(`ApiService ${error}`);
+    });
+  }
+};
 
 const app_data = {
   page: 'Dashboard',
@@ -16,21 +55,27 @@ const app_data = {
 let user_data = {
   username: '',
   avatar: '',
-  updateUser: async function () {
+  updateUser() {
     if (!VueCookies.isKey('token')) {
       return;
     }
-    console.log(app_data.back_url + '/api/user/')
-    axios.get(app_data.back_url + '/api/user/',
-      { 'headers': { 'Authorization': 'Token ' + VueCookies.get('token') } })
-      .then(res => {
-        this.username = res.data.name;
-        this.avatar = res.data.avatar;
-        console.log(this.username);
-      }).catch(err => {
-      console.log(err);
+    ApiService.setHeader()
+    ApiService.get('/user').then(res => {
+      this.username = res.data.name;
+      this.avatar = res.data.avatar;
+      console.log(this.username)
     });
   }
 }
 
-export {app_data, user_data}
+let team_data = {
+  all_teams: {},
+  get() {
+    ApiService.get('/team').then(res => {
+      console.log(res);
+      this.all_teams = res.data.teams;
+    })
+  }
+}
+
+export {ApiService, app_data, user_data, team_data}

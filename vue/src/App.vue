@@ -49,18 +49,19 @@ export default {
   watch: {
     $route(to) {
       app_data.updatePage(to.name)
-      console.log(to)
       app_data.updateGroup(to.meta.group)
       this.checkToken();
     }
+  },
+  created: function () {
+    this.checkToken();
+    user_data.updateUser();
   },
   mounted: function () {
     this.$nextTick(function () {
       console.log('from App mounted ' + this.$route.name);
       app_data.updatePage(this.$route.name)
       app_data.updateGroup(this.$route.meta.group)
-      this.checkToken();
-      user_data.updateUser();
     })
   }
 }

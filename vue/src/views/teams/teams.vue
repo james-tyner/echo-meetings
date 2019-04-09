@@ -1,29 +1,37 @@
 <template>
 
-    <main id="teams-main">
-      <section class="team-list">
-        <div v-for="team in fakeTeams">
-          <TeamCard v-bind:team="team"></TeamCard>
-        </div>
-      </section>
-    </main>
+  <main id="teams-main">
+    <section class="team-list">
+      <div v-for="team in team_data.all_teams">
+        <TeamCard v-bind:team="team"></TeamCard>
+      </div>
+    </section>
+  </main>
 
 </template>
 
 <script>
+import {team_data} from "../../data";
 import TeamCard from "../../components/teams/TeamCard.vue"
 
 export default {
   name: 'teams',
-  components:{
+  components: {
     TeamCard
   },
-  data:function(){
+  mounted: function () {
+    this.$nextTick(function () {
+      console.log('from Team mounted ' + this.$route.name);
+      team_data.get()
+    })
+  },
+  data: function () {
     return {
-      fakeTeams:{
+      team_data: team_data,
+      fakeTeams: {
         "echo": {
           "id": 1,
-          "color":"blue",
+          "color": "blue",
           "name": "Team Echo",
           "description": "This team isn't even real.",
           "members": [{
@@ -38,7 +46,7 @@ export default {
         },
         "omega": {
           "id": 2,
-          "color":"red",
+          "color": "red",
           "name": "Dance Club",
           "description": "This team is super not real.",
           "members": [{
