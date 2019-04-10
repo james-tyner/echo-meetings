@@ -9,6 +9,20 @@ if (mongo_url == null || mongo_url === '') {
   process.exit(1);
 }
 
+
+// SEND GRID API
+
+const sengrid_key = process.env.SENDGRID_API_KEY;
+
+if (sengrid_key == null || sengrid_key === '') {
+  log.error('SENDGRID_API_KEY missing. Did you update your .env file?')
+  process.exit(1);
+}
+
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(sengrid_key);
+
+
 // connect mongodb
 
 let mongoose = require('mongoose');

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const log = require('../../util/log')
 const router = require('express').Router();
 const mongoose = require('mongoose');
@@ -24,10 +25,10 @@ router.use(auth.required, async function (req, res, next) {
 // Get all Teams
 router.get("/", async (req, res) => {
   const user = req.locals.user;
-  Team.find({ members: user.id })
+  Team.find({members: user.id})
     .populate('members').populate('invitations')
     .then((teams) => {
-      res.json({ "teams": teams });
+      res.json({"teams": teams});
     });
 });
 
@@ -73,7 +74,7 @@ router.post("/", async (req, res, next) => {
 
   team.save().then(() => {
     log.log(`Team (${team.name}) created`);
-    return res.json({ team: team });
+    return res.json({team: team});
   }).catch(next);
 });
 
@@ -81,7 +82,7 @@ router.post("/", async (req, res, next) => {
 // Update Team
 router.put("/:t_id", auth.required, async (req, res) => {
   const user = req.locals.user;
-  Team.findOne({ _id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id) })
+  Team.findOne({_id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id)})
     .then(function (team) {
       if (!team) {
         return res.status(422).json({
@@ -100,7 +101,7 @@ router.put("/:t_id", auth.required, async (req, res) => {
       }
       team.save().then(() => {
         log.log(`Team (${team.name}) modified`);
-        return res.json({ team: team });
+        return res.json({team: team});
       })
     }).catch(function () {
     return res.status(422).json({
@@ -114,7 +115,7 @@ router.put("/:t_id", auth.required, async (req, res) => {
 
 router.delete("/:t_id", async (req, res) => {
   const user = req.locals.user;
-  Team.findOneAndDelete({ _id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id) })
+  Team.findOneAndDelete({_id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id)})
     .then(function (team) {
       if (!team) {
         return res.status(422).json({
@@ -124,7 +125,7 @@ router.delete("/:t_id", async (req, res) => {
         });
       } else {
         log.log(`Team (${team.name}) deleted`);
-        res.json({ team: team });
+        res.json({team: team});
       }
     }).catch(function () {
     return res.status(422).json({
@@ -139,7 +140,7 @@ router.delete("/:t_id", async (req, res) => {
 // invite new members
 router.post('/:t_id/invite', async (req, res) => {
   const user = req.locals.user;
-  Team.findOne({ _id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id) })
+  Team.findOne({_id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id)})
     .then(function (team) {
       if (!team) {
         return res.status(422).json({
@@ -154,18 +155,42 @@ router.post('/:t_id/invite', async (req, res) => {
           message: 'No Emails field'
         }
       });
+      const sgMail = require('@sendgrid/mail');
       for (const email of req_emails) {
-        // TODO send emails
         const invitation = new Invitation({
           email: email,
           team: team._id,
           code: Invitation.generateCode(team.name)
         });
+
+        const msg = {
+          "from": {
+            "name": "Mars Tan",
+            "email": "jianxuat@usc.edu"
+          },
+          "personalizations": [
+            {
+              "to": [
+                {
+                  "name": email,
+                  "email": email
+                }
+              ],
+              "dynamic_template_data": {
+                "team": team,
+                "invite_code": process.env.FRONT_URL + "/?invite="+invitation.code,
+                "inviter": user
+              }
+            }
+          ],
+          "template_id": process.env.INVITATION_TEMPLATE
+        };
+        sgMail.send(msg).catch(error => log.error(error));
         team.invitations.push(invitation._id);
         invitation.save();
       }
       team.save().then(function () {
-        return res.json({ team: team });
+        return res.json({team: team});
       });
 
     }).catch(function () {
@@ -181,7 +206,7 @@ router.post('/:t_id/invite', async (req, res) => {
 // invite new members
 router.get('/join/:invite', async (req, res) => {
   const user = req.locals.user;
-  Invitation.findOneAndDelete({ code: req.params['invite'], email: user.email })
+  Invitation.findOneAndDelete({code: req.params['invite'], email: user.email})
     .then(function (invitation) {
       if (!invitation) {
         return res.status(422).json({
@@ -193,7 +218,7 @@ router.get('/join/:invite', async (req, res) => {
       Team.findById(invitation.team).then(team => {
         team.members.push(user._id);
         team.save().then(function () {
-          return res.json({ team: team });
+          return res.json({team: team});
         });
       })
     }).catch(function () {
