@@ -28,6 +28,7 @@ require('./models/User');
 require('./models/Team');
 require('./models/Meeting');
 require('./models/Task');
+require('./models/Invitation');
 
 // express
 

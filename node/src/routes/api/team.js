@@ -3,6 +3,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const Team = mongoose.model('Team');
 const User = mongoose.model('User');
+const Invitation = mongoose.model('Invitation');
 const auth = require('../auth');
 
 const TEAM_NONEXISTENT_MSG = "Team does not exist, or user doesn't have permission to access this team";
@@ -23,9 +24,11 @@ router.use(auth.required, async function (req, res, next) {
 // Get all Teams
 router.get("/", async (req, res) => {
   const user = req.locals.user;
-  Team.find({ members: user.id }).populate('members').then((teams) => {
-    res.json({ "teams": teams });
-  });
+  Team.find({ members: user.id })
+    .populate('members').populate('invitations')
+    .then((teams) => {
+      res.json({ "teams": teams });
+    });
 });
 
 
@@ -133,20 +136,44 @@ router.delete("/:t_id", async (req, res) => {
 });
 
 
-router.get("/:t_id/members", async (req, res) => {
-  try {
-    let result = [];
-    const response = await Team.findById(req.params['t_id']);
-    for (const u_id of response['members']) {
-      const u_response = await User.findById(u_id);
-      result.push(u_response['name']);
-    }
-    res.json(result);
-  } catch (e) {
-    console.error(e);
-    res.json(e);
-  }
-});
+// invite new members
+router.post('/:t_id/invite', async (req, res) => {
+  const user = req.locals.user;
+  Team.findOne({ _id: req.params['t_id'], members: mongoose.Types.ObjectId(user.id) })
+    .then(function (team) {
+      if (!team) {
+        return res.status(422).json({
+          errors: {
+            message: TEAM_NONEXISTENT_MSG
+          }
+        });
+      }
+      const req_emails = req.body.emails;
+      if (!req_emails) return res.status(422).json({
+        errors: {
+          message: 'No Emails field'
+        }
+      });
+      for (const email of req_emails) {
+        const invitation = new Invitation({
+          email: email,
+          team: team._id,
+          code: Invitation.generateCode(team.name)
+        });
+        team.invitations.push(invitation._id);
+        invitation.save();
+      }
+      team.save().then(function () {
+        return res.json({team: team});
+      });
 
+    }).catch(function () {
+    return res.status(422).json({
+      errors: {
+        message: TEAM_NONEXISTENT_MSG
+      }
+    });
+  })
+});
 
 module.exports = router;
