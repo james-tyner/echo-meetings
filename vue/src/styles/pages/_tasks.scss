@@ -11,79 +11,122 @@ hr {
   font-size: 14px;
   display:inline-flex;
   align-items:center;
+
+  .filter-group {
+    text-transform:uppercase;
+    cursor:pointer;
+  }
 }
+
 #options {
   margin-left: 20px;
+
+  button {
+    padding: 12px 30px;
+    margin: 0px 5px;
+    border: none;
+    border-radius: 30px;
+    color: #777777;
+    background-color: #EEEEEE;
+    font-size: 12px;
+    text-align: center;
+
+    &#selected {
+      color: #FCFCFC;
+      background-color: #777777;
+    }
+  }
 }
-#options button {
-  padding: 12px 30px;
-  margin: 0px 5px;
-  border: none;
-  border-radius: 30px;
-  color: #777777;
-  background-color: #EEEEEE;
-  font-size: 12px;
-  text-align: center;
-}
-#options button#selected {
-  color: #FCFCFC;
-  background-color: #777777;
-}
-#not-started, #in-progress, #complete {
+
+.task-column {
   width: calc(33% - 20px);
   float: left;
   padding: 0px 10px;
-}
-button.num-circle {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 2px solid #CCCCCC;
-  font-weight: 500;
-  font-size: 14px;
-  color: #CCCCCC;
-  background: #FCFCFC;
-  float: left;
-  margin: 21px 10px 0px 45px;
-}
-#in-progress .num-circle {
-  margin-left: 50px;
-}
-#complete .num-circle {
-  margin-left: 60px;
-}
-#not-started > h2, #in-progress > h2, #complete > h2 {
-  font-weight: 500;
-  font-size: 24px;
-  color: #777777;
-  width: 143.87px;
-  float: left;
+
+  .column-header {
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+
+    .num-circle {
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 0.75em;
+      border: 2px solid $gray2;
+      font-weight: 500;
+      font-size: 1.25em;
+      line-height:calc(1.5em - 4px);
+      color: $gray2;
+      background: $bgGray;
+      margin-right:0.5em;
+      text-align:center;
+    }
+
+    h2 {
+      display:inline-block;
+      font-weight: 500;
+      font-size: 1.5em;
+      color: $gray3;
+    }
+  }
 }
 
-.clear-float {
-  clear: both;
-}
 #kanban .card {
-   margin-bottom: 18px;
+   margin-bottom: 1em;
+   cursor:move;
+
+   .card-team {
+     @include detailsFont;
+     text-transform:uppercase;
+   }
+
+   .card-team, .card-heading {
+     cursor:pointer;
+   }
+
+   .card-desc {
+     @include bodyFont;
+     margin-bottom:0.5em;
+   }
+
+   .card-date {
+     @include detailsFont;
+     color:$gray3;
+
+     &.red {
+       color:$red;
+     }
+   }
+
+   .task-assignees {
+     .assignee-heading {
+       border-top:1px solid $gray2;
+       padding-top:1em;
+       @include detailsFont;
+       text-transform:uppercase;
+       margin-bottom:0.5em;
+     }
+
+     .assignee {
+       @include detailsFont;
+       color:$gray3;
+       display:flex;
+       align-items:center;
+       margin-bottom:0.5em;
+
+       &:last-of-type {
+         margin-bottom:0;
+       }
+
+       .profile-photo {
+         @include profile-photo;
+         margin-right:0.5em;
+       }
+
+       p {
+         margin:0;
+       }
+     }
+   }
  }
-.card-team-itp460 {
-  color: #00d9bd !important;
-}
-.color-band-itp460 {
-    border-left: 10px solid #00d9bd;
-  }
-  .card-team-writ340 {
-  color: #ff5f77 !important;
-}
-  .color-band-writ340 {
-    border-left: 10px solid #ff5f77;
-  }
-  .card-team-soccerclub {
-  color: #4c98f2 !important;
-}
-  .color-band-soccerclub {
-    border-left: 10px solid #4c98f2;
-  }
-.red {
-  color: #ff5f77;
-}

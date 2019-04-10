@@ -4,10 +4,8 @@
       <div id="filterbar">
         Filter by group:
         <div id="options">
-          <a href="#" class="filter-group selected">ALL</a>
-          <a href="#" class="filter-group">ITP 460</a>
-          <a href="#" class="filter-group">WRIT 340</a>
-          <a href="#" class="filter-group">SOCCER CLUB</a>
+          <a class="filter-group" v-on:click="selectedTeam = ''" v-bind:class="{'selected' : selectedTeam == ''}">ALL</a>
+          <a v-for="task in fakeTasks" class="filter-group" v-on:click="selectedTeam = task.team.name" v-bind:class="{'selected' : selectedTeam == task.team.name}">{{task.team.name}}</a>
         </div> <!-- #options -->
       </div> <!-- #filterbar -->
     </section>
@@ -17,101 +15,40 @@
     <!-- kanban -->
     <section>
       <div id="kanban">
-        <div id="not-started">
-          <button class="num-circle" disabled>4</button>
-          <h2>Not Started</h2>
-          <div class="clear-float"></div>
-
-          <!-- card 1 -->
-          <div class="card color-band-itp460">
-            <h3 class="card-team card-team-itp460">ITP 460</h3>
-            <h2 class="card-heading">Update Completed Tasks view to use React</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 2</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 8</div>
-              <div class="icon-group"><i class="fas fa-clock"></i> tomorrow</div>
-            </div>
+        <div class="task-column">
+          <div class="column-header">
+            <div class="num-circle">{{notStartedTasks.length}}</div>
+            <h2>Not Started</h2>
           </div>
-
-          <!-- card 2 -->
-          <div class="card color-band-itp460">
-            <h3 class="card-team card-team-itp460">ITP 460</h3>
-            <h2 class="card-heading">Re-add comment icons to task list items</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 3</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 2</div>
-              <div class="icon-group"><i class="fas fa-clock"></i> 2 days</div>
+          <section class="task-list">
+            <div v-for="task in notStartedTasks">
+              <TaskCard v-bind:task="task"> </TaskCard>
             </div>
-          </div>
-
-          <!-- card 3 -->
-          <div class="card color-band-writ340">
-            <h3 class="card-team card-team-writ340">WRIT 340</h3>
-            <h2 class="card-heading">Update program brainstorming for class page</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 4</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 5</div>
-              <div class="icon-group"><i class="fas fa-clock"></i> 3 days</div>
-            </div>
-          </div>
-
-          <!-- card 4 -->
-          <div class="card color-band-soccerclub">
-            <h3 class="card-team card-team-soccerclub">SOCCER CLUB</h3>
-            <h2 class="card-heading">Plan bake sale fundraiser for new uniforms</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 11</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 1</div>
-              <div class="icon-group"><i class="fas fa-clock"></i> 6 days</div>
-            </div>
-          </div>
-
+          </section>
         </div> <!-- #not-started -->
 
-        <div id="in-progress">
-          <button class="num-circle" disabled>1</button>
-          <h2>In Progress</h2>
-          <div class="clear-float"></div>
-
-          <!-- card 1 -->
-          <div class="card color-band-soccerclub">
-            <h3 class="card-team card-team-soccerclub">SOCCER CLUB</h3>
-            <h2 class="card-heading">Fill out player agreement form and email it to Jane</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 1</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 0</div>
-              <div class="icon-group red"><i class="fas fa-clock"></i> yesterday</div>
-            </div>
+        <div class="task-column">
+          <div class="column-header">
+            <div class="num-circle">{{inProgressTasks.length}}</div>
+            <h2>In Progress</h2>
           </div>
+          <section class="task-list">
+            <div v-for="task in inProgressTasks">
+              <TaskCard v-bind:task="task"> </TaskCard>
+            </div>
+          </section>
         </div> <!-- #in-progress -->
 
-        <div id="complete">
-          <button class="num-circle" disabled>2</button>
-          <h2>Complete</h2>
-          <div class="clear-float"></div>
-
-          <!-- card 1 -->
-          <div class="card color-band-itp460">
-            <h3 class="card-team card-team-itp460">ITP 460</h3>
-            <h2 class="card-heading">Create workspace filtering dropdown menu</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 7</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 22</div>
-              <div class="icon-group"><i class="fas fa-clock"></i> today</div>
-            </div>
+        <div class="task-column">
+          <div class="column-header">
+            <div class="num-circle">{{completedTasks.length}}</div>
+            <h2>Complete</h2>
           </div>
-
-          <!-- card 2 -->
-          <div class="card color-band-writ340">
-            <h3 class="card-team card-team-writ340">WRIT 340</h3>
-            <h2 class="card-heading">Conduct field research with students on campus</h2>
-            <div class="card-icons">
-              <div class="icon-group"><i class="fas fa-user-circle"></i> 9</div>
-              <div class="icon-group"><i class="fas fa-comment"></i> 13</div>
-              <div class="icon-group"><i class="fas fa-clock"></i> yesterday</div>
+          <section class="task-list">
+            <div v-for="task in completedTasks">
+              <TaskCard v-bind:task="task"> </TaskCard>
             </div>
-          </div>
-
+          </section>
         </div> <!-- #complete -->
 
         <div class="clear-float"></div>
@@ -121,7 +58,117 @@
 </template>
 
 <script>
+window.moment = require('moment'); // for use on TaskCard component
+
+import TaskCard from "../components/tasks/TaskCard.vue"
 export default {
-  name: 'tasks'
-}
+  name: 'tasks',
+  components:{
+    TaskCard
+  },
+  computed:{
+    notStartedTasks:function(){
+      let chosenTeam = this.selectedTeam;
+      let filteredTasks = this.fakeTasks.filter(task => task["status"] == 1)
+      if (chosenTeam != ""){
+        return filteredTasks.filter(task => task.team.name == this.selectedTeam)
+      } else {
+        return filteredTasks;
+      }
+    },
+    inProgressTasks:function(){
+      let chosenTeam = this.selectedTeam;
+      let filteredTasks = this.fakeTasks.filter(task => task["status"] == 2)
+      if (chosenTeam != ""){
+        return filteredTasks.filter(task => task.team.name == this.selectedTeam)
+      } else {
+        return filteredTasks;
+      }
+    },
+    completedTasks:function(){
+      let chosenTeam = this.selectedTeam;
+      let filteredTasks = this.fakeTasks.filter(task => task["status"] == 3)
+      if (chosenTeam != ""){
+        return filteredTasks.filter(task => task.team.name == this.selectedTeam)
+      } else {
+        return filteredTasks;
+      }
+    }
+  },
+  methods:{
+    filterTasks:function(teamName){
+      this.selectedTeam = teamName;
+    }
+  },
+  data:function(){
+    return{
+      selectedTeam:"",
+      fakeTasks:[
+        {
+          "id": 1,
+          "name": "Finish A11",
+          "description": "need to finish",
+          "due": 1553479225106,
+          "status": 1,
+          "assignees":[{
+            "name": "Tommy Trojan",
+            "username": "trojan.echo",
+            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+          }, {
+            "name": "Mars Tan",
+            "username": "mars.tanjx",
+            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+          }],
+          "team":{
+            "id": 1,
+            "color":"blue",
+            "name": "Team Echo",
+            "description": "This team isn't even real.",
+            "members": [{
+              "name": "Tommy Trojan",
+              "username": "trojan.echo",
+              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+            }, {
+              "name": "Mars Tan",
+              "username": "mars.tanjx",
+              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+            }]
+          }
+        },
+        {
+          "id": 2,
+          "name": "Finish Everything",
+          "description": "please finish everything",
+          "due": 1554867187000,
+          "status": 2,
+          "assignees":[{
+            "name": "Courtney Dunlap",
+            "username": "trojan.echo",
+            "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+          }],
+          "team":{
+            "id": 2,
+            "color":"red",
+            "name": "Dance Club",
+            "description": "This team is super not real.",
+            "members": [{
+              "name": "Courtney Dunlap",
+              "username": "trojan.echo",
+              "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+            }, {
+              "name": "James Tyner",
+              "username": "james",
+              "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
+            }, {
+              "name": "Joy Verve",
+              "username": "joy",
+              "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
+            }]
+          }
+        }
+      ]
+    }
+  }
+  }
+
 </script>

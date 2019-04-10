@@ -27,43 +27,7 @@ export default {
   },
   data: function () {
     return {
-      team_data: team_data,
-      fakeTeams: {
-        "echo": {
-          "id": 1,
-          "color": "blue",
-          "name": "Team Echo",
-          "description": "This team isn't even real.",
-          "members": [{
-            "name": "Tommy Trojan",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-          }, {
-            "name": "Mars Tan",
-            "username": "mars.tanjx",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-          }]
-        },
-        "omega": {
-          "id": 2,
-          "color": "red",
-          "name": "Dance Club",
-          "description": "This team is super not real.",
-          "members": [{
-            "name": "Courtney Dunlap",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-          }, {
-            "name": "James Tyner",
-            "username": "james",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
-          }, {
-            "name": "Joy Verve",
-            "username": "joy",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
-          }]
-        }
-      }
+      team_data: team_data
     }
   }
 }

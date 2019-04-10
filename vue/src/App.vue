@@ -10,7 +10,6 @@
 
 <script>
 import VueCookies from 'vue-cookies'
-
 import Navbar from './components/Navbar.vue'
 import Header from './components/Header.vue'
 import {app_data, user_data} from './data'
