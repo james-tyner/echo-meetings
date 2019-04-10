@@ -109,7 +109,7 @@
               "id": "2",
               "name": "SOCCER CLUB",
               "description": "Details",
-              "color": "green",
+              "color": "red",
               "members": [{
                 "name": "Mars Tan",
                 "username": "mars.tanjx",
