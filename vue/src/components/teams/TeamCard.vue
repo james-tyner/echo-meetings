@@ -9,7 +9,7 @@
           <p class="member-name">{{member.name}}</p>
         </div>
         <div class="member">
-          <p class="new-member" contenteditable="true" v-on:click="animateSave"></p>
+          <p class="new-member" contenteditable="true"></p>
         </div>
       </div>
     </div>
