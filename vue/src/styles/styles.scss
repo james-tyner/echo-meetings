@@ -92,7 +92,6 @@ nav#sidebar {
     }
   }
 }
-
 header {
   padding: 3vw 3vw 0 3vw;
   position: absolute;
@@ -102,6 +101,18 @@ header {
 
   .page-title {
     @include heading1;
+  }
+
+  #save-animation {
+    @include bodyFont;
+    float:right;
+    padding:calc((2.5em - 0.9em)/2);
+    opacity:0;
+    color:$gray4;
+
+    img {
+      height:0.9em;
+    }
   }
 
   &.scrollable {

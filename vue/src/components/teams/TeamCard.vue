@@ -9,7 +9,7 @@
           <p class="member-name">{{member.name}}</p>
         </div>
         <div class="member">
-          <p class="new-member" contenteditable="true"></p>
+          <p class="new-member" contenteditable="true" v-on:click="animateSave"></p>
         </div>
       </div>
     </div>
@@ -20,11 +20,16 @@
 </template>
 
 <script>
+  import SaveAnimation from "../SaveAnimation";
+
   export default {
     name:"team-card",
     props:{
       team:Object
     },
+    mixins:[
+      SaveAnimation
+    ],
     computed:{
       colorBand:function(){
         return (this.team.color + '-color-band')
