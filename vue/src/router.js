@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 // Views
 import Dashboard from './views/dashboard'
 import Tasks from './views/tasks'
-import Meetings from './views/meetings'
+import Meetings from './views/meetings/meetings'
 import Teams from "./views/teams/teams"
 import AddTeam from "./views/teams/add"
 import Login from "./views/login"
