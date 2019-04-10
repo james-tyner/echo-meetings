@@ -164,7 +164,7 @@ router.post('/:t_id/invite', async (req, res) => {
         invitation.save();
       }
       team.save().then(function () {
-        return res.json({team: team});
+        return res.json({ team: team });
       });
 
     }).catch(function () {
@@ -175,5 +175,34 @@ router.post('/:t_id/invite', async (req, res) => {
     });
   })
 });
+
+
+// invite new members
+router.get('/join/:invite', async (req, res) => {
+  const user = req.locals.user;
+  Invitation.findOneAndDelete({ code: req.params['invite'], email: user.email })
+    .then(function (invitation) {
+      if (!invitation) {
+        return res.status(422).json({
+          errors: {
+            message: TEAM_NONEXISTENT_MSG
+          }
+        });
+      }
+      Team.findById(invitation.team).then(team => {
+        team.members.push(user._id);
+        team.save().then(function () {
+          return res.json({ team: team });
+        });
+      })
+    }).catch(function () {
+    return res.status(422).json({
+      errors: {
+        message: TEAM_NONEXISTENT_MSG
+      }
+    });
+  })
+});
+
 
 module.exports = router;

@@ -16,8 +16,4 @@ InvitationSchema.statics.generateCode = function (team_name) {
   return code;
 }
 
-InvitationSchema.static.addInvitation = function (team_name, email) {
-
-}
-
 mongoose.model('Invitation', InvitationSchema);

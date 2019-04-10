@@ -20,18 +20,23 @@ const ApiService = {
   get(resource, slug = "") {
     console.log(`Sending GET ${resource}/${slug}`)
     return Vue.axios.get(`${resource}/${slug}`).catch(error => {
-      throw new Error(`ApiService ${error}`);
+      throw new Error(`ApiService ${error.message}`);
     });
   },
 
   post(resource, params) {
-    console.log(`Sending POST ${resource}`)
-    return Vue.axios.post(`${resource}`, params);
+    console.log(`Sending POST ${resource}`, params)
+    return Vue.axios.post(`${resource}`, params).catch(error => {
+      console.log(error);
+      throw new Error(`ApiService ${error.message}`);
+    });
   },
 
   put(resource, params) {
-    console.log(`Sending PUT ${resource}`)
-    return Vue.axios.put(`${resource}`, params);
+    console.log(`Sending PUT ${resource}`, params)
+    return Vue.axios.put(`${resource}`, params).catch(error => {
+      throw new Error(`ApiService ${error.message}`);
+    });
   },
 
   delete(resource) {
@@ -65,7 +70,12 @@ let user_data = {
     ApiService.get('/user').then(res => {
       this.username = res.data.name;
       this.avatar = res.data.avatar;
-      console.log(this.username)
+      console.log(this.username);
+      if (VueCookies.isKey('invite')) {
+        const invite = VueCookies.get('invite');
+        ApiService.get('/team/join', invite);
+        VueCookies.remove('invite');
+      }
     });
   }
 }
@@ -77,6 +87,14 @@ let team_data = {
       this.all_teams = res.data.teams;
     })
   },
+  create(name, description, color) {
+    ApiService.post(`/team`,
+      { 'team': { 'name': name, 'description': description, 'color': color } })
+      .then(() => {
+          this.get();
+        }
+      )
+  },
   put(id, name = null, description = null) {
     ApiService.put(`/team/${id}`,
       { 'team': { 'description': description } })
@@ -84,7 +102,7 @@ let team_data = {
   invite(id, emails) {
     ApiService.post(`/team/${id}/invite`,
       { 'emails': emails }).then(res => {
-        this.get();
+      this.get();
     })
   }
 }

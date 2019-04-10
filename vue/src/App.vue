@@ -26,6 +26,16 @@ export default {
       // load token from params
       if (this.$route.name === 'Dashboard') {
         let urlParams = new URLSearchParams(window.location.search);
+        // invitation codes
+        console.log(urlParams);
+        let i_code = urlParams.get('invite');
+        console.log('invite: ', i_code);
+        if (i_code) {
+          VueCookies.set('invite', i_code);
+          history.pushState(null, "", window.location.href.replace(/\?invite.*/, ''));
+        }
+
+        // token
         let tokenFromUrl = urlParams.get('token');
         if (tokenFromUrl) {
           VueCookies.set('token', tokenFromUrl);

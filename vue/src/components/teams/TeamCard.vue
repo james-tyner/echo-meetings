@@ -55,6 +55,7 @@ export default {
   },
   data: function () {
     return {
+      lastSavedDescription: this.team.description,
       showAll: false,
       email_input_focused: false,
       email_input: '',
@@ -86,8 +87,8 @@ export default {
       this.showAll = !this.showAll
     },
     updateDescription(description, old) {
-      if (old !== description)
-        console.log(description);
+      if (this.lastSavedDescription === description) return;
+      this.lastSavedDescription = description;
       team_data.put(this.team._id, null, description)
     },
 

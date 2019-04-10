@@ -67,15 +67,17 @@
 
 // WRITTEN BY JESSICA
 
-#add-team-main form {
-
-  h3 {
+#add-team-main {
+  label {
     margin-bottom: 0.5em;
+    display: block;
+    font-size: 1.1rem;
   }
 
   input, textarea {
     @include input-field-style;
     margin-bottom: 2em;
+    outline: none;
   }
 
   input[type="text"], textarea {
