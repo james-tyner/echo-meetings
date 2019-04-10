@@ -24,6 +24,7 @@ $active = "meetings";
 		<div class="add-button align-right">
 		  <a href="createmeeting.php"><i class="material-icons"> add </i></a>
 		</div>
+
 		<h1 class="page-title"> Meetings </h1>
 		<div class="filter-bar">
 			<p>Filter by group:</p>
@@ -31,7 +32,6 @@ $active = "meetings";
 			<a class="filter-group" href="meeting1A_2.php">ITP 460</a>
 			<a class="filter-group" href="meeting1A_3.php">WRIT 340</a>
 			<a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
-		</div>
 	</header>
 
 	<!-- middle area -->
@@ -77,7 +77,9 @@ $active = "meetings";
   			<p class="mtg-date"> Mar 20</p>
   		</div>
 		</section>
-	</main>
+	</main> 
+
+
 
 </body>
 </html>
