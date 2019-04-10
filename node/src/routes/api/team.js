@@ -155,6 +155,7 @@ router.post('/:t_id/invite', async (req, res) => {
         }
       });
       for (const email of req_emails) {
+        // TODO send emails
         const invitation = new Invitation({
           email: email,
           team: team._id,
