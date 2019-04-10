@@ -14,7 +14,7 @@
           <p class="member-name">{{member.name}}</p>
         </div>
         <div class="new-member-input">
-          <EmailBox v-for="invitation in team.invitations" :email="invitation.email" :editable="false"></EmailBox>
+          <EmailBox v-for="invitation in team.invitations" :key='invitation._id' :email="invitation.email" :editable="false"></EmailBox>
           <textarea
                   name="new-member-email-textarea"
                   class="new-member editable" rows="1"
