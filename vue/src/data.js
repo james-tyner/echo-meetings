@@ -81,6 +81,12 @@ let team_data = {
     ApiService.put(`/team/${id}`,
       { 'team': { 'description': description } })
   },
+  invite(id, emails) {
+    ApiService.post(`/team/${id}/invite`,
+      { 'emails': emails }).then(res => {
+        this.get();
+    })
+  }
 }
 
 export {ApiService, app_data, user_data, team_data}

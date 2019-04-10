@@ -2,7 +2,7 @@
   <div class="email-box">
     <div class="email-box__wrapper">
       <span class="email">{{ email }}</span>
-      <i class="material-icons email-delete" @click="onClickClose">close</i>
+      <i v-if="editable" class="material-icons email-delete" @click="onClickClose">close</i>
     </div>
   </div>
 </template>
@@ -11,7 +11,8 @@
 export default {
   name: "EmailBox",
   props: {
-    email: String
+    email: String,
+    editable: Boolean
   },
   methods: {
     onClickClose() {

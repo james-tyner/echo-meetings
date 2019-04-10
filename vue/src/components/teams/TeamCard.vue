@@ -13,7 +13,8 @@
           <div class="profile-photo" :style="{ 'background-image' : 'url(' + member.avatar + ')'}"></div>
           <p class="member-name">{{member.name}}</p>
         </div>
-        <div class="member new-member-input">
+        <div class="new-member-input">
+          <EmailBox v-for="invitation in team.invitations" :email="invitation.email" :editable="false"></EmailBox>
           <textarea
                   name="new-member-email-textarea"
                   class="new-member editable" rows="1"
@@ -57,13 +58,14 @@ export default {
       showAll: false,
       email_input_focused: false,
       email_input: '',
-      invitation_list: []
+      invitation_list: [],
+      emailbox_instances: []
     }
   },
   watch: {
     team: {
       handler: function (val, oldVal) {
-          this.debouncedUpdateDescription(val.description, oldVal.description)
+        this.debouncedUpdateDescription(val.description, oldVal.description)
       },
       deep: true
     }
@@ -84,14 +86,20 @@ export default {
       this.showAll = !this.showAll
     },
     updateDescription(description, old) {
-      if(old!==description)
-      console.log(description);
+      if (old !== description)
+        console.log(description);
       team_data.put(this.team._id, null, description)
     },
 
     addEmail() {
       const email = this.email_input;
       if (this.invitation_list.includes(email)) return;
+      for (const member of this.team.members) {
+        if (member.email === email) return;
+      }
+      for (const invitation of this.team.invitations) {
+        if (invitation.email === email) return;
+      }
       const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!email.match(regex)) return;
 
@@ -102,6 +110,7 @@ export default {
       const EmailBox_vue = Vue.extend(EmailBox);
       const emailBox = new EmailBox_vue({
         propsData: {
+          editable: true,
           email: email
         }
       });
@@ -110,6 +119,9 @@ export default {
       // add comp to dom
       this.$el.querySelector('.new-member-input')
         .insertBefore(emailBox.$el, this.$el.querySelector('.new-member-input textarea'));
+
+      this.emailbox_instances.push(emailBox);
+
       // clear
       this.email_input = '';
     },
@@ -121,14 +133,27 @@ export default {
           break;
         }
       }
+      for (let i = 0; i < this.emailbox_instances.length; i++) {
+        if (this.emailbox_instances[i].email === instance.email) {
+          this.emailbox_instances.splice(i, 1);
+          break;
+        }
+      }
       instance.$el.remove();
       instance.$destroy();
     },
 
     sendInvitation() {
       if (this.invitation_list.length < 0) return;
-      console.log(this.invitation_list);
-      // TODO send invitation from API
+      const ready_to_sent = this.invitation_list.slice(0);
+      for (const temp of this.emailbox_instances) {
+        temp.$el.remove();
+        temp.$destroy();
+      }
+      this.emailbox_instances = [];
+      this.invitation_list = [];
+      console.log(ready_to_sent);
+      team_data.invite(this.team._id, ready_to_sent)
     }
   }
 }
