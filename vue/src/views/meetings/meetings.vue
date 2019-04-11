@@ -14,11 +14,13 @@
 
     <section class="meeting-cards">
       <h2>Upcoming</h2>
-      <div v-if="this.upcomingFilteredMeetings.length == 0">
+      <div v-if="this.upcomingFilteredMeetings.length == 0" id="no-upcoming-meetings">
         No meetings coming up <span v-if="selectedTeam != ''">in {{selectedTeam}}</span>
       </div>
       <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
-        <MeetingCard v-bind:meeting="meeting"></MeetingCard>
+        <router-link :to="`/meeting/details/${meeting.id}`" class="dropdown-item">
+          <MeetingCard v-bind:meeting="meeting"></MeetingCard>
+        </router-link>
       </div>
     </section>
 
@@ -26,7 +28,9 @@
       <hr/>
       <h2>Past</h2>
       <div v-for="meeting in pastFilteredMeetings" class="mtg-card">
-        <MeetingCard v-bind:meeting="meeting"></MeetingCard>
+        <router-link :to="`/meeting/details/${meeting.id}`" class="dropdown-item">
+          <MeetingCard v-bind:meeting="meeting"></MeetingCard>
+        </router-link>
       </div>
     </section>
 
