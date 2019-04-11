@@ -44,6 +44,7 @@ import Vue from 'vue'
 import EmailBox from './EmailBox'
 import debounce from 'lodash.debounce'
 import {team_data} from "../../data";
+import SaveAnimation from "../SaveAnimation";
 
 export default {
   name: "team-card",
@@ -53,6 +54,9 @@ export default {
   components: {
     EmailBox
   },
+  mixins:[
+    SaveAnimation
+  ],
   data: function () {
     return {
       lastSavedDescription: this.team.description,
