@@ -25,4 +25,6 @@ yarn-error.log*
 *.sln
 *.sw*
 
-.env
+node/.env
+
+package-lock.json
