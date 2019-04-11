@@ -5,6 +5,10 @@
     <Header v-bind:pageName="app_data.page" v-if="app_data.page !== 'Login'"></Header>
 
     <router-view></router-view>
+
+    <div id="alert-modal">
+      <p></p>
+    </div>
   </div>
 </template>
 

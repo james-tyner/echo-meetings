@@ -14,7 +14,12 @@
           <p class="member-name">{{member.name}}</p>
         </div>
         <div class="new-member-input">
-          <EmailBox v-for="invitation in team.invitations" :key='invitation._id' :email="invitation.email" :editable="false"></EmailBox>
+          <EmailBox
+                  v-for="invitation in team.invitations"
+                  :key='invitation._id'
+                  :email="invitation.email"
+                  :editable="false"
+          ></EmailBox>
           <textarea
                   name="new-member-email-textarea"
                   class="new-member editable" rows="1"
@@ -45,6 +50,7 @@ import EmailBox from './EmailBox'
 import debounce from 'lodash.debounce'
 import {team_data} from "../../data";
 import SaveAnimation from "../SaveAnimation";
+import showAlert from "../ShowAlert";
 
 export default {
   name: "team-card",
@@ -54,7 +60,7 @@ export default {
   components: {
     EmailBox
   },
-  mixins:[
+  mixins: [
     SaveAnimation
   ],
   data: function () {
@@ -100,13 +106,22 @@ export default {
       const email = this.email_input;
       if (this.invitation_list.includes(email)) return;
       for (const member of this.team.members) {
-        if (member.email === email) return;
+        if (member.email === email) {
+          showAlert("red", `${email} is already in ${this.team.name}`, 2500);
+          return;
+        }
       }
       for (const invitation of this.team.invitations) {
-        if (invitation.email === email) return;
+        if (invitation.email === email) {
+          showAlert("red", `${email} has already been invited to ${this.team.name}`, 2500);
+          return;
+        }
       }
       const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (!email.match(regex)) return;
+      if (!email.match(regex)) {
+        showAlert("red", "That’s not a valid email address", 2500);
+        return;
+      }
 
       console.log('adding email ' + email);
       // add to list in data
