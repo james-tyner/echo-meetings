@@ -223,24 +223,6 @@ main {
   }
 }
 
-@keyframes slide-in {
-  0% {
-    transform: translateX(400px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-out {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(400px);
-  }
-}
-
 // PAGES
 @import 'pages/dashboard';
 @import 'pages/meetings';

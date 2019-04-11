@@ -1,0 +1,109 @@
+<html>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,700');
+
+    * {
+      font-family:"Rubik", sans-serif;
+      box-sizing:border-box;
+      text-align:center;
+    }
+
+    body {
+      background-color: #fcfcfc;
+      margin: 0;
+      text-align:center;
+    }
+
+    body > *:not(#title-logo){
+      padding-left:15px;
+      padding-right:15px;
+    }
+
+    h2 {
+      font-weight:700;
+      font-size:1.7em;
+    }
+
+    a, a * {
+      text-decoration:none;
+      color:inherit;
+    }
+
+    hr {
+      border:1px solid #EEEEEE;
+    }
+
+    #title-logo {
+      padding:10px;
+      background-color:#222222;
+      margin-bottom:40px;
+    }
+
+    #title-logo img {
+      height:50px;
+    }
+
+    #inviter-info * {
+      vertical-align:middle;
+    }
+
+    #inviter-info img {
+      height:1em;
+      border-radius:1em;
+      display:inline;
+      margin-right:0.5em;
+    }
+
+    #join-button {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 2.4em;
+      background-color: #00d9bd;
+      padding: 0.5em;
+      color:white;
+      font-weight:500;
+      font-size:1em;
+      border: none;
+      cursor: pointer;
+      width:70px;
+      margin:1.5em auto;
+    }
+
+    #join-button:hover {
+      color: #00d9bd;
+      background-color: white;
+    }
+
+    #spark {
+      height:20px;
+      margin:1em auto 2em auto;
+    }
+
+    small {
+      display:block;
+      color:#cccccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="title-logo">
+    <img src="https://test.jamestyner.com/echo-assets/logo@2x.png" alt="echo">
+  </div>
+  <h2>You’re invited to {{team.name}}</h2>
+  <div id="inviter-info"><img src="{{inviter.avatar}}" alt="{{inviter.name}}">{{inviter.name}} would like to collaborate on meetings with you.</div>
+  <p>Join echo using a Google account and the link below:</p>
+  <a href="{{invite_code}}" id="join-button-container"><div id="join-button">Join</div></a>
+
+  <hr>
+
+  <h3>What’s echo?</h3>
+  <p>echo is a tool for teams that meet infrequently. Use it to plan your next meeting and keep up with tasks between meetings.</p>
+
+  <img id="spark" src="https://test.jamestyner.com/echo-assets/Spark.png">
+
+  <small>You have to use the link included in this email to join {{team.name}}.</small>
+  <small>If the join button doesn’t work, you can copy and paste the link into your browser:</small>
+  <small>{{invite_code}}</small>
+
+</body>
+</html>
