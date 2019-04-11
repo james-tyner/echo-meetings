@@ -8,8 +8,8 @@
   box-sizing: border-box;
 
   *:link {
-    text-decoration:none;
-    color:inherit;
+    text-decoration: none;
+    color: inherit;
   }
 }
 
@@ -18,7 +18,7 @@
 }
 
 [contenteditable]:focus {
-    outline: 0px solid transparent;
+  outline: 0px solid transparent;
 }
 
 body {
@@ -92,12 +92,13 @@ nav#sidebar {
     }
   }
 }
+
 header {
   padding: 3vw 3vw 0 3vw;
   position: absolute;
   left: 18vw;
   top: 0;
-  width:82vw;
+  width: 82vw;
   z-index: 30;
 
   .page-title {
@@ -106,13 +107,13 @@ header {
 
   #save-animation {
     @include bodyFont;
-    float:right;
-    padding:0.8em;
-    color:$gray4;
-    display:none;
+    float: right;
+    padding: 0.8em;
+    color: $gray4;
+    display: none;
 
     img {
-      height:0.9em;
+      height: 0.9em;
     }
   }
 
@@ -198,16 +199,46 @@ main {
 #alert-modal {
   @include card-style;
   @include bodyFont;
-  padding:0.75em;
-  background-color:$gray4;
-  color:white;
-  position:fixed;
-  bottom:1.5em;
-  right:1.5em;
-  width:32%;
-  max-width:350px;
-  z-index:40;
-  display:none;
+  padding: 0.75em;
+  background-color: $gray4;
+  color: white;
+  position: fixed;
+  bottom: 1.5em;
+  right: 1.5em;
+  width: 32%;
+  max-width: 350px;
+  z-index: 40;
+  transform: translateX(400px);
+
+  &.in {
+    animation: slide-in .5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0, .71, .39, .99);
+  }
+
+  &.out {
+    animation: slide-out .8s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.05,.24,.13,.99);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(400px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(400px);
+  }
 }
 
 // PAGES
