@@ -95,11 +95,6 @@ export default {
       }
     }
   },
-  methods:{
-    filterTasks:function(teamName){
-      this.selectedTeam = teamName;
-    }
-  },
   data:function(){
     return{
       selectedTeam:"",

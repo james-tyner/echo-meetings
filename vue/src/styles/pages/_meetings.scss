@@ -303,22 +303,25 @@ a.filter-group {
 }
 
 .meeting-cards {
-	width:56vw;
-	margin:auto;
+
+	#no-upcoming-meetings {
+		margin-bottom:1.5em;
+		color:$gray2;
+	}
 
 	.mtg-card {
 		margin-bottom:1.5em;
 		display:flex;
 		align-items:center;
-		justify-content:right;
-		flex-wrap:nowrap;
+		flex-wrap:wrap;
 		position:relative;
 
 		.card {
-			width:75%;
+			width:50%;
+			min-width:350px;
+			max-width:560px;
 			cursor:pointer;
-			margin-left:auto;
-			opacity:0.4;
+			margin-right:auto;
 
 			&.centered {
 				width:85%;
@@ -340,6 +343,7 @@ a.filter-group {
 
 			.card-team {
 				margin-top:0;
+				text-transform:uppercase;
 			}
 
 			.card-heading {
@@ -350,9 +354,8 @@ a.filter-group {
 		.mtg-date {
 			text-align:left;
 			width:15%;
-			margin-left:2em;
 			@include detailsFont;
-			color:$gray2;
+			color:$gray3;
 		}
 	}
 }
