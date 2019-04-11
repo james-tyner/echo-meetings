@@ -22,6 +22,8 @@ const ApiService = {
   get(resource, slug = "") {
     console.log(`Sending GET ${resource}/${slug}`)
     return Vue.axios.get(`${resource}/${slug}`).catch(error => {
+      console.log(error);
+      showAlert("red", `Error: ${error.message}`);
       throw new Error(`ApiService ${error.message}`);
     });
   },
@@ -30,6 +32,7 @@ const ApiService = {
     console.log(`Sending POST ${resource}`, params)
     return Vue.axios.post(`${resource}`, params).catch(error => {
       console.log(error);
+      showAlert("red", `Error: ${error.message}`);
       throw new Error(`ApiService ${error.message}`);
     });
   },
@@ -37,6 +40,8 @@ const ApiService = {
   put(resource, params) {
     console.log(`Sending PUT ${resource}`, params)
     return Vue.axios.put(`${resource}`, params).catch(error => {
+      console.log(error);
+      showAlert("red", `Error: ${error.message}`);
       throw new Error(`ApiService ${error.message}`);
     });
   },
@@ -44,7 +49,9 @@ const ApiService = {
   delete(resource) {
     console.log(`Sending DELETE ${resource}`)
     return Vue.axios.delete(resource).catch(error => {
-      throw new Error(`ApiService ${error}`);
+      console.log(error);
+      showAlert("red", `Error: ${error}`);
+      throw new Error(`ApiService ${error.message}`);
     });
   }
 };
@@ -91,21 +98,22 @@ let team_data = {
   },
   create(name, description, color) {
     ApiService.post(`/team`,
-      { 'team': { 'name': name, 'description': description, 'color': color } })
+      {'team': {'name': name, 'description': description, 'color': color}})
       .then(() => {
-        showAlert("green",`${name} created`);
-        this.get();
+          showAlert("green", `${name} created`);
+          this.get();
         }
       )
   },
   put(id, name = null, description = null) {
     ApiService.put(`/team/${id}`,
-      { 'team': { 'description': description } })
+      {'team': {'description': description}})
   },
   invite(id, emails) {
     ApiService.post(`/team/${id}/invite`,
-      { 'emails': emails }).then(res => {
+      {'emails': emails}).then(res => {
       this.get();
+      showAlert("green", "Invitation sent");
     })
   }
 }

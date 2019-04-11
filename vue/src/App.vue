@@ -8,7 +8,6 @@
 
     <div id="alert-modal">
       <p></p>
-
     </div>
   </div>
 </template>
