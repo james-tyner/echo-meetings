@@ -1,5 +1,7 @@
 .idea/
 
+/node/build
+
 .DS_Store
 node_modules
 /vue/dist
@@ -23,4 +25,6 @@ yarn-error.log*
 *.sln
 *.sw*
 
-.env
+node/.env
+
+package-lock.json

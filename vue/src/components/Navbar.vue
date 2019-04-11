@@ -11,7 +11,7 @@
     <!-- bottom part -->
     <div class="profile">
       <!-- User Photo -->
-      <div id="profile-photo" :style="{ 'background-image': 'url(' + this.navData.avatar + ')' }"></div>
+      <div id="profile-photo" :style="{ 'background-image': 'url(' + this.user_data.avatar + ')' }"></div>
       <div id="profile-info">
         <!-- User Name -->
         <a href="#">{{this.firstName}}</a>
@@ -24,37 +24,38 @@
 </template>
 
 <script>
-import { data } from '../data'
+import {user_data, app_data} from '../data'
 import VueCookies from 'vue-cookies'
 
 export default {
   name: 'Navbar',
   data:function(){
-    let navData = data
     return {
-      navData
+      user_data: user_data,
+      app_data: app_data
     }
   },
   computed: {
     firstName:function(){
-      return this.navData.username.split(" ")[0]
+      return this.user_data.username.split(" ")[0]
     },
     currentDashboard: function () {
-      return this.navData.group == "dashboard"
+      return this.app_data.group === "dashboard"
     },
     currentMeetings: function () {
-      return this.navData.group == "meetings"
+      return this.app_data.group === "meetings"
     },
     currentTasks: function () {
-      return this.navData.group == "tasks"
+      return this.app_data.group === "tasks"
     },
     currentTeams: function () {
-      return this.navData.group == "teams"
+      return this.app_data.group === "teams"
     }
   },
   methods:{
     logout:function(){
       VueCookies.remove('token');
+      VueCookies.remove('invite');
       this.$router.push('login');
       // TODO: fully make this work (no back browsing)
     }

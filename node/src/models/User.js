@@ -6,10 +6,10 @@ const UserSchema = new mongoose.Schema({
   name: String,
   avatar: String,
   email: String
-}, {timestamps: true});
+}, { timestamps: true });
 
 
-UserSchema.methods.generateJWT = function() {
+UserSchema.methods.generateJWT = function () {
   const today = new Date();
   const exp = new Date(today);
   exp.setDate(today.getDate() + 60);
@@ -21,7 +21,7 @@ UserSchema.methods.generateJWT = function() {
   }, 'adlfkjas324jbdfadkjfas');
 };
 
-UserSchema.methods.toAuthJSON = function(){
+UserSchema.methods.toAuthJSON = function () {
   return {
     name: this.name,
     token: this.generateJWT()

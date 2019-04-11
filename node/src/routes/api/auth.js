@@ -1,3 +1,4 @@
+const log = require('../../util/log')
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -18,19 +19,18 @@ router.get('/google', passport.authenticate('google', {
 router.get('/google/redirect', (req, res, next) => {
     passport.authenticate('google', {}, (err, user, info) => {
       if (err) {
-        console.log(err);
+        log.error(err.stack);
         return;
       }
       if (!user) {
         res.json(info);
-        console.log('user not found');
+        log.error('User not found (This is not supposed to happen! Contact Mars.)');
       } else {
         user.token = user.generateJWT();
-        console.log('redirecting');
+        log.log('Redirecting to front end');
         const url = process.env.FRONT_URL + "?token=" + user.toAuthJSON().token;
         res.send('<body><script>location.href="' + url + '"</script></body>');
       }
-      console.log('end');
     })(req, res, next);
   }
 );
