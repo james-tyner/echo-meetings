@@ -107,19 +107,19 @@ export default {
       if (this.invitation_list.includes(email)) return;
       for (const member of this.team.members) {
         if (member.email === email) {
-          showAlert("red", "This member is already in this team", 2500);
+          showAlert("red", `${email} is already in ${this.team.name}`, 2500);
           return;
         }
       }
       for (const invitation of this.team.invitations) {
         if (invitation.email === email) {
-          showAlert("red", "This email was already invited", 2500);
+          showAlert("red", `${email} has already been invited to ${this.team.name}`, 2500);
           return;
         }
       }
       const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!email.match(regex)) {
-        showAlert("red", "Not a valid email", 2500);
+        showAlert("red", "That’s not a valid email address", 2500);
         return;
       }
 
