@@ -29,6 +29,10 @@
       color:inherit;
     }
 
+    hr {
+      border:1px solid #EEEEEE;
+    }
+
     #title-logo {
       padding:10px;
       width:calc(100%-40px);
@@ -57,18 +61,27 @@
       background-color: #00d9bd;
       padding: 0.5em;
       color:white;
-      font-weight:400;
+      font-weight:500;
       font-size:1em;
       border: none;
       cursor: pointer;
       width:70px;
-      margin:auto;
-      margin-top:2.5em;
+      margin:1.5em auto;
     }
 
     #join-button:hover {
       color: #00d9bd;
       background-color: white;
+    }
+
+    #spark {
+      height:20px;
+      margin:1em auto;
+    }
+
+    small {
+      display:block;
+      color:#cccccc;
     }
   </style>
 </head>
@@ -77,8 +90,20 @@
     <img src="https://test.jamestyner.com/echo-assets/logo@2x.png" alt="echo">
   </div>
   <h2>You’re invited to {{team.name}}</h2>
-  <div id="inviter-info"><img src="https://jamestyner.com/img/headshot@0,25x.png" alt="{{inviter.name}}">{{inviter.name}} would like to collaborate on meetings with you.</div>
-  <p>Join echo using the link below</p>
+  <div id="inviter-info"><img src="{{inviter.avatar}}" alt="{{inviter.name}}">{{inviter.name}} would like to collaborate on meetings with you.</div>
+  <p>Join echo using a Google account and the link below:</p>
   <a href="{{invite_code}}" id="join-button-container"><div id="join-button">Join</div></a>
+
+  <hr>
+
+  <h3>What’s echo?</h3>
+  <p>echo is a tool for teams that meet infrequently. Use it to plan your next meeting and keep up with tasks between meetings.</p>
+
+  <img id="spark" src="https://test.jamestyner.com/echo-assets/Spark.png">
+
+  <small>You have to use the link included in this email to join {{team.name}}.</small>
+  <small>If the join button doesn’t work, you can copy and paste the link into your browser:</small>
+  <small>{{invite_code}}</small>
+
 </body>
 </html>
