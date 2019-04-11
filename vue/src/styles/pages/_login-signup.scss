@@ -23,7 +23,7 @@
   }
 
   .bg-window {
-    width: 50%;
+    width: 40%;
     background-image: url("../public/assets/signup-background.svg");
     background-position: center;
     background-size: cover;
@@ -33,6 +33,10 @@
       padding-top: calc(50vh - 100px);
       text-align: center;
       color: white;
+
+      #google {
+        height: 50px;
+      }
 
       .prompt-button {
         display: block;
@@ -66,11 +70,13 @@
       color: $gray4;
     }
 
-    #google {
-      height: 50px;
+    #image-1{
+      width: 60%;
+      float: right;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     }
+    
   }
-
   a {
     text-decoration: none;
   }
