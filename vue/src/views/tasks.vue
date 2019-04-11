@@ -20,11 +20,11 @@
             <div class="num-circle">{{notStartedTasks.length}}</div>
             <h2>Not Started</h2>
           </div>
-          <section class="task-list">
+          <draggable class="task-list" v-model="notStartedTasks" group="tasks" v-on:start="select" v-on:add="addTask(1)">
             <div v-for="task in notStartedTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
             </div>
-          </section>
+          </draggable>
         </div> <!-- #not-started -->
 
         <div class="task-column">
@@ -32,11 +32,11 @@
             <div class="num-circle">{{inProgressTasks.length}}</div>
             <h2>In Progress</h2>
           </div>
-          <section class="task-list">
+          <draggable class="task-list" v-model="inProgressTasks" group="tasks" v-on:start="select" v-on:add="addTask(2)">
             <div v-for="task in inProgressTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
             </div>
-          </section>
+          </draggable>
         </div> <!-- #in-progress -->
 
         <div class="task-column">
@@ -44,11 +44,11 @@
             <div class="num-circle">{{completedTasks.length}}</div>
             <h2>Complete</h2>
           </div>
-          <section class="task-list">
+          <draggable class="task-list" v-model="completedTasks" group="tasks" v-on:start="select" v-on:add="addTask(3)">
             <div v-for="task in completedTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
             </div>
-          </section>
+          </draggable>
         </div> <!-- #complete -->
 
         <div class="clear-float"></div>
@@ -61,10 +61,25 @@
 window.moment = require('moment'); // for use on TaskCard component
 
 import TaskCard from "../components/tasks/TaskCard.vue"
+import draggable from "vuedraggable"
+
 export default {
   name: 'tasks',
   components:{
-    TaskCard
+    TaskCard,
+    draggable
+  },
+  methods:{
+    select:function(evt){
+      this.draggedElement = evt.item._underlying_vm_.id;
+      console.log(this.draggedElement);
+    },
+    addTask:function(status){
+      console.log("status " + status);
+      let movedTask = this.fakeTasks.find(task => task["id"] == this.draggedElement);
+      console.log(movedTask);
+      movedTask.status = status;
+    }
   },
   computed:{
     notStartedTasks:function(){
@@ -98,6 +113,7 @@ export default {
   data:function(){
     return{
       selectedTeam:"",
+      draggedElement:null,
       fakeTasks:[
         {
           "id": 1,

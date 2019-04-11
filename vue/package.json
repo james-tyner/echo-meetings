@@ -14,7 +14,8 @@
     "vue": "^2.6.6",
     "vue-axios": "^2.1.4",
     "vue-cookies": "^1.5.13",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vuedraggable": "^2.20.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
