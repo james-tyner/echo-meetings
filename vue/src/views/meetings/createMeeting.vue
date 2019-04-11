@@ -75,6 +75,7 @@ export default {
           "username": "mars.tanjx",
           "email": "jianxuat@usc.edu",
           "image": null
+        }]
       }, {
         "id": 3,
         "name": "SOCCER CLUB",
@@ -86,8 +87,8 @@ export default {
           "username": "mars.tanjx",
           "email": "jianxuat@usc.edu",
           "image": null
-      }],
-
+        }]
+      }]
     }
   }
 }

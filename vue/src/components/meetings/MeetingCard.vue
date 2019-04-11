@@ -1,11 +1,10 @@
 <template>
   <div class="card" v-bind:class="colorBand">
     <h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{meeting.team.name}}</h3>
-    <h2 class="card-heading" v-on:click="toggle()">{{meeting.name}}</h2>
+    <h2 class="card-heading" v-on:click="toggle()">{{meeting.title}}</h2>
     <p class="mtg-date"> {{humanDate}}</p>
-    
-    <!-- Need to send user to meeting details page on click -->
 
+    <!-- Need to send user to meeting details page on click -->
   </div>
 </template>
 

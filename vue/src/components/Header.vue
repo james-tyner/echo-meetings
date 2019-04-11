@@ -16,18 +16,13 @@
 
     <!-- Filter bars must go below the heading -->
       <!-- Meetings -->
-      <div v-if="pageName == 'Meetings'" class="filter-bar">
-        <p>Filter by group:</p>
-        <a class="filter-group" href="meeting1A.php">All</a>
-        <a class="filter-group" href="meeting1A_2.php">ITP 460</a>
-        <a class="filter-group" href="meeting1A_3.php">WRIT 340</a>
-        <a class="filter-group" href="meeting1A_4.php">SOCCER CLUB</a>
-      </div>
+      <!-- <FilterBar v-if="pageName == 'Meetings'"></FilterBar> -->
 
   </header>
 </template>
 
 <script>
+
 export default {
   name: 'Header',
   computed: {
