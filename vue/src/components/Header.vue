@@ -12,6 +12,11 @@
         <router-link to="meetings/add"><i class="material-icons"> add </i></router-link>
       </div>
 
+    <!-- Save animation icon (must stay above heading) -->
+    <div id="save-animation">
+      Saved <img src="/assets/Spark.svg">
+    </div>
+
     <h1 class="page-title">{{pageName}}</h1>
 
     <!-- Filter bars must go below the heading -->

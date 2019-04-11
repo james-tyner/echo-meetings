@@ -20,11 +20,16 @@
 </template>
 
 <script>
+  import SaveAnimation from "../SaveAnimation";
+
   export default {
     name:"team-card",
     props:{
       team:Object
     },
+    mixins:[
+      SaveAnimation
+    ],
     computed:{
       colorBand:function(){
         return (this.team.color + '-color-band')
