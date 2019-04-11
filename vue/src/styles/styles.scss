@@ -97,6 +97,7 @@ header {
   position: absolute;
   left: 18vw;
   top: 0;
+  width:82vw;
   z-index: 30;
 
   .page-title {
@@ -106,9 +107,9 @@ header {
   #save-animation {
     @include bodyFont;
     float:right;
-    padding:calc((2.5em - 0.9em)/2);
-    opacity:0;
+    padding:0.8em;
     color:$gray4;
+    display:none;
 
     img {
       height:0.9em;
@@ -119,16 +120,15 @@ header {
     position: fixed;
     top: 0;
     background-color: $bgGray;
-    width: 82vw;
 
-    &::after {
-      content: "";
-      background-image: linear-gradient($bgGray, transparent);
-      position: absolute;
-      bottom: -1em;
-      height: 1em;
-      width: 100%;
-    }
+    // &::after {
+    //   content: "";
+    //   background-image: linear-gradient($bgGray, transparent);
+    //   position: absolute;
+    //   bottom: -1em;
+    //   height: 1em;
+    //   width: 100%;
+    // }
   }
 }
 
