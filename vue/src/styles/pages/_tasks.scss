@@ -70,6 +70,10 @@ hr {
       color: $gray3;
     }
   }
+
+  .task-list {
+    min-height:150px;
+  }
 }
 
 #kanban .card {
