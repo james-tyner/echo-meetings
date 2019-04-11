@@ -3,6 +3,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueCookies from 'vue-cookies'
 
+import showAlert from "./components/ShowAlert"
+
 
 const ApiService = {
   init() {
@@ -91,7 +93,8 @@ let team_data = {
     ApiService.post(`/team`,
       { 'team': { 'name': name, 'description': description, 'color': color } })
       .then(() => {
-          this.get();
+        showAlert("green",`${name} created`);
+        this.get();
         }
       )
   },
