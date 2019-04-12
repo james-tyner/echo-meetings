@@ -12,9 +12,35 @@
       </div>
       <div class="input-window">
          <div id="input-container">
+            <div class="row">
+              <div class="text">
+                <p class="heading3"> Plan Meetings</p>
+                <p>Plan ahead your meetings and see them all in one place.</p>
+              </div>
+              <div><img src="/assets/meetings.png" class="card-shadow" id="image-1">
+              </div>
+            </div> <!-- end of row-1 -->
 
-          <h2 class="heading2"> Plan Meetings</h2>
-          <img src="/assets/meetings.png" class="card-shadow" id="image-1">
+            <div class="row">
+              <div>
+                <img src="/assets/meetings.png" class="card-shadow" id="image-1">
+              </div>
+              <div class="text">
+                <p class="heading3"> Plan Meetings</p>
+                <p>Plan ahead your meetings and see them all in one place.</p>
+              </div>
+            </div> <!-- end of row-2 -->
+
+            <div class="row">
+              <div class="text">
+                <p class="heading3"> Plan Meetings</p>
+                <p>Plan ahead your meetings and see them all in one place.</p>
+              </div>
+              <div><img src="/assets/meetings.png" class="card-shadow" id="image-1">
+              </div>
+            </div> <!-- end of row-3 -->
+          
+          
          </div>
       </div>
     </div>

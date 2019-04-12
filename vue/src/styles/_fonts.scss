@@ -17,6 +17,11 @@
   font-size:1.7em;
 }
 
+@mixin heading3 {
+  font-weight:500;
+  font-size:1.7em;
+}
+
 @mixin itemHeading {
   font-weight:500;
   font-size:1em; // 1em here = 14px on Figma
