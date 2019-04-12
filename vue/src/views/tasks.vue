@@ -62,6 +62,7 @@ window.moment = require('moment'); // for use on TaskCard component
 
 import TaskCard from "../components/tasks/TaskCard.vue"
 import draggable from "vuedraggable"
+import AnimateSave from "../components/SaveAnimation"
 
 export default {
   name: 'tasks',
@@ -69,6 +70,7 @@ export default {
     TaskCard,
     draggable
   },
+  mixins:[AnimateSave],
   methods:{
     select:function(evt){
       this.draggedElement = evt.item._underlying_vm_.id;
@@ -79,6 +81,7 @@ export default {
       let movedTask = this.fakeTasks.find(task => task["id"] == this.draggedElement);
       console.log(movedTask);
       movedTask.status = status;
+      this.animateSave();
     }
   },
   computed:{
