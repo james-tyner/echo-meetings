@@ -7,6 +7,8 @@ const Meeting = mongoose.model('Meeting');
 
 const auth = require('../auth');
 
+const MEETING_NONEXISTENT_MSG = "Meeting does not exist, or user doesn't have permission to access this meeting";
+
 // always perform auth check
 router.use(auth.required, async function (req, res, next) {
   User.findById(req.payload.id).then(function (user) {
@@ -95,5 +97,35 @@ router.post("/", async (req, res, next) => {
     });
   });
 });
+
+
+// update a meeting
+
+
+
+// delete a meeting
+router.delete("/:m_id", async (req, res) => {
+  const user = req.locals.user;
+  Meeting.findOneAndDelete({_id: req.params['m_id'], invitees: mongoose.Types.ObjectId(user.id)})
+    .then(function (meeting) {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG
+          }
+        });
+      } else {
+        log.log(`Meeting (${meeting.name}) deleted`);
+        res.json({meeting});
+      }
+    }).catch(function () {
+    return res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG
+      }
+    });
+  })
+});
+
 
 module.exports = router;
