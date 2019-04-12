@@ -1,4 +1,3 @@
-
 const log = require('../../util/log')
 const router = require('express').Router();
 const mongoose = require('mongoose');
@@ -45,10 +44,10 @@ router.post("/", async (req, res, next) => {
     });
   }
   // required fields: title, time, team
-  if (!req_meeting.title) {
+  if (!req_meeting.name) {
     return res.status(422).json({
       errors: {
-        message: "title can't be blank"
+        message: "name can't be blank"
       }
     });
   }
@@ -68,7 +67,7 @@ router.post("/", async (req, res, next) => {
   }
   // build the meeting
   const meeting = new Meeting();
-  meeting.title = req_meeting.title;
+  meeting.name = req_meeting.name;
   meeting.time = req_meeting.time;
   meeting.team = req_meeting.team;
   // only update fields that were actually passed...
@@ -76,13 +75,25 @@ router.post("/", async (req, res, next) => {
     meeting.location = req_meeting.location
   }
   // add invitees to the team
-  meeting.invitees = [];
-  // TODO
+  if (typeof req_meeting.invitees !== 'undefined') {
+    meeting.invitees = req_meeting.invitees
+  }
 
+  // this will perform validation of team and members
   meeting.save().then(() => {
     log.log(`Meeting (${meeting.name}) created`);
     return res.json({meeting: meeting});
-  }).catch(next);
+  }).catch((err) => {
+    // condense error messages
+    let message = '';
+    for (const single_error in err.errors) {
+      if (err.errors.hasOwnProperty(single_error))
+        message += err.errors[single_error].message + ' '
+    }
+    return res.status(422).json({
+      errors: {message}
+    });
+  });
 });
 
 module.exports = router;

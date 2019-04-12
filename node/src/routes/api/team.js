@@ -165,7 +165,7 @@ router.post('/:t_id/invite', async (req, res) => {
 
         const msg = {
           "from": {
-            "name": "Mars Tan",
+            "name": "echo",
             "email": "jianxuat@usc.edu"
           },
           "personalizations": [
