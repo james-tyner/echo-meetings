@@ -10,7 +10,7 @@ const AgendaSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 const MeetingSchema = new mongoose.Schema({
-  name: String,
+  title: String,
   time: Date,
   location: String,
   invitees: [{

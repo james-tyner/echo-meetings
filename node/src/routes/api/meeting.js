@@ -27,8 +27,8 @@ router.get("/", async (req, res) => {
   const user = req.locals.user;
   Meeting.find({invitees: user.id})
     .populate('invitees').populate('agendas')
-    .then((teams) => {
-      res.json({"meetings": teams});
+    .then((meetings) => {
+      res.json({meetings});
     });
 });
 
@@ -46,10 +46,10 @@ router.post("/", async (req, res, next) => {
     });
   }
   // required fields: title, time, team
-  if (!req_meeting.name) {
+  if (!req_meeting.title) {
     return res.status(422).json({
       errors: {
-        message: "name can't be blank"
+        message: "title can't be blank"
       }
     });
   }
@@ -69,21 +69,21 @@ router.post("/", async (req, res, next) => {
   }
   // build the meeting
   const meeting = new Meeting();
-  meeting.name = req_meeting.name;
+  meeting.title = req_meeting.title;
   meeting.time = req_meeting.time;
   meeting.team = req_meeting.team;
   // only update fields that were actually passed...
   if (typeof req_meeting.location !== 'undefined') {
     meeting.location = req_meeting.location
   }
-  // add invitees to the team
+  // add invitees to the meeting
   if (typeof req_meeting.invitees !== 'undefined') {
     meeting.invitees = req_meeting.invitees
   }
 
   // this will perform validation of team and members
   meeting.save().then(() => {
-    log.log(`Meeting (${meeting.name}) created`);
+    log.log(`Meeting (${meeting.title}) created`);
     return res.json({meeting: meeting});
   }).catch((err) => {
     // condense error messages
@@ -115,7 +115,7 @@ router.delete("/:m_id", async (req, res) => {
           }
         });
       } else {
-        log.log(`Meeting (${meeting.name}) deleted`);
+        log.log(`Meeting (${meeting.title}) deleted`);
         res.json({meeting});
       }
     }).catch(function () {
