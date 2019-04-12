@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   googleid: String,
   name: String,
   avatar: String,
-  email: String
+  email: String,
 }, { timestamps: true });
 
 
@@ -14,6 +14,7 @@ UserSchema.methods.generateJWT = function () {
   const exp = new Date(today);
   exp.setDate(today.getDate() + 60);
 
+  // TODO exp
   return jwt.sign({
     id: this._id,
     name: this.name,
@@ -24,7 +25,7 @@ UserSchema.methods.generateJWT = function () {
 UserSchema.methods.toAuthJSON = function () {
   return {
     name: this.name,
-    token: this.generateJWT()
+    token: this.generateJWT(),
   };
 };
 

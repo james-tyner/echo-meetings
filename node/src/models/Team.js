@@ -5,7 +5,7 @@ const TeamSchema = new mongoose.Schema({
   description: String,
   color: String,
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  invitations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Invitation' }]
-}, {timestamps: true});
+  invitations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Invitation' }],
+}, { timestamps: true });
 
 mongoose.model('Team', TeamSchema);
