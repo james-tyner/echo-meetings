@@ -1,11 +1,11 @@
-const log = require('../../util/log')
-const router = require('express').Router();
-const mongoose = require('mongoose');
-const Team = mongoose.model('Team');
-const User = mongoose.model('User');
-const Meeting = mongoose.model('Meeting');
+const log = require("../../util/log")
+const router = require("express").Router();
+const mongoose = require("mongoose");
+const Team = mongoose.model("Team");
+const User = mongoose.model("User");
+const Meeting = mongoose.model("Meeting");
 
-const auth = require('../auth');
+const auth = require("../auth");
 
 const MEETING_NONEXISTENT_MSG = "Meeting does not exist, or user doesn't have permission to access this meeting";
 
@@ -23,7 +23,7 @@ router.use(auth.required, async function (req, res, next) {
 
 
 // Get all Meetings
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const user = req.locals.user;
   Meeting.find({invitees: user.id})
     .populate('invitees').populate('agendas')
@@ -34,14 +34,14 @@ router.get("/", async (req, res) => {
 
 
 // Create a Meeting
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const user = req.locals.user;
   log.log('Creating a meeting');
   const req_meeting = req.body.meeting;
   if (!req_meeting) {
     return res.status(422).json({
       errors: {
-        message: "no meeting field"
+        message: 'no meeting field'
       }
     });
   }
@@ -77,8 +77,20 @@ router.post("/", async (req, res, next) => {
     meeting.location = req_meeting.location
   }
   // add invitees to the meeting
+  meeting.invitees = []
   if (typeof req_meeting.invitees !== 'undefined') {
     meeting.invitees = req_meeting.invitees
+  }
+  // don't forget to add the creator
+  let contains = false;
+  for (const temp_id of meeting.invitees) {
+    if (user._id.equals(temp_id)) {
+      contains = true;
+      break;
+    }
+  }
+  if (!contains) {
+    meeting.invitees.push(user._id)
   }
 
   // this will perform validation of team and members
@@ -100,11 +112,63 @@ router.post("/", async (req, res, next) => {
 
 
 // update a meeting
+router.put('/:m_id', auth.required, async (req, res) => {
+  const user = req.locals.user;
+  Meeting.findOne({_id: req.params['m_id'], invitees: mongoose.Types.ObjectId(user.id)})
+    .then(function (meeting) {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG
+          }
+        });
+      }
+      const req_meeting = req.body.meeting;
+      // Optional fields: title, time, location, invitees
+      // only update fields that were actually passed...
+      if (typeof req_meeting.title !== 'undefined') {
+        meeting.title = req_meeting.title
+      }
+      if (typeof req_meeting.time !== 'undefined') {
+        meeting.time = req_meeting.time
+      }
+      if (typeof req_meeting.location !== 'undefined') {
+        meeting.location = req_meeting.location
+      }
+      // TODO what if all invitees are removed. No one will be able to access this team
+      // Memory leak dangerous!
+      if (typeof req_meeting.invitees !== 'undefined') {
+        meeting.invitees = req_meeting.invitees
+      }
 
+      // will perform validation
+      meeting.save().then(() => {
+        log.log(`Meeting (${meeting.title}) modified`);
+        return res.json({meeting});
+      }).catch(function (err) {
+        // condense error messages
+        let message = '';
+        for (const single_error in err.errors) {
+          if (err.errors.hasOwnProperty(single_error))
+            message += err.errors[single_error].message + ' '
+        }
+        return res.status(422).json({
+          errors: {message}
+        });
+      })
+
+    }).catch(function () {
+    return res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG
+      }
+    });
+  })
+});
 
 
 // delete a meeting
-router.delete("/:m_id", async (req, res) => {
+router.delete('/:m_id', async (req, res) => {
   const user = req.locals.user;
   Meeting.findOneAndDelete({_id: req.params['m_id'], invitees: mongoose.Types.ObjectId(user.id)})
     .then(function (meeting) {

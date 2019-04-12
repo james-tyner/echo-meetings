@@ -46,7 +46,7 @@ require('./models/Invitation');
 
 // express
 
-let express = require("express");
+let express = require('express');
 let cors = require('cors');
 let bodyParser = require('body-parser');
 
