@@ -125,11 +125,11 @@ let team_data = {
 }
 
 let meeting_data = {
-  all_meetings: {},
+  all_meetings: [],
   meeting: {
     get() {
       ApiService.get('/meeting').then(res => {
-        this.all_meetings = res.data.teams;
+        meeting_data.all_meetings = res.data.meetings;
       })
     },
     create(title, time, team, location = '', invitees) {
@@ -178,4 +178,4 @@ let meeting_data = {
   }
 }
 
-export { ApiService, app_data, user_data, team_data }
+export { ApiService, app_data, user_data, team_data, meeting_data }

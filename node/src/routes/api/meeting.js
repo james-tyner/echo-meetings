@@ -26,7 +26,7 @@ router.use(auth.required, async (req, res, next) => {
 router.get('/', async (req, res) => {
   const { user } = req.locals;
   Meeting.find({ invitees: user.id })
-    .populate('invitees')
+    .populate('invitees').populate('team')
     .then((meetings) => {
       res.json({ meetings });
     });
