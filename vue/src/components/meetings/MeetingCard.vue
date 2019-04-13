@@ -2,7 +2,8 @@
   <div class="card" v-bind:class="colorBand">
     <h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{meeting.team.name}}</h3>
     <h2 class="card-heading" v-on:click="toggle()">{{meeting.title}}</h2>
-    <p class="mtg-date">{{humanDate}}</p>
+    <p v-if="showHumanDate" v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{humanDate}}</p>
+    <p v-else v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{fullDate}}</p>
 
     <!-- Need to send user to meeting details page on click -->
   </div>
@@ -47,16 +48,25 @@ export default {
       }
 
       return dateFormatted;
+    },
+    fullDate:function(){
+      var meetingTime = new Date(this.meeting.time);
+      meetingTime = moment(meetingTime).format('MMM. D, YYYY [at] h:mm a')
+      return meetingTime;
     }
   },
   methods: {
     toggle() {
       this.showAll = !this.showAll
+    },
+    swapDates(){
+      this.showHumanDate = !this.showHumanDate
     }
   },
   data: function () {
     return {
-      showAll: false
+      showAll: false,
+      showHumanDate:true
     }
   }
 }
