@@ -23,7 +23,7 @@ const ApiService = {
     console.log(`Sending GET ${resource}/${slug}`)
     return Vue.axios.get(`${resource}/${slug}`).catch(error => {
       console.log(error);
-      showAlert("red", `Error: ${error.message}`);
+      showAlert("red", `Error: ${error.message} (${error.response.data.errors.message})`);
       throw new Error(`ApiService ${error.message}`);
     });
   },
@@ -32,7 +32,7 @@ const ApiService = {
     console.log(`Sending POST ${resource}`, params)
     return Vue.axios.post(`${resource}`, params).catch(error => {
       console.log(error);
-      showAlert("red", `Error: ${error.message}`);
+      showAlert("red", `Error: ${error.message} (${error.response.data.errors.message})`);
       throw new Error(`ApiService ${error.message}`);
     });
   },
@@ -41,7 +41,7 @@ const ApiService = {
     console.log(`Sending PUT ${resource}`, params)
     return Vue.axios.put(`${resource}`, params).catch(error => {
       console.log(error);
-      showAlert("red", `Error: ${error.message}`);
+      showAlert("red", `Error: ${error.message} (${error.response.data.errors.message})`);
       throw new Error(`ApiService ${error.message}`);
     });
   },
@@ -50,8 +50,8 @@ const ApiService = {
     console.log(`Sending DELETE ${resource}`)
     return Vue.axios.delete(resource).catch(error => {
       console.log(error);
-      showAlert("red", `Error: ${error}`);
-      throw new Error(`ApiService ${error.message}`);
+      showAlert("red", `Error: ${error.message} (${error.response.data.errors.message})`);
+      throw new Error(`ApiService ${error.response.data}`);
     });
   }
 };

@@ -51,14 +51,16 @@
         </div>
       </div>
 
-      <button class="submit-button" type="button">Create Meeting</button>
+      <button @click="onCreateMeeting" class="submit-button" type="button">Create Meeting</button>
     </section>
   </main>
 </template>
 
 <script>
-import { team_data } from "../../data";
+import { team_data, meeting_data } from "../../data";
 import TeamSearch from "../../components/meetings/TeamSearchItem"
+import showAlert from "../../components/ShowAlert"
+import moment from 'moment'
 
 export default {
   name: 'add-team',
@@ -83,6 +85,23 @@ export default {
     getLabel(item) {
       if (!item) return ''
       return item.name
+    },
+    onCreateMeeting() {
+      if (!this.title) {
+        showAlert('red', 'Title cannot be empty', 2500);
+        return;
+      }
+      if (!this.team) {
+        showAlert('red', 'You must choose a team', 2500);
+        return;
+      }
+      if (!this.time || !this.date) {
+        showAlert('red', 'You must pick a time', 2500);
+        return;
+      }
+      const timestamp = moment(`${this.date} ${this.time}`).valueOf();
+      meeting_data.meeting.create(this.title, timestamp, this.team._id, this.location, []);
+      this.$router.push('../meetings')
     }
   }
 }
