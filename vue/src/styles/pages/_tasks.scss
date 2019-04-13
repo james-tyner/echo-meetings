@@ -70,11 +70,16 @@ hr {
       color: $gray3;
     }
   }
+
+  .task-list {
+    min-height:150px;
+  }
 }
 
 #kanban .card {
    margin-bottom: 1em;
    cursor:move;
+   background-color:white;
 
    .card-team {
      @include detailsFont;
