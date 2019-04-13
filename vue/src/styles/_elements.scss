@@ -130,13 +130,47 @@
   font-weight:500;
   color: $gray3;
   height: 50px;
-  display:inline-flex;
-  align-items:center;
-  position:sticky;
+
+  .filter-title {
+    float:left;
+    height:50px;
+    display:flex;
+    align-items:center;
+    margin-right:1.5em;
+  }
+
+  #options {
+    display:flex;
+    flex-wrap:nowrap;
+    height:50px;
+    align-items:center;
+    overflow:auto;
+  }
 
   .filter-group {
     text-transform:uppercase;
     cursor:pointer;
+    border-radius: 30px;
+  	font-style: normal;
+  	font-size: 12px;
+  	text-align: center;
+  	background: $gray1;
+  	color: $gray3;
+  	padding: 10px 24px 10px 24px;
+  	border: 0px;
+  	display: inline-block;
+  	margin: 0px 5px 0px 5px;
+  	text-decoration: none;
+    white-space:nowrap;
+
+  	&:focus {
+  		outline: none;
+  	}
+
+  	&.selected {
+  		background: $gray3;
+  		color: $bgGray;
+  	}
   }
 }
 
