@@ -84,8 +84,9 @@ export default {
         futureMeetings.sort(compare);
         return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
+        let futureMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
         futureMeetings.sort(compare);
-        return this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
+        return futureMeetings;
       }
     },
     pastFilteredMeetings: function () {
@@ -95,12 +96,13 @@ export default {
       const now = Date.now();
 
       if (chosenTeam !== "") {
-        let futureMeetings = filteredMeetings.filter(meeting => meeting.time <= now)
-        futureMeetings.sort(compare);
-        return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
+        let pastMeetings = filteredMeetings.filter(meeting => meeting.time <= now)
+        pastMeetings.sort(compare);
+        return pastMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
-        futureMeetings.sort(compare);
-        return this.meeting_data.all_meetings.filter(meeting => meeting.time <= now);
+        let pastMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time <= now);
+        pastMeetings.sort(compare);
+        return pastMeetings
       }
     }
   },

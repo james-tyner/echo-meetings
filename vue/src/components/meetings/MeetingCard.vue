@@ -23,16 +23,41 @@ export default {
       return (this.meeting.team.color)
     },
     humanDate: function () {
-      Date.prototype.monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      Date.prototype.getMonthName = function () {
-        return this.monthNames[this.getMonth()];
-      };
+      // Date.prototype.monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      // Date.prototype.getMonthName = function () {
+      //   return this.monthNames[this.getMonth()];
+      // };
+      //
+      // var date = new Date(this.meeting.time);
+      // var month = date.getMonthName();
+      // var day = date.getDate();
+      // var fullDate = month + ' ' + day;
+      // return fullDate;
 
-      var date = new Date(this.meeting.time);
-      var month = date.getMonthName();
-      var day = date.getDate();
-      var fullDate = month + ' ' + day;
-      return fullDate;
+      var now = Date.now();
+      var meetingTime = new Date(this.meeting.time);
+      var dateDiff = Math.abs(now - meetingTime.getTime());
+
+      dateDiff = Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
+
+      var meetingTimeYear = moment(meetingTime).format('YY');
+      var thisYear = moment(now).format('YY');
+
+      var dateFormatted;
+      // if date is less than two weeks from now, say as "days from now" or "in XX days"
+      // if date is more than two weeks from now, list month and day
+      // if date is not in this year, list with year
+      if (dateDiff > 14){
+        if (meetingTimeYear != thisYear) {
+          dateFormatted = moment(meetingTime).format('MMM D, YYYY');
+        } else {
+          dateFormatted = moment(meetingTime).format('MMM D');
+        }
+      } else {
+        dateFormatted = moment(meetingTime).fromNow();
+      }
+
+      return dateFormatted;
     }
   },
   methods: {
