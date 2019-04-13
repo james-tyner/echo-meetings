@@ -125,6 +125,21 @@
   }
 }
 
+#filterbar {
+  font-size:0.8em;
+  font-weight:500;
+  color: $gray3;
+  height: 50px;
+  display:inline-flex;
+  align-items:center;
+  position:sticky;
+
+  .filter-group {
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+}
+
 #person-search {
   display:flex;
   align-items:center;
