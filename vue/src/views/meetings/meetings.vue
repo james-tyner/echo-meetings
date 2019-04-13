@@ -20,7 +20,7 @@
         No meetings coming up <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span>
       </div>
       <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
-        <router-link :to="`/meeting/details/${meeting._id}`" class="dropdown-item">
+        <router-link :to="`/meetings/details/${meeting._id}`" class="dropdown-item">
           <MeetingCard v-bind:meeting="meeting"></MeetingCard>
         </router-link>
       </div>
@@ -30,7 +30,7 @@
       <hr/>
       <h2>Past</h2>
       <div v-for="meeting in pastFilteredMeetings" class="mtg-card">
-        <router-link :to="`/meeting/details/${meeting._id}`" class="dropdown-item">
+        <router-link :to="`/meetings/details/${meeting._id}`" class="dropdown-item">
           <MeetingCard v-bind:meeting="meeting"></MeetingCard>
         </router-link>
       </div>

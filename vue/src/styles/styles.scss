@@ -83,6 +83,7 @@ nav#sidebar {
           padding-top: 0.1em;
           color: $red;
           font-weight: 400;
+          cursor:pointer;
 
           &:hover {
             color: $red * 0.7;

@@ -58,9 +58,10 @@ const router = new VueRouter({
     }, {
       path:"/meetings/details/:id",
       component:MeetingDetails,
-      name:"",
+      props:true,
+      name:"Test",
       meta: {
-        title:"",
+        title:"Test",
         group:"meetings"
       }
     }, {
