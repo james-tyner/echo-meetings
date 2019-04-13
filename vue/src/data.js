@@ -98,24 +98,84 @@ let team_data = {
   },
   create(name, description, color) {
     ApiService.post(`/team`,
-      {'team': {'name': name, 'description': description, 'color': color}})
+      { team: { name, description, color } })
       .then(() => {
           showAlert("green", `${name} created`);
           this.get();
         }
       )
   },
-  put(id, name = null, description = null) {
+  update(id, name = null, description = null) {
     ApiService.put(`/team/${id}`,
-      {'team': {'description': description}})
+      { team: { description } })
+  },
+  delete(id) {
+    ApiService.delete(`/team/${id}`, {}).then(res => {
+      this.get();
+      showAlert("green", "Team deleted");
+    })
   },
   invite(id, emails) {
     ApiService.post(`/team/${id}/invite`,
-      {'emails': emails}).then(res => {
+      { 'emails': emails }).then(res => {
       this.get();
       showAlert("green", "Invitation sent");
     })
   }
 }
 
-export {ApiService, app_data, user_data, team_data}
+let meeting_data = {
+  all_meetings: {},
+  meeting: {
+    get() {
+      ApiService.get('/meeting').then(res => {
+        this.all_meetings = res.data.teams;
+      })
+    },
+    create(title, time, team, location = '', invitees) {
+      ApiService.post(`/meeting`,
+        { 'meeting': { title, time, team, location, invitees } })
+        .then(() => {
+            showAlert("green", `${title} created`);
+            this.get();
+          }
+        )
+    },
+    update(id, title = null, time = null, location = null, invitees = null) {
+      const req = {};
+      if (title) req.title = title;
+      if (time) req.time = time;
+      if (location) req.location = location;
+      if (invitees) req.invitees = invitees;
+      ApiService.put(`/meeting/${id}`,
+        { 'meeting': req })
+    },
+    delete(id) {
+      ApiService.delete(`/meeting/${id}`, {})
+    }
+  },
+  agenda: {
+    create(meeting_id, title, description = '', notes = '') {
+      ApiService.post(`/meeting/${meeting_id}/agenda`,
+        { 'agenda': { title, description, notes } })
+        .then(() => {
+            showAlert("green", `${title} created`);
+            this.get();
+          }
+        )
+    },
+    update(meeting_id, agenda_id, title = null, description = null, notes = null) {
+      const req = {};
+      if (title) req.title = title;
+      if (description) req.description = description;
+      if (notes) req.notes = notes;
+      ApiService.put(`/meeting/${meeting_id}/agenda/${agenda_id}`,
+        { 'agenda': req })
+    },
+    delete(meeting_id, agenda_id) {
+      ApiService.delete(`/meeting/${meeting_id}/agenda/${agenda_id}`, {})
+    }
+  }
+}
+
+export { ApiService, app_data, user_data, team_data }
