@@ -90,7 +90,7 @@ let user_data = {
 }
 
 let team_data = {
-  all_teams: {},
+  all_teams: [],
   get() {
     ApiService.get('/team').then(res => {
       this.all_teams = res.data.teams;
