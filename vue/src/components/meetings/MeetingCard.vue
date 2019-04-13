@@ -9,40 +9,41 @@
 </template>
 
 <script>
-  export default {
-    name:"meeting-card",
-    props:{
-      meeting:Object
-    },
-    computed:{
-      colorBand:function(){
-        return (this.meeting.team.color + '-color-band')
-      },
-      teamText:function(){
-        return (this.meeting.team.color)
-      },
-      humanDate:function(){
-        Date.prototype.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        Date.prototype.getMonthName = function() {
-            return this.monthNames[this.getMonth()];
-        };
 
-        var date = new Date(this.meeting.time);
-        var month = date.getMonthName();
-        var day = date.getDate();
-        var fullDate = month + ' ' + day;
-        return fullDate;
-      }
+export default {
+  name: "meeting-card",
+  props: {
+    meeting: Object
+  },
+  computed: {
+    colorBand: function () {
+      return (this.meeting.team.color + '-color-band')
     },
-    methods:{
-      toggle(){
-        this.showAll = !this.showAll
-      }
+    teamText: function () {
+      return (this.meeting.team.color)
     },
-    data:function(){
-      return {
-        showAll:false
-      }
+    humanDate: function () {
+      Date.prototype.monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      Date.prototype.getMonthName = function () {
+        return this.monthNames[this.getMonth()];
+      };
+
+      var date = new Date(this.meeting.time);
+      var month = date.getMonthName();
+      var day = date.getDate();
+      var fullDate = month + ' ' + day;
+      return fullDate;
+    }
+  },
+  methods: {
+    toggle() {
+      this.showAll = !this.showAll
+    }
+  },
+  data: function () {
+    return {
+      showAll: false
     }
   }
+}
 </script>

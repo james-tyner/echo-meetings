@@ -99,7 +99,7 @@ export default {
     updateDescription(description, old) {
       if (this.lastSavedDescription === description) return;
       this.lastSavedDescription = description;
-      team_data.put(this.team._id, null, description)
+      team_data.update(this.team._id, null, description)
     },
 
     addEmail() {

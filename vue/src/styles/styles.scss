@@ -179,6 +179,10 @@ main {
   }
 }
 
+button {
+  outline: none;
+}
+
 .add-button {
   @include add-button;
   z-index: 31;
