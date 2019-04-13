@@ -98,10 +98,11 @@ export default {
       if (chosenTeam !== "") {
         let pastMeetings = filteredMeetings.filter(meeting => meeting.time <= now)
         pastMeetings.sort(compare);
+        pastMeetings.reverse(); // to show most recent first
         return pastMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
         let pastMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time <= now);
-        pastMeetings.sort(compare);
+        pastMeetings.reverse(); // to show most recent first
         return pastMeetings
       }
     }

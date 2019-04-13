@@ -2,7 +2,7 @@
   <div class="card" v-bind:class="colorBand">
     <h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{meeting.team.name}}</h3>
     <h2 class="card-heading" v-on:click="toggle()">{{meeting.title}}</h2>
-    <p class="mtg-date"> {{humanDate}}</p>
+    <p class="mtg-date">{{humanDate}}</p>
 
     <!-- Need to send user to meeting details page on click -->
   </div>
@@ -23,17 +23,6 @@ export default {
       return (this.meeting.team.color)
     },
     humanDate: function () {
-      // Date.prototype.monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      // Date.prototype.getMonthName = function () {
-      //   return this.monthNames[this.getMonth()];
-      // };
-      //
-      // var date = new Date(this.meeting.time);
-      // var month = date.getMonthName();
-      // var day = date.getDate();
-      // var fullDate = month + ' ' + day;
-      // return fullDate;
-
       var now = Date.now();
       var meetingTime = new Date(this.meeting.time);
       var dateDiff = Math.abs(now - meetingTime.getTime());
