@@ -188,7 +188,7 @@ router.delete('/:m_id', async (req, res) => {
 });
 
 
-// Create an Agenda
+// create an Agenda
 router.post('/:m_id/agenda', async (req, res) => {
   const { user } = req.locals;
   log.log('Creating an agenda');
@@ -244,13 +244,8 @@ router.post('/:m_id/agenda', async (req, res) => {
 // Update an Agenda
 router.put('/:m_id/agenda/:a_id', async (req, res) => {
   const { user } = req.locals;
-  log.log('Creating an agenda');
+  log.log('Updating an agenda');
   Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
-    .catch(() => res.status(422).json({
-      errors: {
-        message: MEETING_NONEXISTENT_MSG,
-      },
-    }))
     .then((meeting) => {
       if (!meeting) {
         return res.status(422).json({
@@ -259,9 +254,6 @@ router.put('/:m_id/agenda/:a_id', async (req, res) => {
           },
         });
       }
-      return meeting;
-    })
-    .then((meeting) => {
       let agenda = null;
       let index;
       for (index = 0; index < meeting.agendas.length; index++) {
@@ -300,7 +292,55 @@ router.put('/:m_id/agenda/:a_id', async (req, res) => {
         log.log(`Agenda (${agenda.title}) modified inside Meeting (${meeting.title})`);
         return res.json({ meeting });
       });
-    });
+    })
+    .catch(() => res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG,
+      },
+    }));
 });
+
+
+// delete a meeting
+router.delete('/:m_id/agenda/:a_id', async (req, res) => {
+  const { user } = req.locals;
+  log.log('Deleting an agenda');
+  Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
+    .then((meeting) => {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG,
+          },
+        });
+      }
+      let agenda = null;
+      let index;
+      for (index = 0; index < meeting.agendas.length; index++) {
+        if (meeting.agendas[index]._id.equals(req.params.a_id)) {
+          agenda = meeting.agendas[index];
+          break;
+        }
+      }
+      if (!agenda) {
+        return res.status(422).json({
+          errors: {
+            message: 'Agenda does not exist',
+          },
+        });
+      }
+      meeting.agendas.id(req.params.a_id).remove();
+      meeting.save().then(() => {
+        log.log(`Agenda (${agenda.title}) deleted inside Meeting (${meeting.title})`);
+        return res.json({ meeting });
+      });
+    })
+    .catch(() => res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG,
+      },
+    }));
+});
+
 
 module.exports = router;
