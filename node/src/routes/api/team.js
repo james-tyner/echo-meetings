@@ -202,6 +202,8 @@ router.get('/join/:invite', async (req, res) => {
   Invitation.findOneAndDelete({ code: req.params.invite, email: user.email })
     .then((invitation) => {
       if (!invitation) {
+        log.log(req.params.invite);
+        log.log(user.email);
         return res.status(422).json({
           errors: {
             message: TEAM_NONEXISTENT_MSG,

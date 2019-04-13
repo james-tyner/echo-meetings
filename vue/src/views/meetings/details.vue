@@ -3,7 +3,7 @@
     <main class="meeting-main">
       <section id="agenda">
         <!-- Agenda Item 1 -->
-        <AgendaItem v-for="item in agendas" v-bind:key="item._id" v-bind:item="item"></AgendaItem>
+        <AgendaItem v-for="item in thisMeeting.agendas" v-bind:key="item._id" v-bind:agendaItem="item" v-bind:meeting="thisMeeting"></AgendaItem>
 
       </section>
     </main>
@@ -25,7 +25,6 @@
 
 <script>
 import { meeting_data } from '../../data'
-
 import AgendaItem from "../../components/meetings/AgendaItem"
 
 export default {
@@ -38,12 +37,18 @@ export default {
       meeting_data: meeting_data
     }
   },
+  computed:{
+    thisMeeting:function(){
+      return meeting_data.all_meetings.find(meeting => meeting._id == this.id)
+    }
+  },
   props:{
-    id:String,
-    paramMeeting:Object,
+    id:String
   },
   mounted:function(){
-    console.log(this.$route.params);
+    this.$nextTick(function () {
+      meeting_data.meeting.get()
+    });
   }
 }
 
