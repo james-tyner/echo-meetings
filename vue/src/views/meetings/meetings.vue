@@ -5,7 +5,7 @@
         Filter by team:
         <div id="options">
           <a class="filter-group" v-on:click="selectedTeam = ''" v-bind:class="{'selected' : selectedTeam == ''}">ALL</a>
-          <a v-for="meeting in fakeMeetings" class="filter-group" v-on:click="selectedTeam = meeting.team.name" v-bind:class="{'selected' : selectedTeam == meeting.team.name}">{{meeting.team.name}}</a>
+          <a v-for="team in this.allTeamNames" class="filter-group" v-on:click="selectedTeam = team" v-bind:class="{'selected' : selectedTeam == team}">{{team}}</a>
         </div> <!-- #options -->
       </div> <!-- #filterbar -->
     </section>
@@ -48,6 +48,13 @@ export default {
     MeetingCard
   },
   computed:{
+    allTeamNames:function(){
+      let teamsSet = new Set();
+      for (var meeting of this.fakeMeetings){
+        teamsSet.add(meeting["team"]["name"]);
+      }
+      return Array.from(teamsSet.values());
+    },
     upcomingFilteredMeetings:function(){
       let chosenTeam = this.selectedTeam;
       let filteredMeetings = this.fakeMeetings.filter(meeting => meeting.team.name == chosenTeam);
@@ -118,6 +125,76 @@ export default {
         },
         {
           "id":2,
+          "title":"Not So Fake Meeting",
+          "time":1555479225106,
+          "location":"TTH 110",
+          "invitees":[{
+            "name": "Tommy Trojan",
+            "username": "trojan.echo",
+            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+          }, {
+            "name": "Mars Tan",
+            "username": "mars.tanjx",
+            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+          }],
+          "agendas":[
+
+          ],
+          "team":{
+            "id": 1,
+            "color":"red",
+            "name": "Team Jupiter",
+            "description": "This team is not real.",
+            "members": [{
+              "name": "Tommy Trojan",
+              "username": "trojan.echo",
+              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+            }, {
+              "name": "Mars Tan",
+              "username": "mars.tanjx",
+              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+            }]
+          },
+          "start":1554569225106,
+          "end":1553980225106
+        },
+        {
+          "id":3,
+          "title":"Fakest Meeting",
+          "time":1553479225106,
+          "location":"TTH 110",
+          "invitees":[{
+            "name": "Tommy Trojan",
+            "username": "trojan.echo",
+            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+          }, {
+            "name": "Mars Tan",
+            "username": "mars.tanjx",
+            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+          }],
+          "agendas":[
+
+          ],
+          "team":{
+            "id": 1,
+            "color":"blue",
+            "name": "Team Echo",
+            "description": "This team isn't even real.",
+            "members": [{
+              "name": "Tommy Trojan",
+              "username": "trojan.echo",
+              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+            }, {
+              "name": "Mars Tan",
+              "username": "mars.tanjx",
+              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+            }]
+          },
+          "start":1553479225106,
+          "end":1553480225106
+        },
+        {
+          "id":4,
           "title":"Not So Fake Meeting",
           "time":1555479225106,
           "location":"TTH 110",
