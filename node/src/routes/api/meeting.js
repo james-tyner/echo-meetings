@@ -2,7 +2,6 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const log = require('../../util/log');
 
-const Team = mongoose.model('Team');
 const User = mongoose.model('User');
 const Meeting = mongoose.model('Meeting');
 
@@ -27,7 +26,7 @@ router.use(auth.required, async (req, res, next) => {
 router.get('/', async (req, res) => {
   const { user } = req.locals;
   Meeting.find({ invitees: user.id })
-    .populate('invitees').populate('agendas')
+    .populate('invitees')
     .then((meetings) => {
       res.json({ meetings });
     });
@@ -35,7 +34,7 @@ router.get('/', async (req, res) => {
 
 
 // Create a Meeting
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res) => {
   const { user } = req.locals;
   log.log('Creating a meeting');
   const req_meeting = req.body.meeting;
@@ -188,5 +187,120 @@ router.delete('/:m_id', async (req, res) => {
     }));
 });
 
+
+// Create an Agenda
+router.post('/:m_id/agenda', async (req, res) => {
+  const { user } = req.locals;
+  log.log('Creating an agenda');
+  Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
+    .then((meeting) => {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG,
+          },
+        });
+      }
+      const req_agenda = req.body.agenda;
+      if (!req_agenda) {
+        return res.status(422).json({
+          errors: {
+            message: 'no agenda field',
+          },
+        });
+      }
+      // required fields: title, time, team
+      if (!req_agenda.title) {
+        return res.status(422).json({
+          errors: {
+            message: "title can't be blank",
+          },
+        });
+      }
+      const agenda = {};
+      agenda.title = req_agenda.title;
+      // only update fields that were actually passed...
+      if (typeof req_agenda.description !== 'undefined') {
+        agenda.description = req_agenda.description;
+      }
+      if (typeof req_agenda.notes !== 'undefined') {
+        agenda.notes = req_agenda.notes;
+      }
+      agenda.tasks = [];
+      meeting.agendas.push(agenda);
+      meeting.save().then(() => {
+        log.log(`Agenda (${agenda.title}) created inside Meeting (${meeting.title})`);
+        return res.json({ meeting });
+      });
+    })
+    .catch(() => res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG,
+      },
+    }));
+});
+
+
+// Update an Agenda
+router.put('/:m_id/agenda/:a_id', async (req, res) => {
+  const { user } = req.locals;
+  log.log('Creating an agenda');
+  Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
+    .catch(() => res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG,
+      },
+    }))
+    .then((meeting) => {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG,
+          },
+        });
+      }
+      return meeting;
+    })
+    .then((meeting) => {
+      let agenda = null;
+      let index;
+      for (index = 0; index < meeting.agendas.length; index++) {
+        if (meeting.agendas[index]._id.equals(req.params.a_id)) {
+          agenda = meeting.agendas[index];
+          break;
+        }
+      }
+      if (!agenda) {
+        return res.status(422).json({
+          errors: {
+            message: 'Agenda does not exist',
+          },
+        });
+      }
+      const req_agenda = req.body.agenda;
+      if (!req_agenda) {
+        return res.status(422).json({
+          errors: {
+            message: 'no agenda field',
+          },
+        });
+      }
+      // only update fields that were actually passed...
+      if (typeof req_agenda.title !== 'undefined') {
+        agenda.title = req_agenda.title;
+      }
+      if (typeof req_agenda.description !== 'undefined') {
+        agenda.description = req_agenda.description;
+      }
+      if (typeof req_agenda.notes !== 'undefined') {
+        agenda.notes = req_agenda.notes;
+      }
+      meeting.agendas.set(index, agenda);
+      meeting.save().then(() => {
+        log.log(`Agenda (${agenda.title}) modified inside Meeting (${meeting.title})`);
+        return res.json({ meeting });
+      });
+    });
+});
 
 module.exports = router;

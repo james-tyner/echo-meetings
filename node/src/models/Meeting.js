@@ -7,7 +7,7 @@ const AgendaSchema = new mongoose.Schema({
   title: String,
   description: String,
   notes: String,
-  actions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
 }, { timestamps: true });
 
 const MeetingSchema = new mongoose.Schema({
