@@ -209,7 +209,7 @@ router.post('/:m_id/agenda', async (req, res) => {
           },
         });
       }
-      // required fields: title, time, team
+      // required fields: title
       if (!req_agenda.title) {
         return res.status(422).json({
           errors: {
