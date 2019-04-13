@@ -2,7 +2,7 @@
   <main>
     <section>
       <div id="filterbar">
-        Filter by team:
+        <div class="filter-title"> Filter by team:</div>
         <div id="options">
           <a class="filter-group" v-on:click="selectedTeam = ''" v-bind:class="{'selected' : selectedTeam == ''}">ALL</a>
           <a v-for="task in fakeTasks" class="filter-group" v-on:click="selectedTeam = task.team.name" v-bind:class="{'selected' : selectedTeam == task.team.name}">{{task.team.name}}</a>

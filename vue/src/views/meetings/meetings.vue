@@ -1,8 +1,8 @@
 <template>
   <main>
-    <section>
+    <section style="position:relative;">
       <div id="filterbar">
-        Filter by team:
+        <div class="filter-title"> Filter by team:</div>
         <div id="options">
           <a class="filter-group" v-on:click="selectedTeam = ''" v-bind:class="{'selected' : selectedTeam == ''}">ALL</a>
           <a v-for="team in this.allTeamNames" class="filter-group" v-on:click="selectedTeam = team" v-bind:class="{'selected' : selectedTeam == team}">{{team}}</a>
