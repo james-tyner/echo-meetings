@@ -114,7 +114,7 @@ export default {
         font-size: 1.5em
         padding: 10px 15px
         box-shadow: none
-        border: 1px solid #555
+        border: 1px solid #777777
         width: 100%
         outline: none
         background-color: #eee
@@ -127,19 +127,20 @@ export default {
     .v-autocomplete-list
       width: 100%
       text-align: left
-      border: none
       border-top: none
       max-height: 400px
       overflow-y: auto
-      border-bottom: 1px solid #555
+      border-bottom: 1px solid #777777
+      border-bottom-left-radius: 8px
+      border-bottom-right-radius: 8px
 
       .v-autocomplete-list-item
         cursor: pointer
         background-color: #fff
         padding: 10px
-        border-bottom: 1px solid #555
-        border-left: 1px solid #555
-        border-right: 1px solid #555
+        border-bottom: 1px solid #777777
+        border-left: 1px solid #777777
+        border-right: 1px solid #777777
 
         &:last-child
           border-bottom: none

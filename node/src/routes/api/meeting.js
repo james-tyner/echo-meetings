@@ -33,6 +33,25 @@ router.get('/', async (req, res) => {
 });
 
 
+// Get a single meeting
+router.get('/:m_id', auth.required, async (req, res) => {
+  const { user } = req.locals;
+  Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
+  .then((meeting) => {
+    if (!meeting) {
+      return res.status(422).json({
+        errors: {
+          message: MEETING_NONEXISTENT_MSG,
+        },
+      });
+    } else {
+      return res.status(200).json({
+        meeting
+      })
+    }
+  });
+});
+
 // Create a Meeting
 router.post('/', async (req, res) => {
   const { user } = req.locals;

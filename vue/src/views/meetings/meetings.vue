@@ -20,7 +20,7 @@
         No meetings coming up <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span>
       </div>
       <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
-        <router-link :to="`/meetings/details/${meeting._id}`" class="dropdown-item">
+        <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
           <MeetingCard v-bind:meeting="meeting"></MeetingCard>
         </router-link>
       </div>
@@ -30,7 +30,7 @@
       <hr/>
       <h2>Past</h2>
       <div v-for="meeting in pastFilteredMeetings" class="mtg-card">
-        <router-link :to="`/meetings/details/${meeting._id}`" class="dropdown-item">
+        <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
           <MeetingCard v-bind:meeting="meeting"></MeetingCard>
         </router-link>
       </div>
@@ -45,6 +45,21 @@ import MeetingCard from "../../components/meetings/MeetingCard"
 
 window.moment = require('moment'); // for use on MeetingCard component
 
+// Sorting function for meetings by time
+function compare(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const timeA = a.time;
+  const timeB = b.time;
+
+  let comparison = 0;
+  if (timeA > timeB) {
+    comparison = 1;
+  } else if (timeA < timeB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
 export default {
   name: 'meetings',
   components: {
@@ -56,7 +71,7 @@ export default {
       for (const meeting of this.meeting_data.all_meetings) {
         teamsSet.add(meeting.team.name);
       }
-      return Array.from(teamsSet.values());
+      return Array.from(teamsSet.values()).sort();
     },
     upcomingFilteredMeetings: function () {
       let chosenTeam = this.selectedTeam;
@@ -66,8 +81,10 @@ export default {
 
       if (chosenTeam !== "") {
         let futureMeetings = filteredMeetings.filter(meeting => meeting.time > now)
+        futureMeetings.sort(compare);
         return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
+        futureMeetings.sort(compare);
         return this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
       }
     },
@@ -79,8 +96,10 @@ export default {
 
       if (chosenTeam !== "") {
         let futureMeetings = filteredMeetings.filter(meeting => meeting.time <= now)
+        futureMeetings.sort(compare);
         return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
+        futureMeetings.sort(compare);
         return this.meeting_data.all_meetings.filter(meeting => meeting.time <= now);
       }
     }

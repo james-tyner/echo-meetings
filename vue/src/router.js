@@ -11,6 +11,8 @@ import Teams from "./views/teams/teams"
 import AddTeam from "./views/teams/add"
 import Login from "./views/login"
 
+import { app_data } from "./data"
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -57,11 +59,11 @@ const router = new VueRouter({
       }
     }, {
       path:"/meetings/details/:id",
+      name:"",
       component:MeetingDetails,
       props:true,
-      name:"Test",
       meta: {
-        title:"Test",
+        title:"",
         group:"meetings"
       }
     }, {

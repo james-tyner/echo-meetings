@@ -126,10 +126,16 @@ let team_data = {
 
 let meeting_data = {
   all_meetings: [],
+  current_meeting:{},
   meeting: {
     get() {
       ApiService.get('/meeting').then(res => {
         meeting_data.all_meetings = res.data.meetings;
+      })
+    },
+    getOne(m_id){
+      ApiService.get(`/meeting/${m_id}`).then(res => {
+        meeting_data.current_meeting = res.data;
       })
     },
     create(title, time, team, location = '', invitees) {

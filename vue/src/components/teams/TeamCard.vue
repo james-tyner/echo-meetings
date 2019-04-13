@@ -4,6 +4,7 @@
     <div class="team-info" v-if="showAll">
       <textarea
               class="editable team-desc"
+              contenteditable="true"
               placeholder="Description"
               v-model='team.description'
       >
@@ -187,8 +188,21 @@ export default {
     outline: none;
     resize: none;
 
-    &:focus {
-      border: 0 !important;
+    &.team-desc {
+      margin-top:0.75em;
+    }
+
+    &.team-desc:active,
+    &.team-desc:focus {
+      border: 2px solid #cccccc !important; //gray2
+      border-radius: 8px; //card-corners
+      padding: 0.5em;
+    }
+
+    &.new-member:active,
+    &.new-member:focus {
+      border-bottom:2px solid #cccccc !important;
+      padding:0.5em;
     }
   }
 
@@ -201,6 +215,13 @@ export default {
 
     .new-member {
       flex-grow: 1;
+
+      &::placeholder {
+        //startTyping font
+        font-size:0.9em;
+        color:#cccccc; //gray2
+        font-style:italic;
+      }
     }
 
     textarea.new-member.editable {
