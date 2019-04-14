@@ -1,10 +1,9 @@
 <template>
-  <div class="team-item">
+  <div class="member-item">
+    <div class="profile-photo"
+         :style="{ 'background-image': 'url(' + item.avatar + ')' }"
+    ></div>
     <p>{{item.name}}</p>
-    <div class="team-photos">
-      <div class="profile-photo" v-for="member in item.members"
-           :style="{ 'background-image': 'url(' + member.avatar + ')' }"></div>
-    </div>
   </div>
 </template>
 
@@ -19,21 +18,21 @@ export default {
 </script>
 
 <style lang="scss">
-  .team-item p {
-    margin: 0;
-  }
-  .team-photos {
+  .member-item {
     display: flex;
-    flex-wrap: nowrap;
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
-  }
-  .profile-photo {
-    background-size: cover;
-    background-position: center;
-    width: 1.8em;
-    height: 1.8em;
-    margin-right: 0.4em;
-    border-radius: 1.8em;
+
+    p {
+      margin: 0;
+      padding-top: 3px;
+    }
+
+    .profile-photo {
+      background-size: cover;
+      background-position: center;
+      width: 1.8em;
+      height: 1.8em;
+      margin-right: 0.4em;
+      border-radius: 1.8em;
+    }
   }
 </style>

@@ -39,14 +39,14 @@ header.meeting-header {
     text-align: center;
     display: inline-block;
 
-		&.meeting-end-btn {
-			border-color:$red;
-			color:$red;
+    &.meeting-end-btn {
+      border-color: $red;
+      color: $red;
 
-			&:hover {
-				background-color:$red;
-			}
-		}
+      &:hover {
+        background-color: $red;
+      }
+    }
 
     &:hover {
       background-color: $green;
@@ -114,46 +114,46 @@ header.meeting-header {
       }
     }
 
-		.agenda-item-title {
-			display:block;
-			@include heading2;
-			margin-top: 0;
-			margin-bottom: 0;
-			padding-bottom:0.25em;
-			font-weight: 500;
-			border:none;
-			background:transparent;
-			outline:none;
-			resize:none;
+    .agenda-item-title {
+      display: block;
+      @include heading2;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 0.25em;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      outline: none;
+      resize: none;
 
-			&::placeholder {
-				color:$gray2;
-			}
+      &::placeholder {
+        color: $gray2;
+      }
 
-			&:active, &:focus {
-				border-bottom:2px solid $gray2;
-			}
-		}
+      &:active, &:focus {
+        border-bottom: 2px solid $gray2;
+      }
+    }
 
-		textarea.editable {
-			border: none;
-			background: transparent;
-			outline: none;
-			resize: none;
-			margin-top:0.75em;
-			@include bodyFont;
-			color:$gray3;
-			width:100%;
+    textarea.editable {
+      border: none;
+      background: transparent;
+      outline: none;
+      resize: none;
+      margin-top: 0.75em;
+      @include bodyFont;
+      color: $gray3;
+      width: 100%;
 
-			&::placeholder {
-				@include startTyping;
-			}
+      &::placeholder {
+        @include startTyping;
+      }
 
-			&.agenda-item-note {
-				margin-top:0;
-				width:calc(100% - 1.2em);
-			}
-		}
+      &.agenda-item-note {
+        margin-top: 0;
+        width: calc(100% - 1.2em);
+      }
+    }
 
     .agenda-icon-tray {
       position: absolute;
@@ -195,8 +195,8 @@ header.meeting-header {
     }
 
     .agenda-action-items {
-			border-top:1px solid $gray1;
-			margin-top:0.5em;
+      border-top: 1px solid $gray1;
+      margin-top: 0.5em;
 
       .action-item {
         padding-top: 0.8em;
@@ -467,6 +467,10 @@ header.meeting-header {
 
 // BELOW WRITTEN BY JESSICA
 #create-meeting-main {
+  .input-section {
+    margin: 0 0 40px;
+  }
+
   label {
     font-weight: 500;
     display: block;
@@ -479,7 +483,6 @@ header.meeting-header {
     @include card-corners;
     font-size: 15px;
     padding: 7px;
-    margin-bottom: 40px;
     outline: none;
 
     &::placeholder {
@@ -515,25 +518,20 @@ header.meeting-header {
     }
   }
 
-  #add-team {
-    margin: 0 0 50px;
-    align-self: flex-start;
+  .search-bar {
+    input {
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid $gray3;
+      background: transparent;
+      display: inline-block;
+      margin: 0;
+    }
 
-    #team-search {
-      input {
-        box-shadow: none;
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid $gray3;
-        background: transparent;
-        display: inline-block;
-        margin: 0;
-      }
-
-      i {
-        margin-right: 0.3em;
-        align-self: center;
-      }
+    i {
+      margin-right: 0.3em;
+      align-self: center;
     }
   }
 }

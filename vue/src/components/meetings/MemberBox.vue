@@ -13,7 +13,7 @@
 export default {
   name: "EmailBox",
   props: {
-    member: String,
+    member: Object,
     editable: Boolean,
   },
   methods: {
