@@ -105,7 +105,8 @@ router.put('/:t_id', auth.required, async (req, res) => {
         log.log(`Team (${team.name}) modified`);
         return res.json({ team });
       });
-    }).catch(() => res.status(422).json({
+    })
+    .catch(() => res.status(422).json({
       errors: {
         message: TEAM_NONEXISTENT_MSG,
       },
@@ -126,7 +127,8 @@ router.delete('/:t_id', async (req, res) => {
       }
       log.log(`Team (${team.name}) deleted`);
       res.json({ team });
-    }).catch(() => res.status(422).json({
+    })
+    .catch(() => res.status(422).json({
       errors: {
         message: TEAM_NONEXISTENT_MSG,
       },
@@ -188,7 +190,8 @@ router.post('/:t_id/invite', async (req, res) => {
         invitation.save();
       }
       team.save().then(() => res.json({ team }));
-    }).catch(() => res.status(422).json({
+    })
+    .catch(() => res.status(422).json({
       errors: {
         message: TEAM_NONEXISTENT_MSG,
       },
@@ -202,8 +205,6 @@ router.get('/join/:invite', async (req, res) => {
   Invitation.findOneAndDelete({ code: req.params.invite, email: user.email })
     .then((invitation) => {
       if (!invitation) {
-        log.log(req.params.invite);
-        log.log(user.email);
         return res.status(422).json({
           errors: {
             message: TEAM_NONEXISTENT_MSG,
@@ -212,9 +213,17 @@ router.get('/join/:invite', async (req, res) => {
       }
       Team.findById(invitation.team).then((team) => {
         team.members.push(user._id);
+        for (let i = 0; i < team.invitations.length; i++) {
+          if (team.invitations[i]._id.equals(invitation._id)) {
+            team.invitations.splice(i, 1);
+            break;
+          }
+        }
+        // team.invitations.
         team.save().then(() => res.json({ team }));
       });
-    }).catch(() => res.status(422).json({
+    })
+    .catch(() => res.status(422).json({
       errors: {
         message: TEAM_NONEXISTENT_MSG,
       },

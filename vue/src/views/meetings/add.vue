@@ -169,7 +169,7 @@ export default {
     },
     onCreateMeeting() {
       if (!this.title) {
-        showAlert('red', 'Title cannot be empty', 2500);
+        showAlert('red', 'Meeting name cannot be empty', 2500);
         return;
       }
       if (!this.team) {

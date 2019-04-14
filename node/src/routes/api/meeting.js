@@ -37,19 +37,18 @@ router.get('/', async (req, res) => {
 router.get('/:m_id', auth.required, async (req, res) => {
   const { user } = req.locals;
   Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
-  .then((meeting) => {
-    if (!meeting) {
-      return res.status(422).json({
-        errors: {
-          message: MEETING_NONEXISTENT_MSG,
-        },
-      });
-    } else {
+    .then((meeting) => {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG,
+          },
+        });
+      }
       return res.status(200).json({
-        meeting
-      })
-    }
-  });
+        meeting,
+      });
+    });
 });
 
 // Create a Meeting
@@ -143,7 +142,7 @@ router.put('/:m_id', auth.required, async (req, res) => {
         });
       }
       const req_meeting = req.body.meeting;
-      // Optional fields: title, time, location, invitees
+      // Optional fields: title, time, location, invitees, start, end
       // only update fields that were actually passed...
       if (typeof req_meeting.title !== 'undefined') {
         meeting.title = req_meeting.title;
@@ -158,6 +157,12 @@ router.put('/:m_id', auth.required, async (req, res) => {
       // Memory leak dangerous!
       if (typeof req_meeting.invitees !== 'undefined') {
         meeting.invitees = req_meeting.invitees;
+      }
+      if (typeof req_meeting.start !== 'undefined') {
+        meeting.start = req_meeting.start;
+      }
+      if (typeof req_meeting.end !== 'undefined') {
+        meeting.end = req_meeting.end;
       }
 
       // will perform validation

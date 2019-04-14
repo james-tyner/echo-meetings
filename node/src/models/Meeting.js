@@ -31,8 +31,8 @@ const MeetingSchema = new mongoose.Schema({
       message: 'Team non existent',
     },
   },
-  start: Date,
-  end: Date,
+  start: Number,
+  end: Number,
 });
 
 

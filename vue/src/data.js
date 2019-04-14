@@ -84,6 +84,7 @@ let user_data = {
         const invite = VueCookies.get('invite');
         ApiService.get('/team/join', invite);
         VueCookies.remove('invite');
+        showAlert("green", `Successfully joined the team`);
       }
     });
   }
