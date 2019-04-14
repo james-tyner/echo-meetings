@@ -25,7 +25,7 @@ header.meeting-header {
   height: 100vh;
   display: grid;
 
-  #meeting-start-btn {
+  .meeting-start-btn {
     padding: 0.5em;
     grid-row-start: 1;
     align-self: flex-start;
@@ -38,6 +38,15 @@ header.meeting-header {
     cursor: pointer;
     text-align: center;
     display: inline-block;
+
+		&.meeting-end-btn {
+			border-color:$red;
+			color:$red;
+
+			&:hover {
+				background-color:$red;
+			}
+		}
 
     &:hover {
       background-color: $green;
@@ -105,6 +114,47 @@ header.meeting-header {
       }
     }
 
+		.agenda-item-title {
+			display:block;
+			@include heading2;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-bottom:0.25em;
+			font-weight: 500;
+			border:none;
+			background:transparent;
+			outline:none;
+			resize:none;
+
+			&::placeholder {
+				color:$gray2;
+			}
+
+			&:active, &:focus {
+				border-bottom:2px solid $gray2;
+			}
+		}
+
+		textarea.editable {
+			border: none;
+			background: transparent;
+			outline: none;
+			resize: none;
+			margin-top:0.75em;
+			@include bodyFont;
+			color:$gray3;
+			width:100%;
+
+			&::placeholder {
+				@include startTyping;
+			}
+
+			&.agenda-item-note {
+				margin-top:0;
+				width:calc(100% - 1.2em);
+			}
+		}
+
     .agenda-icon-tray {
       position: absolute;
       top: 1em;
@@ -128,13 +178,6 @@ header.meeting-header {
       }
     }
 
-    h2 {
-      @include heading2;
-      margin-top: 0;
-      margin-bottom: 0;
-      font-weight: 500;
-    }
-
     p {
       @include bodyFont;
       color: $gray3;
@@ -142,7 +185,7 @@ header.meeting-header {
 
     h3 {
       @include itemHeading;
-      margin-top: 2em;
+      margin-top: 0.5em;
       margin-bottom: 0.8em;
     }
 
@@ -152,6 +195,9 @@ header.meeting-header {
     }
 
     .agenda-action-items {
+			border-top:1px solid $gray1;
+			margin-top:0.5em;
+
       .action-item {
         padding-top: 0.8em;
         padding-bottom: 0.8em;

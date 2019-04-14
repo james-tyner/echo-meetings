@@ -11,30 +11,38 @@
     <!-- right sidebar -->
     <section class="right-bar">
       <!-- Start/End Button -->
-      <div id="meeting-start-btn">Start Meeting</div>
+      <div v-if="this.meetingState == 1" class="meeting-start-btn" v-on:click="toggleTimer">Start Meeting</div>
+      <div v-if="this.meetingState == 2" class="meeting-start-btn meeting-end-btn" v-on:click="toggleTimer">End Meeting</div>
+      <div v-if="this.meetingState == 3" class="meeting-start-btn meeting-save-btn" v-on:click="endMeeting">Save Minutes</div>
+      <div v-if="this.meetingState == 2" class="meeting-timer">{{this.time}}</div>
 
       <!-- Agenda Item ToC -->
-      <div class="agenda-list-div">
-        <div class="agenda-list-item active"> Fundraising</div>
-        <div class="agenda-list-item"> Touch Base with Charity</div>
-        <div class="agenda-list-item"> Promote Event</div>
-      </div>
+      <draggable class="agenda-list-div" v-model="thisMeeting.agendas">
+        <div v-for="(item,index) in thisMeeting.agendas" class="agenda-list-item">{{index + 1}}. {{item.title}}</div>
+      </draggable>
     </section>
   </div>
 </template>
 
 <script>
 import { meeting_data } from '../../data'
+import draggable from "vuedraggable"
+import AnimateSave from "../../components/SaveAnimation"
 import AgendaItem from "../../components/meetings/AgendaItem"
+import Timer from 'easytimer.js';
 
 export default {
   name:"meetingDetails",
   components: {
-    AgendaItem
+    AgendaItem,
+    AnimateSave,
+    draggable
   },
   data:function(){
     return {
-      meeting_data: meeting_data
+      meeting_data: meeting_data,
+      time:null,
+      meetingState:1
     }
   },
   computed:{
@@ -44,6 +52,26 @@ export default {
   },
   props:{
     id:String
+  },
+  methods:{
+    toggleTimer:function(){
+      if (this.time != null){
+
+      } else {
+        this.time = new Timer();
+        this.meetingState = 2;
+      }
+      if (!meetingTimer){
+        let meetingTimer = new Timer();
+        this.meetingState = 2;
+        meetingTimer.on("secondsUpdated", (e) => {
+          this.time = meetingTimer.getTimeValues().toString()
+        })
+      } else {
+        meetingTimer.stop()
+        this.meetingState = 3;
+      }
+    }
   },
   mounted:function(){
     this.$nextTick(function () {
