@@ -370,6 +370,11 @@ header.meeting-header {
       @include detailsFont;
       color: $gray3;
     }
+
+    .mtg-unassigned-tasks {
+      @include detailsFont;
+      color:$red;
+    }
   }
 }
 

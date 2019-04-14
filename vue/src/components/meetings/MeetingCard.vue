@@ -4,6 +4,7 @@
     <h2 class="card-heading" v-on:click="toggle()">{{meeting.title}}</h2>
     <p v-if="showHumanDate" v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{humanDate}}</p>
     <p v-else v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{fullDate}}</p>
+    <p v-if="numberOfUnassignedTasks" class="mtg-unassigned-tasks">{{numberOfUnassignedTasks}} unassigned action <span v-if="numberOfUnassignedTasks == 1">item</span><span v-else>items</span></p>
 
     <!-- Need to send user to meeting details page on click -->
   </div>
@@ -53,6 +54,19 @@ export default {
       var meetingTime = new Date(this.meeting.time);
       meetingTime = moment(meetingTime).format('MMM. D, YYYY [at] h:mm a')
       return meetingTime;
+    },
+    numberOfUnassignedTasks:function(){
+      var numUnassigned = 0;
+      let meetingAgendaItems = this.meeting.agendas;
+      meetingAgendaItems = meetingAgendaItems.filter(agendaItem => (agendaItem.tasks && agendaItem.tasks.length > 0));
+      for (var agendaItem of meetingAgendaItems){
+        for (var task of agendaItem.tasks){
+          if (!task.assignees || task.assignees.length == 0){
+            numUnassigned += 1
+          }
+        }
+      }
+      return numUnassigned;
     }
   },
   methods: {
