@@ -56,7 +56,7 @@ export default {
     logout:function(){
       VueCookies.remove('token');
       VueCookies.remove('invite');
-      this.$router.push('login');
+      this.$router.push('/login');
       // TODO: fully make this work (no back browsing)
     }
   },

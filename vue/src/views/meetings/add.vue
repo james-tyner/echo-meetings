@@ -42,11 +42,25 @@
       <div id="add-team">
         <label>Team</label>
         <div id="team-search">
+
           <v-autocomplete
+            @focusin='resetTeam'
             :items="team_data.all_teams"
             :component-item="TeamSearchTemplate"
             :get-label="getLabel"
             v-model="team"
+            class="editable"
+          ></v-autocomplete>
+        </div>
+      </div>
+
+      <div>
+        <label>Invite</label>
+        <div class="invitee-input">
+          <MemberBox :member="availableMembers[0]" :editable="false"></MemberBox>
+          <v-autocomplete
+            :items="availableMembers"
+            :get-label="getLabel"
           ></v-autocomplete>
         </div>
       </div>
@@ -59,13 +73,15 @@
 <script>
 import { team_data, meeting_data } from "../../data";
 import TeamSearch from "../../components/meetings/TeamSearchItem"
+import MemberBox from "../../components/meetings/MemberBox"
 import showAlert from "../../components/ShowAlert"
 import moment from 'moment'
 
 export default {
   name: 'add-team',
   components: {
-    TeamSearch
+    TeamSearch,
+    MemberBox
   },
   data: function () {
     return {
@@ -78,13 +94,21 @@ export default {
       TeamSearchTemplate: TeamSearch
     }
   },
+  computed: {
+    availableMembers() {
+      return this.team ? this.team.members : [];
+    }
+  },
   mounted: function () {
     team_data.get()
   },
   methods: {
     getLabel(item) {
-      if (!item) return ''
+      if (!item) return '';
       return item.name
+    },
+    resetTeam() {
+      this.team = '';
     },
     onCreateMeeting() {
       if (!this.title) {
@@ -121,10 +145,10 @@ export default {
 
       &.v-autocomplete-selected
         .v-autocomplete-input
-          color: green
           background-color: #f2fff2
 
     .v-autocomplete-list
+      z-index: 10
       width: 100%
       text-align: left
       border-top: none
