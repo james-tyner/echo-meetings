@@ -21,8 +21,10 @@ header.meeting-header {
   padding: 1.5vw;
   position: fixed;
   right: 0;
-  top: 0;
-  height: 100vh;
+  // top: 0;
+  // height: 100vh;
+  bottom:0;
+  height:calc(100vh - (3vw + 2.1em + 0.67em)); //full height except header
   display: grid;
 
   .meeting-start-btn {

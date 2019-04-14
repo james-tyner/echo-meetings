@@ -31,6 +31,8 @@ import AnimateSave from "../../components/SaveAnimation"
 import AgendaItem from "../../components/meetings/AgendaItem"
 import Timer from 'easytimer.js';
 
+window.moment = require('moment'); // for use on AgendaItem component
+
 export default {
   name:"meetingDetails",
   components: {

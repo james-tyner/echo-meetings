@@ -26,7 +26,7 @@
         <input type="checkbox">
         <div class="action-item-text">
           <p contenteditable="true" class="action-item-description">{{action.description}}</p>
-          <p contenteditable="true" class="due-date">{{action.dueDate}}</p>
+          <p contenteditable="true" class="due-date">{{action.due | humanDate}}</p>
         </div>
         <div class="assignees">
           <div v-if="!showAssignees" class="assignee-photo" v-for="assignee in action.assignees" :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"></div>
@@ -63,6 +63,32 @@ export default {
   },
   methods:{
 
+  },
+  filters: {
+    humanDate: function (dueDateString) {
+      var now = Date.now();
+      var taskDueTime = new Date(dueDateString);
+      var dateDiff = Math.abs(now - taskDueTime.getTime());
+
+      dateDiff = Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
+
+      var taskTimeYear = moment(taskDueTime).format('YY');
+      var thisYear = moment(now).format('YY');
+
+      var dateFormatted;
+
+      if (dateDiff > 5){
+        if (taskTimeYear != thisYear) {
+          dateFormatted = moment(taskDueTime).format('MMM D, YYYY [at] h:mm a');
+        } else {
+          dateFormatted = moment(taskDueTime).format('MMM D [at] h:mm a');
+        }
+      } else {
+        dateFormatted = moment(taskDueTime).calendar();
+      }
+
+      return dateFormatted;
+    }
   },
   computed: {
 
