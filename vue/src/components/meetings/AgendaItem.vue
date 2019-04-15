@@ -3,12 +3,12 @@
     <div class="agenda-icon-tray">
       <i class="far fa-trash-alt" v-on:click="deleteItem"></i>
     </div>
-    <input class="editable agenda-item-title" type="text" placeholder="A very important topic" v-model="this.agendaItem.title" v-on:change="updateItem"></input>
+    <input class="editable agenda-item-title" type="text" placeholder="A very important topic" v-model="agendaItem.title" v-on:change="updateItem"></input>
     <textarea
             class="editable agenda-item-description"
             contenteditable="true"
             placeholder="What’s this about?"
-            v-model='this.agendaItem.description'
+            v-model='agendaItem.description'
             v-on:change="updateItem"
     >
     </textarea>
@@ -19,7 +19,7 @@
             class="editable agenda-item-note"
             contenteditable="true"
             placeholder="Jot something down…"
-            v-model='this.agendaItem.notes'
+            v-model='agendaItem.notes'
             v-on:change="updateItem"
     >
     </textarea>
@@ -75,16 +75,16 @@ export default {
     deleteItem:function(){
       meeting_data.agenda.delete(this.meeting._id, this.agendaItem._id, this.agendaItem.title)
     },
-    updateItem:async function(){
+    updateItem:function(){
       var self = this;
+      var updateTimer;
       if (updateTimer){
         clearTimeout(updateTimer);
       }
-      let updateTimer = setTimeout(() => {
-        meeting_data.agenda.update(self.meeting._id, self.agendaItem._id, self.agendaItem.title, self.agendaItem.description, self.agendaItem.notes)
+      updateTimer = setTimeout(() => {
+        meeting_data.agenda.update(self.meeting._id, self.agendaItem._id, self.agendaItem.title, self.agendaItem.description, self.agendaItem.notes);
         self.animateSave();
-      }, 1500)
-      await updateTimer();
+      }, 750)
     }
   },
   filters: {
