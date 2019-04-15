@@ -18,10 +18,11 @@
     <!-- right sidebar -->
     <section class="right-bar">
       <!-- Start/End Button -->
-      <div v-if="this.meetingState == 1 && thisMeeting.agendas.length > 0" class="meeting-start-btn" v-on:click="toggleTimer">Start Meeting</div>
-      <div v-if="this.meetingState == 2" class="meeting-start-btn meeting-end-btn" v-on:click="toggleTimer">End Meeting</div>
-      <div v-if="this.meetingState == 3" class="meeting-start-btn meeting-save-btn" v-on:click="endMeeting">Save Minutes</div>
-      <div v-if="this.meetingState == 2" class="meeting-timer">{{this.time}}</div>
+      <div v-if="this.meetingState == 1 && thisMeeting.agendas.length > 0" class="meeting-start-btn" v-on:click="startTimer">Start Meeting</div>
+      <div v-if="this.meetingState == 2" class="meeting-start-btn meeting-pause-btn" v-on:click="pauseTimer">Pause</div>
+      <div v-if="this.meetingState == 2" class="meeting-start-btn meeting-end-btn"><router-link :to="{ path: `/meetings/end/${this.id}`, params: {id: this.id, duration:this.meetingLength} }">End</router-link></div>
+      <div v-if="this.meetingState == 3" class="meeting-start-btn" v-on:click="resumeTimer">Resume</div>
+      <h2 v-if="this.meetingState == 2" class="meeting-timer">{{this.meetingTimer}}</h2>
 
       <!-- Agenda Item ToC -->
       <draggable class="agenda-list-div" v-model="thisMeeting.agendas">
@@ -36,9 +37,9 @@ import { meeting_data } from '../../data'
 import draggable from "vuedraggable"
 import AnimateSave from "../../components/SaveAnimation"
 import AgendaItem from "../../components/meetings/AgendaItem"
-import Timer from 'easytimer.js';
 
 window.moment = require('moment'); // for use on AgendaItem component
+var meetingCount; // declared to use within
 
 export default {
   name:"meetingDetails",
@@ -50,36 +51,37 @@ export default {
   data:function(){
     return {
       meeting_data:meeting_data,
-      time:null,
-      meetingState:1
+      meetingLength:null, // in seconds
+      meetingState:1, // 1 = working, 2 = started, 3 = paused, 4 = ended
+      pausedLength: null
     }
   },
   computed:{
     thisMeeting:function(){
       return meeting_data.all_meetings.find(meeting => meeting._id == this.id)
+    },
+    meetingTimer:function(){
+      return moment().hour(0).minute(0).second(this.meetingLength).format('m [min] s [s]');
     }
   },
   props:{
     id:String
   },
   methods:{
-    toggleTimer:function(){
-      if (this.time != null){
-
-      } else {
-        this.time = new Timer();
-        this.meetingState = 2;
-      }
-      if (!meetingTimer){
-        let meetingTimer = new Timer();
-        this.meetingState = 2;
-        meetingTimer.on("secondsUpdated", (e) => {
-          this.time = meetingTimer.getTimeValues().toString()
-        })
-      } else {
-        meetingTimer.stop()
-        this.meetingState = 3;
-      }
+    startTimer:function(){
+      this.meetingLength = 0;
+      meetingCount = setInterval(() => {this.meetingLength += 1}, 1000);
+      this.meetingState = 2;
+    },
+    pauseTimer:function(){
+      this.meetingState = 3;
+      this.pausedLength = this.meetingLength;
+      clearInterval(meetingCount);
+    },
+    resumeTimer:function(){
+      this.meetingState = 2;
+      this.meetingLength = this.pausedLength;
+      meetingCount = setInterval(() => {this.meetingLength += 1}, 1000);
     },
     addAgendaItem:function(){
       meeting_data.agenda.create(this.id, "New agenda item");

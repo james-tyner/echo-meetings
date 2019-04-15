@@ -7,6 +7,7 @@ import Tasks from './views/tasks'
 import Meetings from './views/meetings/meetings'
 import AddMeeting from "./views/meetings/add"
 import MeetingDetails from "./views/meetings/details"
+import EndMeeting from "./views/meetings/end"
 import Teams from "./views/teams/teams"
 import AddTeam from "./views/teams/add"
 import Login from "./views/login"
@@ -61,6 +62,15 @@ const router = new VueRouter({
       path:"/meetings/details/:id",
       name:"",
       component:MeetingDetails,
+      props:true,
+      meta: {
+        title:"",
+        group:"meetings"
+      }
+    }, {
+      path:"/meetings/end/:id",
+      name:"",
+      component:EndMeeting,
       props:true,
       meta: {
         title:"",
