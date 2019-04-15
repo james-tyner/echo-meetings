@@ -355,8 +355,15 @@ input.editable {
     color: $gray2;
   }
 
+  .all-mtg-cards {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+
   .mtg-card {
     margin-bottom: 1.5em;
+    margin-right:1.5em;
     display: flex;
     align-items: center;
     flex-wrap: wrap;

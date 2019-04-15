@@ -19,20 +19,24 @@
       <div v-if="this.upcomingFilteredMeetings.length === 0" id="no-upcoming-meetings">
         No meetings coming up <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span>
       </div>
-      <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
-        <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
-          <MeetingCard v-bind:meeting="meeting"></MeetingCard>
-        </router-link>
+      <div class="all-mtg-cards">
+        <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
+          <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
+            <MeetingCard v-bind:meeting="meeting"></MeetingCard>
+          </router-link>
+        </div>
       </div>
     </section>
 
     <section v-if="this.pastFilteredMeetings.length > 0" class="meeting-cards">
       <hr/>
       <h2>Past</h2>
-      <div v-for="meeting in pastFilteredMeetings" class="mtg-card">
-        <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
-          <MeetingCard v-bind:meeting="meeting"></MeetingCard>
-        </router-link>
+      <div class="all-mtg-cards">
+        <div v-for="meeting in pastFilteredMeetings" class="mtg-card">
+          <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
+            <MeetingCard v-bind:meeting="meeting"></MeetingCard>
+          </router-link>
+        </div>
       </div>
     </section>
 
