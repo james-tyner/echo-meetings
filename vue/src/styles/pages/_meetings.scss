@@ -24,7 +24,7 @@ header.meeting-header {
   // top: 0;
   // height: 100vh;
   bottom:0;
-  height:calc(100vh - (3vw + 2.1em + 0.67em)); //full height except header
+  height:calc(100vh - (3vw + 2.1em + 0.67em + 15px)); //full height except header
   display: grid;
   grid-template-rows:15% 25% auto;
 

@@ -125,6 +125,13 @@
   }
 }
 
+.filter-bar-container {
+  position:sticky;
+  top:calc(3vw + 2.1em + 0.67em + 50px - 12px - 20px);
+  background-color:$bgGray;
+  z-index:40;
+}
+
 #filterbar {
   font-size:0.8em;
   font-weight:500;

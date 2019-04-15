@@ -1,6 +1,6 @@
 <template>
   <main>
-    <section style="position:relative;">
+    <section class="filter-bar-container">
       <div id="filterbar">
         <div class="filter-title"> Filter by team:</div>
         <div id="options">
