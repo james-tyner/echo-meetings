@@ -2,8 +2,15 @@
   <div>
     <main class="meeting-main">
       <section id="agenda">
+        <div class="empty-list-style"  v-if="thisMeeting.agendas.length == 0">
+          <h2>One great meeting awaits.</h2>
+          <h4>Add an item to your agenda 👇</h4>
+        </div>
+
         <!-- Agenda Item 1 -->
-        <AgendaItem v-for="item in thisMeeting.agendas" v-bind:key="item._id" v-bind:agendaItem="item" v-bind:meeting="thisMeeting"></AgendaItem>
+        <AgendaItem v-for="item in thisMeeting.agendas" v-bind:key="item._id" v-bind:id="'agenda-' + item._id" v-bind:agendaItem="item" v-bind:meeting="thisMeeting"></AgendaItem>
+
+        <div class="agenda-item-add-button" v-on:click="addAgendaItem"><i class="material-icons"> add </i></div>
 
       </section>
     </main>
@@ -18,7 +25,7 @@
 
       <!-- Agenda Item ToC -->
       <draggable class="agenda-list-div" v-model="thisMeeting.agendas">
-        <div v-for="(item,index) in thisMeeting.agendas" class="agenda-list-item">{{index + 1}}. {{item.title}}</div>
+        <a v-for="(item,index) in thisMeeting.agendas" :href="'#agenda-' + item._id" class="agenda-list-item">{{index + 1}}. {{item.title}}</a>
       </draggable>
     </section>
   </div>
@@ -42,7 +49,7 @@ export default {
   },
   data:function(){
     return {
-      meeting_data: meeting_data,
+      meeting_data:meeting_data,
       time:null,
       meetingState:1
     }
@@ -73,6 +80,9 @@ export default {
         meetingTimer.stop()
         this.meetingState = 3;
       }
+    },
+    addAgendaItem:function(){
+      meeting_data.agenda.create(this.id, "New agenda item");
     }
   },
   mounted:function(){

@@ -1,11 +1,15 @@
 <template>
   <div class="agenda-item">
-    <input class="editable agenda-item-title" type="text" placeholder="A very important topic" v-model="this.agendaItem.title"></input>
+    <div class="agenda-icon-tray">
+      <i class="far fa-trash-alt" v-on:click="deleteItem"></i>
+    </div>
+    <input class="editable agenda-item-title" type="text" placeholder="A very important topic" v-model="this.agendaItem.title" v-on:change="updateItem"></input>
     <textarea
             class="editable agenda-item-description"
             contenteditable="true"
             placeholder="What’s this about?"
             v-model='this.agendaItem.description'
+            v-on:change="updateItem"
     >
     </textarea>
 
@@ -16,6 +20,7 @@
             contenteditable="true"
             placeholder="Jot something down…"
             v-model='this.agendaItem.notes'
+            v-on:change="updateItem"
     >
     </textarea>
 
@@ -36,8 +41,8 @@
       <div class="action-item">
         <input type="checkbox" disabled>
         <div class="action-item-text">
-          <p contenteditable="true" class="start-typing-description">Start typing…</p>
-          <p contenteditable="true" class="start-typing-due-date">due…</p>
+          <input class="editable start-typing-description" type="text" placeholder="Add a task…"></input>
+          <input class="editable start-typing-due-date" type="datetime-local" placeholder="due…"></input>
         </div>
         <div class="assignees">
           <i class="fas fa-user-plus"></i>
@@ -50,19 +55,37 @@
 </template>
 
 <script>
+import { meeting_data } from '../../data'
+import AnimateSave from "../SaveAnimation"
+
+
 export default {
   name:"agenda-item",
   data:function(){
     return {
-
+      meeting_data:meeting_data
     }
   },
   props: {
     agendaItem: Object,
     meeting: Object
   },
+  mixins:[AnimateSave],
   methods:{
-
+    deleteItem:function(){
+      meeting_data.agenda.delete(this.meeting._id, this.agendaItem._id, this.agendaItem.title)
+    },
+    updateItem:async function(){
+      var self = this;
+      if (updateTimer){
+        clearTimeout(updateTimer);
+      }
+      let updateTimer = setTimeout(() => {
+        meeting_data.agenda.update(self.meeting._id, self.agendaItem._id, self.agendaItem.title, self.agendaItem.description, self.agendaItem.notes)
+        self.animateSave();
+      }, 1500)
+      await updateTimer();
+    }
   },
   filters: {
     humanDate: function (dueDateString) {

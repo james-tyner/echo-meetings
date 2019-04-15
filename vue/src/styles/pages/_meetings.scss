@@ -95,7 +95,40 @@ header.meeting-header {
   }
 }
 
+textarea.editable {
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  margin-top: 0.75em;
+  @include bodyFont;
+  color: $gray3;
+  width: 100%;
+
+  &::placeholder {
+    @include startTyping;
+  }
+
+  &.agenda-item-note {
+    margin-top: 0;
+    width: calc(100% - 1.2em);
+  }
+}
+
+input.editable {
+  border:none;
+  background:transparent;
+  outline:none;
+  resize:none;
+  width:100%;
+
+  &::placeholder {
+    color:$gray2;
+  }
+}
+
 #agenda {
+
   .agenda-item {
     @include card-style;
     background-color: white;
@@ -137,26 +170,6 @@ header.meeting-header {
       }
     }
 
-    textarea.editable {
-      border: none;
-      background: transparent;
-      outline: none;
-      resize: none;
-      margin-top: 0.75em;
-      @include bodyFont;
-      color: $gray3;
-      width: 100%;
-
-      &::placeholder {
-        @include startTyping;
-      }
-
-      &.agenda-item-note {
-        margin-top: 0;
-        width: calc(100% - 1.2em);
-      }
-    }
-
     .agenda-icon-tray {
       position: absolute;
       top: 1em;
@@ -176,6 +189,10 @@ header.meeting-header {
 
         &.active {
           color: $green;
+        }
+
+        &.fa-trash-alt:hover {
+          color:$red;
         }
       }
     }
@@ -231,15 +248,23 @@ header.meeting-header {
           }
 
           .start-typing-description {
-            @include startTyping;
+            &::placeholder {
+              @include startTyping;
+            }
+            @include bodyFont;
+            color:$gray3;
             margin-top: 0;
             margin-bottom: 0;
           }
 
           .start-typing-due-date {
-            @include startTypingDetail;
+            &::placeholder {
+              @include startTypingDetail;
+            }
+            @include detailsFont;
             margin-top: 0;
             margin-bottom: 0;
+            color:$gray3;
           }
         }
 
@@ -311,6 +336,11 @@ header.meeting-header {
         }
       }
     }
+  }
+
+  .agenda-item-add-button {
+    @include add-button;
+    margin:auto;
   }
 }
 

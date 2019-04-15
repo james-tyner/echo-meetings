@@ -4,7 +4,7 @@
     <h2 class="card-heading" v-on:click="toggle()">{{meeting.title}}</h2>
     <p v-if="showHumanDate" v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{humanDate}}</p>
     <p v-else v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{fullDate}}</p>
-    <p v-if="numberOfUnassignedTasks" class="mtg-unassigned-tasks">{{numberOfUnassignedTasks}} unassigned action <span v-if="numberOfUnassignedTasks == 1">item</span><span v-else>items</span></p>
+    <p v-if="numberOfUnassignedTasks" class="mtg-unassigned-tasks"><i class="fas fa-exclamation-triangle"></i> {{numberOfUnassignedTasks}} unassigned action <span v-if="numberOfUnassignedTasks == 1">item</span><span v-else>items</span></p>
 
     <!-- Need to send user to meeting details page on click -->
   </div>

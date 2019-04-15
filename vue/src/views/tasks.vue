@@ -14,7 +14,7 @@
 
     <!-- kanban -->
     <section>
-      <div id="kanban">
+      <div v-if="this.fakeTasks.length > 0" id="kanban">
         <div class="task-column">
           <div class="column-header">
             <div class="num-circle">{{notStartedTasks.length}}</div>
@@ -53,6 +53,10 @@
 
         <div class="clear-float"></div>
       </div> <!-- #kanban -->
+      <div v-else id="kanban" class="empty-list-style">
+        <h2>Well, look at you.</h2>
+        <h4>You have no tasks to complete</h4>
+      </div>
     </section>
   </main>
 </template>

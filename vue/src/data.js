@@ -166,8 +166,8 @@ let meeting_data = {
       ApiService.post(`/meeting/${meeting_id}/agenda`,
         { 'agenda': { title, description, notes } })
         .then(() => {
-            showAlert("green", `${title} created`);
-            this.get();
+            showAlert("green", "New agenda item created");
+            meeting_data.meeting.get(); // forces refresh in Vue
           }
         )
     },
@@ -179,8 +179,11 @@ let meeting_data = {
       ApiService.put(`/meeting/${meeting_id}/agenda/${agenda_id}`,
         { 'agenda': req })
     },
-    delete(meeting_id, agenda_id) {
-      ApiService.delete(`/meeting/${meeting_id}/agenda/${agenda_id}`, {})
+    delete(meeting_id, agenda_id, agenda_item_title) {
+      ApiService.delete(`/meeting/${meeting_id}/agenda/${agenda_id}`, {}).then(() => {
+        showAlert("red", `Removed ${agenda_item_title} from the meeting`)
+        meeting_data.meeting.get(); // forces refresh in Vue
+      })
     }
   }
 }
