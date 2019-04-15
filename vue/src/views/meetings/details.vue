@@ -18,7 +18,7 @@
     <!-- right sidebar -->
     <section class="right-bar">
       <!-- Start/End Button -->
-      <div v-if="this.meetingState == 1" class="meeting-start-btn" v-on:click="toggleTimer">Start Meeting</div>
+      <div v-if="this.meetingState == 1 && thisMeeting.agendas.length > 0" class="meeting-start-btn" v-on:click="toggleTimer">Start Meeting</div>
       <div v-if="this.meetingState == 2" class="meeting-start-btn meeting-end-btn" v-on:click="toggleTimer">End Meeting</div>
       <div v-if="this.meetingState == 3" class="meeting-start-btn meeting-save-btn" v-on:click="endMeeting">Save Minutes</div>
       <div v-if="this.meetingState == 2" class="meeting-timer">{{this.time}}</div>
