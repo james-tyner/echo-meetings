@@ -54,16 +54,15 @@
         <div class="clear-float"></div>
       </div> <!-- #kanban -->
       <div v-else id="kanban" class="empty-list-style">
-        <h2>Well, look at you.</h2>
-        <h4>You have no tasks to complete</h4>
+        <div class="placeholder-page">
+          <div class="placeholder-page-container">
+            <h2>Well, look at you</h2>
+            <p>You have no tasks to complete</p>
+          </div>
+        </div>
       </div>
     </section>
-    <div v-else class="placeholder-page">
-      <div class="placeholder-page-container">
-        <h2>Well, look at you</h2>
-        <p>You have no tasks to complete</p>
-      </div>
-    </div>
+
   </main>
 </template>
 
