@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { meeting_data } from '../../data'
+import { app_data, meeting_data } from '../../data'
 import draggable from "vuedraggable"
 import AnimateSave from "../../components/SaveAnimation"
 import AgendaItem from "../../components/meetings/AgendaItem"
@@ -86,6 +86,16 @@ export default {
   props: {
     id: String
   },
+  watch: {
+    thisMeeting: function () {
+      this.$nextTick(function () {
+        if (this.thisMeeting.title) {
+          app_data.updatePage(this.thisMeeting.title);
+          document.title = `${this.thisMeeting.title} - echo`
+        }
+      });
+    }
+  },
   methods: {
     startTimer: function () {
       this.meetingLength = 0;
@@ -112,7 +122,7 @@ export default {
   },
   mounted: function () {
     this.$nextTick(function () {
-      meeting_data.meeting.get()
+      meeting_data.meeting.get();
     });
   }
 }
