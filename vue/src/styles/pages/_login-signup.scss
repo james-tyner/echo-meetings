@@ -29,6 +29,11 @@
       padding: calc(50vh - 100px) 5vw 0px 5vw;
       text-align: center;
       color: white;
+      line-height: 1.5em;
+
+      h1 {
+        @include heading1;
+      }
 
       #google {
         height: 50px;
@@ -64,11 +69,21 @@
     p {
       color: $gray4;
     }
+    h3 {
+      @include heading3;
+    }
 
-    .image-1{
+    .image{
       width: 100%;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     }
+    .image-right {
+      border-radius: 10px 0px 0px 10px;
+    }
+    .image-left {
+      border-radius: 0px 10px 10px 0px;
+    }
+
 
     .row {
       padding-bottom: 10vh;
@@ -76,7 +91,8 @@
       grid-template-columns: 50% 50%;
     }
     .text {
-      padding-left: 5vw;
+      padding: 0px 2vw 0px 5vw;
+      line-height: 1.5em;
     }
     
     
