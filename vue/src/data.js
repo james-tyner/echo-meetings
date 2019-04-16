@@ -96,7 +96,7 @@ const team_data = {
     return ApiService.get('/team').then(res => {
       this.all_teams = res.data.teams;
 
-      return this.all_teams 
+      return this.all_teams
     })
   },
   create(name, description, color) {
@@ -134,11 +134,6 @@ const meeting_data = {
     get() {
       ApiService.get('/meeting').then(res => {
         meeting_data.all_meetings = res.data.meetings;
-      })
-    },
-    getOne(m_id) {
-      ApiService.get(`/meeting/${m_id}`).then(res => {
-        meeting_data.current_meeting = res.data;
       })
     },
     create(title, time, team, location = '', invitees) {
@@ -209,6 +204,7 @@ const task_data = {
       .then(() => {
           showAlert("green", `${name} created`);
           task_data.get();
+          meeting_data.meeting.get();
         }
       )
   },
@@ -223,12 +219,14 @@ const task_data = {
       { task: req })
       .then(() => {
           task_data.get();
+          meeting_data.meeting.get();
         }
       )
   },
   delete(id) {
     ApiService.delete(`/task/${id}`, {}).then(res => {
       task_data.get();
+      meeting_data.meeting.get();
       showAlert("red", "Task deleted");
     })
   }
