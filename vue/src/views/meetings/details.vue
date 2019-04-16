@@ -8,8 +8,12 @@
         </div>
 
         <!-- Agenda Item 1 -->
-        <AgendaItem v-for="item in thisMeeting.agendas" v-bind:key="item._id" v-bind:id="'agenda-' + item._id"
-                    v-bind:meeting="thisMeeting" v-bind:agendaItem="item"></AgendaItem>
+        <AgendaItem v-for="item in thisMeeting.agendas"
+                    v-bind:key="item._id"
+                    v-bind:id="'agenda-' + item._id"
+                    v-bind:meeting="thisMeeting"
+                    v-bind:agendaItem="item"
+        ></AgendaItem>
 
         <div class="agenda-item-add-button" v-on:click="addAgendaItem"><i class="material-icons"> add </i></div>
 
@@ -22,7 +26,8 @@
       <div v-if="this.meetingState === 1 && thisMeeting.agendas.length > 0" class="meeting-start-btn"
            v-on:click="startTimer">Start Meeting
       </div>
-      <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-pause-btn" v-on:click="pauseTimer">Pause</div>
+      <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-pause-btn" v-on:click="pauseTimer">Pause
+      </div>
       <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-end-btn">
         <router-link :to="{ path: `/meetings/end/${this.id}`, params: {id: this.id, duration:this.meetingLength} }">
           End
@@ -33,8 +38,13 @@
 
       <!-- Agenda Item ToC -->
       <draggable class="agenda-list-div" v-model="thisMeeting.agendas">
-        <a v-for="(item,index) in thisMeeting.agendas" :href="'#agenda-' + item._id" class="agenda-list-item">{{index +
-          1}}. {{item.title}}</a>
+        <a
+          v-for="(item,index) in thisMeeting.agendas"
+          :href="'#agenda-' + item._id"
+          class="agenda-list-item"
+        >
+          {{index + 1}}. {{item.title}}
+        </a>
       </draggable>
     </section>
   </div>
@@ -66,7 +76,8 @@ export default {
   },
   computed: {
     thisMeeting: function () {
-      return meeting_data.all_meetings.find(meeting => meeting._id === this.id)
+      const find = meeting_data.all_meetings.find(meeting => meeting._id === this.id);
+      return find ? find : { agendas: [] };
     },
     meetingTimer: function () {
       return moment().hour(0).minute(0).second(this.meetingLength).format('m [min] s [s]');

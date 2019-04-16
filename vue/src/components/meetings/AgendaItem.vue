@@ -157,7 +157,6 @@ export default {
   },
   computed: {},
   mounted: function () {
-    console.log(this.agendaItem);
   }
 }
 </script>
