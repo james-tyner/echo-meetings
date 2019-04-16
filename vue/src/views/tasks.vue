@@ -5,7 +5,7 @@
         <div class="filter-title"> Filter by team:</div>
         <div id="options">
           <a class="filter-group" v-on:click="selectedTeam = ''" v-bind:class="{'selected' : selectedTeam == ''}">ALL</a>
-          <a v-for="task in fakeTasks" class="filter-group" v-on:click="selectedTeam = task.team.name" v-bind:class="{'selected' : selectedTeam == task.team.name}">{{task.team.name}}</a>
+          <a v-for="team in allTaskTeams" class="filter-group" v-on:click="selectedTeam = team" v-bind:class="{'selected' : selectedTeam == team}">{{team}}</a>
         </div> <!-- #options -->
       </div> <!-- #filterbar -->
     </section>
@@ -14,13 +14,13 @@
 
     <!-- kanban -->
     <section>
-      <div v-if="this.fakeTasks.length > 0" id="kanban">
+      <div v-if="this.task_data.all_tasks.length > 0" id="kanban">
         <div class="task-column">
           <div class="column-header">
             <div class="num-circle">{{notStartedTasks.length}}</div>
             <h2>Not Started</h2>
           </div>
-          <draggable class="task-list" v-model="notStartedTasks" group="tasks" v-on:start="select" v-on:add="addTask(1)">
+          <draggable class="task-list" v-model="notStartedTasks" group="tasks" v-on:start="select" v-on:add="addTask(0)">
             <div v-for="task in notStartedTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
             </div>
@@ -32,7 +32,7 @@
             <div class="num-circle">{{inProgressTasks.length}}</div>
             <h2>In Progress</h2>
           </div>
-          <draggable class="task-list" v-model="inProgressTasks" group="tasks" v-on:start="select" v-on:add="addTask(2)">
+          <draggable class="task-list" v-model="inProgressTasks" group="tasks" v-on:start="select" v-on:add="addTask(1)">
             <div v-for="task in inProgressTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
             </div>
@@ -44,7 +44,7 @@
             <div class="num-circle">{{completedTasks.length}}</div>
             <h2>Complete</h2>
           </div>
-          <draggable class="task-list" v-model="completedTasks" group="tasks" v-on:start="select" v-on:add="addTask(3)">
+          <draggable class="task-list" v-model="completedTasks" group="tasks" v-on:start="select" v-on:add="addTask(2)">
             <div v-for="task in completedTasks">
               <TaskCard v-bind:task="task"> </TaskCard>
             </div>
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { task_data } from "../data"
+
 window.moment = require('moment'); // for use on TaskCard component
 
 import TaskCard from "../components/tasks/TaskCard.vue"
@@ -78,20 +80,24 @@ export default {
   methods:{
     select:function(evt){
       this.draggedElement = evt.item._underlying_vm_.id;
-      console.log(this.draggedElement);
     },
     addTask:function(status){
-      console.log("status " + status);
-      let movedTask = this.fakeTasks.find(task => task["id"] == this.draggedElement);
-      console.log(movedTask);
+      let movedTask = this.task_data.all_tasks.find(task => task["id"] == this.draggedElement);
       movedTask.status = status;
       this.animateSave();
     }
   },
   computed:{
+    allTaskTeams: function () {
+      let teamsSet = new Set();
+      for (const task of task_data.all_tasks) {
+        teamsSet.add(task.meeting.team.name);
+      }
+      return Array.from(teamsSet.values()).sort();
+    },
     notStartedTasks:function(){
       let chosenTeam = this.selectedTeam;
-      let filteredTasks = this.fakeTasks.filter(task => task["status"] == 1)
+      let filteredTasks = this.task_data.all_tasks.filter(task => task["status"] == 0)
       if (chosenTeam != ""){
         return filteredTasks.filter(task => task.team.name == this.selectedTeam)
       } else {
@@ -100,7 +106,7 @@ export default {
     },
     inProgressTasks:function(){
       let chosenTeam = this.selectedTeam;
-      let filteredTasks = this.fakeTasks.filter(task => task["status"] == 2)
+      let filteredTasks = this.task_data.all_tasks.filter(task => task["status"] == 1)
       if (chosenTeam != ""){
         return filteredTasks.filter(task => task.team.name == this.selectedTeam)
       } else {
@@ -109,7 +115,7 @@ export default {
     },
     completedTasks:function(){
       let chosenTeam = this.selectedTeam;
-      let filteredTasks = this.fakeTasks.filter(task => task["status"] == 3)
+      let filteredTasks = this.task_data.all_tasks.filter(task => task["status"] == 2)
       if (chosenTeam != ""){
         return filteredTasks.filter(task => task.team.name == this.selectedTeam)
       } else {
@@ -117,76 +123,16 @@ export default {
       }
     }
   },
+  mounted:function(){
+    task_data.get()
+  },
   data:function(){
-    return{
+    return {
       selectedTeam:"",
       draggedElement:null,
-      fakeTasks:[
-        {
-          "id": 1,
-          "name": "Finish A11",
-          "description": "need to finish",
-          "due": 1553479225106,
-          "status": 1,
-          "assignees":[{
-            "name": "Tommy Trojan",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-          }, {
-            "name": "Mars Tan",
-            "username": "mars.tanjx",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-          }],
-          "team":{
-            "id": 1,
-            "color":"blue",
-            "name": "Team Echo",
-            "description": "This team isn't even real.",
-            "members": [{
-              "name": "Tommy Trojan",
-              "username": "trojan.echo",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-            }, {
-              "name": "Mars Tan",
-              "username": "mars.tanjx",
-              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-            }]
-          }
-        },
-        {
-          "id": 2,
-          "name": "Finish Everything",
-          "description": "please finish everything",
-          "due": 1554867187000,
-          "status": 2,
-          "assignees":[{
-            "name": "Courtney Dunlap",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-          }],
-          "team":{
-            "id": 2,
-            "color":"red",
-            "name": "Dance Club",
-            "description": "This team is super not real.",
-            "members": [{
-              "name": "Courtney Dunlap",
-              "username": "trojan.echo",
-              "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-            }, {
-              "name": "James Tyner",
-              "username": "james",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
-            }, {
-              "name": "Joy Verve",
-              "username": "joy",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
-            }]
-          }
-        }
-      ]
+      task_data:task_data
     }
   }
-  }
+}
 
 </script>

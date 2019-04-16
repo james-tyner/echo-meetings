@@ -30,12 +30,14 @@
       <div class="action-item" v-for="action in this.agendaItem.tasks">
         <input type="checkbox">
         <div class="action-item-text">
-          <p contenteditable="true" class="action-item-description">{{action.description}}</p>
-          <p contenteditable="true" class="due-date">{{action.due | humanDate}}</p>
+          <p contenteditable="true" class="action-item-description">{{action.name}}</p>
+          <p v-if="action.due" contenteditable="true" class="due-date">{{action.due | humanDate}}</p>
+          <input v-else class="editable start-typing-due-date" type="datetime-local" v-model="action.due" placeholder="due…"></input>
         </div>
         <div class="assignees">
-          <div v-if="!showAssignees" class="assignee-photo" v-for="assignee in action.assignees" :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"></div>
+          <div class="assignee-photo" v-for="assignee in action.assignees" :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"></div>
           <i class="fas fa-user-plus"></i>
+          <i class="far fa-trash-alt" v-on:click="deleteTask(action._id)"></i>
         </div>
       </div>
       <div class="action-item">
@@ -55,15 +57,15 @@
 </template>
 
 <script>
-import { meeting_data } from '../../data'
+import { meeting_data, task_data } from '../../data'
 import AnimateSave from "../SaveAnimation"
-
 
 export default {
   name:"agenda-item",
   data:function(){
     return {
-      meeting_data:meeting_data
+      meeting_data:meeting_data,
+      task_data:task_data
     }
   },
   props: {

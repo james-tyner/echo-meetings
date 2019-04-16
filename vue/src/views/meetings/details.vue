@@ -8,7 +8,7 @@
         </div>
 
         <!-- Agenda Item 1 -->
-        <AgendaItem v-for="item in thisMeeting.agendas" v-bind:key="item._id" v-bind:id="'agenda-' + item._id" v-bind:agendaItem="item" v-bind:meeting="thisMeeting"></AgendaItem>
+        <AgendaItem v-for="item in thisMeeting.agendas" v-bind:key="item._id" v-bind:id="'agenda-' + item._id" v-bind:meeting="thisMeeting" v-bind:agendaItem="item"></AgendaItem>
 
         <div class="agenda-item-add-button" v-on:click="addAgendaItem"><i class="material-icons"> add </i></div>
 

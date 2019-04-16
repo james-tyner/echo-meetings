@@ -1,6 +1,6 @@
 <template>
 	<div class="card" v-bind:class="colorBand">
-		<h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{task.team.name}}</h3>
+		<h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{task.meeting.team.name}}</h3>
 		<h2 class="card-heading" v-on:click="toggle()">{{task.name}}</h2>
 		<div class="task-info" v-if="showAll">
       <p class="card-desc">{{task.description}}</p>
@@ -8,8 +8,8 @@
       <div class="task-assignees">
 				<p class="assignee-heading">Assigned to</p>
         <div v-for="assignee in task.assignees" class="assignee">
-          <div class="profile-photo" :style="{ 'background-image' : 'url(' + assignee.avatar + ')'}"></div>
-          <p class="member-name">{{assignee.name}}</p>
+          <div class="profile-photo" :style="{ 'background-image' : 'url(' + task.meeting.team.members.find(person => person._id == assignee).avatar + ')'}"></div>
+          <p class="member-name">{{task.meeting.team.members.find(person => person._id == assignee).name}}</p>
         </div>
       </div>
     </div>
@@ -30,10 +30,10 @@
     },
     computed:{
       colorBand:function(){
-        return (this.task.team.color + '-color-band')
+        return (this.task.meeting.team.color + '-color-band')
       },
       teamText:function(){
-        return (this.task.team.color)
+        return (this.task.meeting.team.color)
       },
 			humanDate:function(){
 				var now = Date.now();

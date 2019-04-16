@@ -191,7 +191,7 @@ const meeting_data = {
 const task_data = {
   all_tasks: [],
   get() {
-    ApiService.get('/tasks').then(res => {
+    ApiService.get('/task').then(res => {
       this.all_tasks = res.data.tasks;
     })
   },
