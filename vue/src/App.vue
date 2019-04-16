@@ -49,7 +49,7 @@ export default {
         }
       }
       if (!VueCookies.isKey('token')) {
-        this.$router.push('login')
+        this.$router.push('/login')
       }
     }
   },

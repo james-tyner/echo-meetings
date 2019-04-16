@@ -144,6 +144,68 @@
   }
 }
 
+.filter-bar-container {
+  position:sticky;
+  top:calc(3vw + 2.1em + 0.67em + 50px - 12px - 20px);
+  background-color:$bgGray;
+  z-index:40;
+}
+
+#filterbar {
+  font-size:0.8em;
+  font-weight:500;
+  color: $gray3;
+  height: 50px;
+
+  .filter-title {
+    float:left;
+    height:50px;
+    display:flex;
+    align-items:center;
+    margin-right:1.5em;
+  }
+
+  #options {
+    display:flex;
+    flex-wrap:nowrap;
+    height:50px;
+    align-items:center;
+    overflow:auto;
+  }
+
+  .filter-group {
+    text-transform:uppercase;
+    cursor:pointer;
+    border-radius: 30px;
+  	font-style: normal;
+  	font-size: 12px;
+  	text-align: center;
+  	background: $gray1;
+  	color: $gray3;
+  	padding: 10px 24px 10px 24px;
+  	border: 0px;
+  	display: inline-block;
+  	margin: 0px 5px 0px 5px;
+  	text-decoration: none;
+    white-space:nowrap;
+
+  	&:focus {
+  		outline: none;
+  	}
+
+  	&.selected {
+  		background: $gray3;
+  		color: $bgGray;
+  	}
+  }
+}
+
+.empty-list-style {
+  font-weight:400;
+  text-align:center;
+  color:$gray2;
+}
+
 #person-search {
   display:flex;
   align-items:center;

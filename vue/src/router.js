@@ -5,10 +5,14 @@ import VueRouter from 'vue-router'
 import Dashboard from './views/dashboard'
 import Tasks from './views/tasks'
 import Meetings from './views/meetings/meetings'
-import AddMeeting from "./views/meetings/createMeeting"
+import AddMeeting from "./views/meetings/add"
+import MeetingDetails from "./views/meetings/details"
+import EndMeeting from "./views/meetings/end"
 import Teams from "./views/teams/teams"
 import AddTeam from "./views/teams/add"
 import Login from "./views/login"
+
+import { app_data } from "./data"
 
 Vue.use(VueRouter)
 
@@ -52,6 +56,24 @@ const router = new VueRouter({
       name:"Create a meeting",
       meta: {
         title:"Create a meeting - echo",
+        group:"meetings"
+      }
+    }, {
+      path:"/meetings/details/:id",
+      name:"",
+      component:MeetingDetails,
+      props:true,
+      meta: {
+        title:"",
+        group:"meetings"
+      }
+    }, {
+      path:"/meetings/end/:id",
+      name:"",
+      component:EndMeeting,
+      props:true,
+      meta: {
+        title:"",
         group:"meetings"
       }
     }, {

@@ -3,17 +3,17 @@
     <div id="name">
       <label for="team-name">Team Name</label>
       <input
-              type="text" id="team-name"
-              placeholder="The Best Team Ever…"
-              v-model="name"
+        type="text" id="team-name"
+        placeholder="The Best Team Ever…"
+        v-model="name"
       >
     </div>
     <div id="location">
       <label for="team-description">Description</label>
       <textarea
-              id="team-description"
-              placeholder="A group dedicated to world peace"
-              v-model="description"
+        id="team-description"
+        placeholder="A group dedicated to world peace"
+        v-model="description"
       ></textarea>
     </div>
     <button @click="onCreateTeam">Create New Team</button>
@@ -22,7 +22,8 @@
 
 <script>
 
-import {team_data} from "../../data";
+import { team_data } from "../../data";
+import showAlert from "../../components/ShowAlert"
 
 const possibleColors = ['green', 'blue', 'red', 'magenta', 'orange']
 
@@ -36,7 +37,10 @@ export default {
   },
   methods: {
     onCreateTeam() {
-      if (this.name === '') return
+      if (this.name === '') {
+        showAlert('red', 'Team name cannot be empty', 2500);
+        return
+      }
       const color = possibleColors[Math.floor(Math.random() * possibleColors.length)]
       team_data.create(this.name, this.description, color);
       this.$router.push('../teams')

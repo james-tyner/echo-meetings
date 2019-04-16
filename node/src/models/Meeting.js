@@ -12,7 +12,7 @@ const AgendaSchema = new mongoose.Schema({
 
 const MeetingSchema = new mongoose.Schema({
   title: String,
-  time: Date,
+  time: Number,
   location: String,
   invitees: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -31,8 +31,8 @@ const MeetingSchema = new mongoose.Schema({
       message: 'Team non existent',
     },
   },
-  start: Date,
-  end: Date,
+  start: Number,
+  end: Number,
 });
 
 

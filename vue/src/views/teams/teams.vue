@@ -1,18 +1,15 @@
 <template>
   <main id="teams-main">
-    <hr/>
-    <section class="team-list">
-      <div v-if="team_data.all_teams && team_data.all_teams.length > 0">
-        <div v-for="team in team_data.all_teams">
-          <TeamCard v-bind:team="team"></TeamCard>
-        </div>
+    <section v-if="team_data.all_teams.length > 0" class="team-list">
+      <div v-for="team in team_data.all_teams">
+        <TeamCard v-bind:team="team"></TeamCard>
       </div>
-      <div v-else class="placeholder-page">
-        <div class="placeholder-page-container">
+    </section>
+    <section v-else class="team-list empty-list-style">
+      <div class="placeholder-page-container">
           <h2>You don’t have to go it alone.</h2>
           <p>Create a team to share meetings and tasks</p>
         </div>
-      </div>
     </section>
   </main>
 

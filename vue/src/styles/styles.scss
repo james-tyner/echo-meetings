@@ -83,6 +83,7 @@ nav#sidebar {
           padding-top: 0.1em;
           color: $red;
           font-weight: 400;
+          cursor:pointer;
 
           &:hover {
             color: $red * 0.7;
@@ -94,7 +95,7 @@ nav#sidebar {
 }
 
 header {
-  padding: 3vw 3vw 0 3vw;
+  padding: 3vw 3vw 15px 3vw;
   position: absolute;
   left: 18vw;
   top: 0;
@@ -177,6 +178,10 @@ main {
       border-left: 10px solid $green;
     }
   }
+}
+
+button {
+  outline: none;
 }
 
 .add-button {
