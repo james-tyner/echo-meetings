@@ -195,7 +195,7 @@ const task_data = {
       this.all_tasks = res.data.tasks;
     })
   },
-  create(meeting_id, agenda_id, name, description, note, assignees) {
+  create(meeting_id, agenda_id, name, description = null, note = null, assignees = null) {
     const req = {};
     if (meeting_id) req.meeting = meeting_id;
     if (agenda_id) req.agenda = agenda_id;
@@ -206,7 +206,7 @@ const task_data = {
     ApiService.post(`/task`, { task: req })
       .then(() => {
           showAlert("green", `${name} created`);
-          this.get();
+          task_data.get();
         }
       )
   },
@@ -220,14 +220,14 @@ const task_data = {
     ApiService.put(`/task/${task_id}`,
       { task: req })
       .then(() => {
-          this.get();
+          task_data.get();
         }
       )
   },
   delete(id) {
     ApiService.delete(`/task/${id}`, {}).then(res => {
-      this.get();
-      showAlert("green", "Task deleted");
+      task_data.get();
+      showAlert("red", "Task deleted");
     })
   }
 }

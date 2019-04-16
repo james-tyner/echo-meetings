@@ -27,12 +27,12 @@
 
     <!-- Action Items -->
     <div class="agenda-action-items">
-      <div class="action-item" v-for="action in this.agendaItem.tasks">
-        <input type="checkbox">
+      <div class="action-item" v-for="action in agendaItem.tasks" v-bind:key="action._id">
+        <input type="checkbox" v-on:change="changeTaskStatus(action._id)">
         <div class="action-item-text">
           <p contenteditable="true" class="action-item-description">{{action.name}}</p>
           <p v-if="action.due" contenteditable="true" class="due-date">{{action.due | humanDate}}</p>
-          <input v-else class="editable start-typing-due-date" type="datetime-local" v-model="action.due" placeholder="due…"></input>
+          <input v-else class="editable start-typing-due-date" type="datetime-local" v-on:change="modifyTaskTime(action._id)" v-model="action.due" placeholder="due…"></input>
         </div>
         <div class="assignees">
           <div class="assignee-photo" v-for="assignee in action.assignees" :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"></div>
@@ -43,11 +43,11 @@
       <div class="action-item">
         <input type="checkbox" disabled>
         <div class="action-item-text">
-          <input class="editable start-typing-description" type="text" placeholder="Add a task…"></input>
-          <input class="editable start-typing-due-date" type="datetime-local" placeholder="due…"></input>
+          <input class="editable start-typing-description" type="text" placeholder="Add a task…" v-on:keydown="createNewTask"></input>
+          <!-- <input class="editable start-typing-due-date" type="datetime-local" v-on:change="modifyTaskTime" placeholder="due…"></input> -->
         </div>
         <div class="assignees">
-          <i class="fas fa-user-plus"></i>
+          <!-- <i class="fas fa-user-plus"></i> -->
           <!-- Still need to add the modal for finding someone -->
         </div>
       </div>
@@ -74,8 +74,33 @@ export default {
   },
   mixins:[AnimateSave],
   methods:{
+    createNewTask:function(event){
+      console.log(event.keyCode);
+      let taskName = event.target.value;
+      // Will fire when user hits enter
+      if (event.keyCode == 13 && taskName.length != "" && taskName.length != null){
+        task_data.create(this.meeting._id, this.agendaItem._id, taskName)
+        event.target.value = "";
+      }
+    },
+    modifyTaskTime:function(event, task_id){
+      // Will fire only once date and time are fully filled
+
+      // Task API currently doesn't accept date/times as parameters on either create or update
+    },
+    changeTaskStatus:function(event, task_id){
+      var taskStatus;
+      if (event.target.checked){
+        taskStatus = 2;
+        task_data.update(task_id, taskStatus);
+        this.animateSave();
+      }
+    },
     deleteItem:function(){
       meeting_data.agenda.delete(this.meeting._id, this.agendaItem._id, this.agendaItem.title)
+    },
+    deleteTask:function(task_id){
+      task_data.delete(task_id);
     },
     updateItem:function(){
       var self = this;
@@ -87,6 +112,17 @@ export default {
         meeting_data.agenda.update(self.meeting._id, self.agendaItem._id, self.agendaItem.title, self.agendaItem.description, self.agendaItem.notes);
         self.animateSave();
       }, 750)
+    },
+    updateTask:function(){
+      var self = this;
+      var updateTimer;
+      if (updateTimer){
+        clearTimeout(updateTimer);
+      }
+      updateTimer = setTimeout(() => {
+        task_data.update()
+        self.animateSave();
+      })
     }
   },
   filters: {

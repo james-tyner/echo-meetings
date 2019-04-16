@@ -82,8 +82,6 @@ export default {
       this.draggedElement = evt.item._underlying_vm_.id;
     },
     addTask:function(status){
-      // let movedTask = this.task_data.all_tasks.find(task => task["id"] == this.draggedElement);
-      // movedTask.status = status;
       task_data.update(this.draggedElement, status);
       this.animateSave();
     }
