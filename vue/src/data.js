@@ -93,8 +93,10 @@ const user_data = {
 const team_data = {
   all_teams: [],
   get() {
-    ApiService.get('/team').then(res => {
+    return ApiService.get('/team').then(res => {
       this.all_teams = res.data.teams;
+
+      return this.all_teams 
     })
   },
   create(name, description, color) {
@@ -234,3 +236,4 @@ const task_data = {
 
 
 export { ApiService, app_data, user_data, team_data, meeting_data, task_data }
+

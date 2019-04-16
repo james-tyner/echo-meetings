@@ -58,6 +58,12 @@
         <h4>You have no tasks to complete</h4>
       </div>
     </section>
+    <div v-else class="placeholder-page">
+      <div class="placeholder-page-container">
+        <h2>Well, look at you</h2>
+        <p>You have no tasks to complete</p>
+      </div>
+    </div>
   </main>
 </template>
 

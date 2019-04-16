@@ -228,6 +228,10 @@ button {
   }
 }
 
+.placeholder-page {
+  @include placeholder-page-text
+}
+
 // PAGES
 @import 'pages/dashboard';
 @import 'pages/meetings';

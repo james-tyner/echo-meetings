@@ -17,7 +17,10 @@
     <section class="meeting-cards">
       <h2>Upcoming</h2>
       <div v-if="this.upcomingFilteredMeetings.length === 0" id="no-upcoming-meetings">
-        No meetings coming up <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span>
+        <div class="placeholder-page-container">
+        <h2>Sit back, relax.</h2>
+        <p>You have no upcoming meetings <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span></p>
+      </div> 
       </div>
       <div class="all-mtg-cards">
         <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">

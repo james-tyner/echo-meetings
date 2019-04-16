@@ -38,6 +38,10 @@
       align-items: center;
       justify-content: space-between;
     }
+
+    &.card-empty > div {
+      opacity: 0.7;
+    }
   }
 
   .card:first-of-type {
@@ -78,6 +82,23 @@
   margin-top: 40px;
 }
 
+
+.task-item-div-input-name {
+  border: none;
+  font-size: 14px;
+  font-family: 'Rubik';
+  outline: 0;
+  padding-right: 10px;
+}
+
+.task-item-div-input-due {
+  border: none;
+  font-size: 14px;
+  font-family: 'Rubik';
+  outline: 0;
+  padding-right: 10px;
+}
+
 .tasks-div {
   flex-basis: 65%;
   flex-grow: 2;
@@ -96,9 +117,12 @@
     display: grid;
     grid-template-columns: 60% 20% 20%;
     align-items: center;
-
     border-bottom: 1px solid $gray1;
     padding: 16px 0;
+
+    &:last-child {
+      border: 0;
+    }
 
     .task-due {
       margin: 0;

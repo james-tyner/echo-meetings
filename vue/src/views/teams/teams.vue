@@ -1,5 +1,4 @@
 <template>
-
   <main id="teams-main">
     <section v-if="team_data.all_teams.length > 0" class="team-list">
       <div v-for="team in team_data.all_teams">
@@ -7,8 +6,10 @@
       </div>
     </section>
     <section v-else class="team-list empty-list-style">
-      <h2>You don’t have to go it alone.</h2>
-      <h4>Create a team to share meetings and tasks</h4>
+      <div class="placeholder-page-container">
+          <h2>You don’t have to go it alone.</h2>
+          <p>Create a team to share meetings and tasks</p>
+        </div>
     </section>
   </main>
 
