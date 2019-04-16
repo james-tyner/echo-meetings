@@ -8,6 +8,7 @@
     top: 50px;
     left: 50px;
     z-index: 500;
+
     img {
       width: 120px;
     }
@@ -59,27 +60,33 @@
     }
   }
 
-  
 
   .input-window {
     height: 100vh;
-    
+
     padding: 10vh 0px 0px 40%;
+
+    .input-container {
+      padding: 0 20px;
+    }
 
     p {
       color: $gray4;
     }
+
     h3 {
       @include heading3;
     }
 
-    .image{
+    .image {
       width: 100%;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     }
+
     .image-right {
       border-radius: 10px 0px 0px 10px;
     }
+
     .image-left {
       border-radius: 0px 10px 10px 0px;
     }
@@ -90,13 +97,15 @@
       display: grid;
       grid-template-columns: 50% 50%;
     }
+
     .text {
       padding: 0px 2vw 0px 5vw;
       line-height: 1.5em;
     }
-    
-    
+
+
   }
+
   a {
     text-decoration: none;
   }
