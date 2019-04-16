@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
 
 const Meeting = mongoose.model('Meeting');
+const User = mongoose.model('User');
 
 const TaskSchema = new mongoose.Schema({
   name: String,
   description: String,
   due: Date,
-  assignees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  assignees: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    validate: {
+      validator: _id => User.countDocuments({ _id }).then(doc => doc > 0),
+      message: 'User non existent',
+    },
+  }],
   status: { type: Number, min: 0, max: 2 },
   // team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   meeting: {

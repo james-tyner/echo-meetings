@@ -33,7 +33,6 @@ router.get('/', async (req, res) => {
 
 // Create a Task
 router.post('/', async (req, res) => {
-  const { user } = req.locals;
   log.log('Creating a task');
   const req_task = req.body.task;
   if (!req_task) {
@@ -67,7 +66,7 @@ router.post('/', async (req, res) => {
   }
   // build the task
   const task = new Task();
-  task.title = req_task.title;
+  task.name = req_task.name;
   task.meeting = req_task.meeting;
   task.agenda = req_task.agenda;
   // only update fields that were actually passed...
@@ -103,7 +102,6 @@ router.post('/', async (req, res) => {
             });
           });
       }).catch((err) => {
-        console.log(err);
         // condense error messages
         let message = '';
         for (const single_error in err.errors) {
@@ -120,6 +118,121 @@ router.post('/', async (req, res) => {
       });
     }
   });
+});
+
+const TASK_NONEXISTENT_MSG = "Task does not exist, or user doesn't have permission to access this task";
+
+// Update a task
+router.put('/:t_id', async (req, res) => {
+  log.log('Modifying a task');
+  const { user } = req.locals;
+  Task.findById(req.params.t_id)
+    .then((task) => {
+      Meeting.findOne({ _id: task.meeting, invitees: user._id }).then((meeting) => {
+        if (!meeting) {
+          return res.status(422).json({
+            errors: {
+              message: TASK_NONEXISTENT_MSG,
+            },
+          });
+        }
+        const req_task = req.body.task;
+        if (!req_task) {
+          return res.status(422).json({
+            errors: {
+              message: 'no task field',
+            },
+          });
+        }
+        // only update fields that were actually passed...
+        if (typeof req_task.name !== 'undefined') {
+          task.name = req_task.name;
+        }
+        if (typeof req_task.description !== 'undefined') {
+          task.description = req_task.description;
+        }
+        if (typeof req_task.due !== 'undefined') {
+          task.due = req_task.due;
+        }
+        task.assignees = [];
+        if (typeof req_task.assignees !== 'undefined') {
+          task.assignees = req_task.assignees;
+        }
+        task.save().then(() => {
+          log.log(`Task (${task.name}) updated`);
+          return res.json({ task });
+        })
+          .catch((err) => {
+            // condense error messages
+            let message = '';
+            for (const single_error in err.errors) {
+              // TODO hasOwnProperty
+              if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
+            }
+            return res.status(422).json({
+              errors: { message },
+            });
+          });
+      });
+    });
+});
+
+
+// Delete a task
+router.delete('/:t_id', async (req, res) => {
+  log.log('Deleting an task');
+  const { user } = req.locals;
+  Task.findById(req.params.t_id)
+    .then((task) => {
+      if (!task) {
+        return res.status(422).json({
+          errors: {
+            message: TASK_NONEXISTENT_MSG,
+          },
+        });
+      }
+      Meeting.findOne({ _id: task.meeting, invitees: user._id }).then((meeting) => {
+        if (!meeting) {
+          return res.status(422).json({
+            errors: {
+              message: TASK_NONEXISTENT_MSG,
+            },
+          });
+        }
+        let agenda = null;
+        let index;
+        for (index = 0; index < meeting.agendas.length; index++) {
+          if (meeting.agendas[index]._id.equals(task.agenda)) {
+            agenda = meeting.agendas[index];
+            break;
+          }
+        }
+        for (let j = 0; j < agenda.tasks.length; j++) {
+          if (agenda.tasks[j]._id.equals(task._id)) {
+            agenda.tasks.splice(j, 1);
+            break;
+          }
+        }
+        meeting.agendas.set(index, agenda);
+        meeting.save().then(() => {
+          Task.findByIdAndDelete(req.params.t_id).then(() => {
+            log.log(`Task (${task.name}) deleted`);
+            return res.json({ task });
+          });
+        })
+          .catch((err) => {
+            // condense error messages
+            let message = '';
+            for (const single_error in err.errors) {
+              // TODO hasOwnProperty
+              if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
+            }
+            return res.status(422).json({
+              errors: { message },
+            });
+          });
+      });
+    });
 });
 
 

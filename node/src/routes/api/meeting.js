@@ -26,7 +26,12 @@ router.use(auth.required, async (req, res, next) => {
 router.get('/', async (req, res) => {
   const { user } = req.locals;
   Meeting.find({ invitees: user.id })
-    .populate('invitees').populate('team').populate('agendas.tasks')
+    .populate('invitees')
+    .populate('team')
+    .populate({
+      path: 'agendas.tasks',
+      populate: { path: 'assignees' },
+    })
     .then((meetings) => {
       res.json({ meetings });
     });
@@ -325,7 +330,7 @@ router.put('/:m_id/agenda/:a_id', async (req, res) => {
 });
 
 
-// delete a meeting
+// delete an agenda
 router.delete('/:m_id/agenda/:a_id', async (req, res) => {
   const { user } = req.locals;
   log.log('Deleting an agenda');
