@@ -210,8 +210,9 @@ const task_data = {
         }
       )
   },
-  update(task_id, name, description, note, assignees) {
+  update(task_id, status = null, name = null, description = null, note = null, assignees = null) {
     const req = {};
+    if (status) req.status = status;
     if (name) req.name = name;
     if (description) req.description = description;
     if (note) req.note = note;

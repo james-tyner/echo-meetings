@@ -29,8 +29,8 @@ router.get('/', async (req, res) => {
       populate: {
         path: 'team',
         populate: {
-          path: 'members'
-        }
+          path: 'members',
+        },
       },
     })
     .then((tasks) => {
@@ -153,6 +153,9 @@ router.put('/:t_id', async (req, res, next) => {
         }
         if (typeof req_task.due !== 'undefined') {
           task.due = req_task.due;
+        }
+        if (typeof req_task.status !== 'undefined') {
+          task.status = req_task.status;
         }
         task.assignees = [];
         if (typeof req_task.assignees !== 'undefined') {
