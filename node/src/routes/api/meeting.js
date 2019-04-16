@@ -57,7 +57,7 @@ router.get('/:m_id', auth.required, async (req, res) => {
 });
 
 // Create a Meeting
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const { user } = req.locals;
   log.log('Creating a meeting');
   const req_meeting = req.body.meeting;
@@ -121,21 +121,13 @@ router.post('/', async (req, res) => {
     log.log(`Meeting (${meeting.title}) created`);
     return res.json({ meeting });
   }).catch((err) => {
-    // condense error messages
-    let message = '';
-    for (const single_error in err.errors) {
-      // TODO hasOwnProperty
-      if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
-    }
-    return res.status(422).json({
-      errors: { message },
-    });
+    next(err);
   });
 });
 
 
 // update a meeting
-router.put('/:m_id', auth.required, async (req, res) => {
+router.put('/:m_id', auth.required, async (req, res, next) => {
   const { user } = req.locals;
   Meeting.findOne({ _id: req.params.m_id, invitees: mongoose.Types.ObjectId(user.id) })
     .then((meeting) => {
@@ -175,15 +167,7 @@ router.put('/:m_id', auth.required, async (req, res) => {
         log.log(`Meeting (${meeting.title}) modified`);
         return res.json({ meeting });
       }).catch((err) => {
-        // condense error messages
-        let message = '';
-        for (const single_error in err.errors) {
-          // TODO
-          if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
-        }
-        return res.status(422).json({
-          errors: { message },
-        });
+        next(err);
       });
     })
     .catch(() => res.status(422).json({

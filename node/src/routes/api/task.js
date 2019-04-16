@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 
 
 // Create a Task
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   log.log('Creating a task');
   const req_task = req.body.task;
   if (!req_task) {
@@ -110,15 +110,7 @@ router.post('/', async (req, res) => {
             });
           });
       }).catch((err) => {
-        // condense error messages
-        let message = '';
-        for (const single_error in err.errors) {
-          // TODO hasOwnProperty
-          if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
-        }
-        return res.status(422).json({
-          errors: { message },
-        });
+        next(err);
       });
     } else {
       return res.status(422).json({
@@ -131,7 +123,7 @@ router.post('/', async (req, res) => {
 const TASK_NONEXISTENT_MSG = "Task does not exist, or user doesn't have permission to access this task";
 
 // Update a task
-router.put('/:t_id', async (req, res) => {
+router.put('/:t_id', async (req, res, next) => {
   log.log('Modifying a task');
   const { user } = req.locals;
   Task.findById(req.params.t_id)
@@ -171,15 +163,7 @@ router.put('/:t_id', async (req, res) => {
           return res.json({ task });
         })
           .catch((err) => {
-            // condense error messages
-            let message = '';
-            for (const single_error in err.errors) {
-              // TODO hasOwnProperty
-              if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
-            }
-            return res.status(422).json({
-              errors: { message },
-            });
+            next(err);
           });
       });
     });
@@ -187,7 +171,7 @@ router.put('/:t_id', async (req, res) => {
 
 
 // Delete a task
-router.delete('/:t_id', async (req, res) => {
+router.delete('/:t_id', async (req, res, next) => {
   log.log('Deleting an task');
   const { user } = req.locals;
   Task.findById(req.params.t_id)
@@ -229,15 +213,7 @@ router.delete('/:t_id', async (req, res) => {
           });
         })
           .catch((err) => {
-            // condense error messages
-            let message = '';
-            for (const single_error in err.errors) {
-              // TODO hasOwnProperty
-              if (err.errors.hasOwnProperty(single_error)) message += `${err.errors[single_error].message} `;
-            }
-            return res.status(422).json({
-              errors: { message },
-            });
+            next(err);
           });
       });
     });
