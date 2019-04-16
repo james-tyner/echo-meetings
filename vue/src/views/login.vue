@@ -37,7 +37,7 @@
                 <p class="heading3"> Share Tasks</p>
                 <p>Assign different tasks from the meeting to your group members.</p>
               </div>
-              <div><img src="/assets/meetings.png" class="card-shadow image-1">
+              <div><img src="/assets/tasks.png" class="card-shadow image-1">
               </div>
             </div> <!-- end of row-3 -->
           
