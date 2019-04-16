@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 const Task = mongoose.model('Task');
+const Meeting = mongoose.model('Meeting');
 
 const log = require('../../util/log');
 const auth = require('../auth');
@@ -84,8 +85,23 @@ router.post('/', async (req, res) => {
     if (pass) {
       // this will perform validation of meeting
       task.save().then(() => {
-        log.log(`Task (${task.title}) created`);
-        return res.json({ task });
+        Meeting.findOne({ _id: task.meeting })
+          .then((meeting) => {
+            let agenda = null;
+            let index;
+            for (index = 0; index < meeting.agendas.length; index++) {
+              if (meeting.agendas[index]._id.equals(task.agenda)) {
+                agenda = meeting.agendas[index];
+                break;
+              }
+            }
+            agenda.tasks.push(task._id);
+            meeting.agendas.set(index, agenda);
+            meeting.save().then(() => {
+              log.log(`Task (${task.name}) created`);
+              return res.json({ task });
+            });
+          });
       }).catch((err) => {
         console.log(err);
         // condense error messages
