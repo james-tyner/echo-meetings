@@ -68,7 +68,7 @@ const app_data = {
   back_url: process.env.VUE_APP_BACK_URL
 }
 
-let user_data = {
+const user_data = {
   username: '',
   avatar: '',
   updateUser() {
@@ -90,7 +90,7 @@ let user_data = {
   }
 }
 
-let team_data = {
+const team_data = {
   all_teams: [],
   get() {
     ApiService.get('/team').then(res => {
@@ -125,16 +125,16 @@ let team_data = {
   }
 }
 
-let meeting_data = {
+const meeting_data = {
   all_meetings: [],
-  current_meeting:{},
+  current_meeting: {},
   meeting: {
     get() {
       ApiService.get('/meeting').then(res => {
         meeting_data.all_meetings = res.data.meetings;
       })
     },
-    getOne(m_id){
+    getOne(m_id) {
       ApiService.get(`/meeting/${m_id}`).then(res => {
         meeting_data.current_meeting = res.data;
       })
@@ -188,4 +188,48 @@ let meeting_data = {
   }
 }
 
-export { ApiService, app_data, user_data, team_data, meeting_data }
+const task_data = {
+  all_tasks: [],
+  get() {
+    ApiService.get('/tasks').then(res => {
+      this.all_tasks = res.data.tasks;
+    })
+  },
+  create(meeting_id, agenda_id, name, description, note, assignees) {
+    const req = {};
+    if (meeting_id) req.meeting = meeting_id;
+    if (agenda_id) req.agenda = agenda_id;
+    if (name) req.name = name;
+    if (description) req.description = description;
+    if (note) req.note = note;
+    if (assignees) req.assignees = assignees;
+    ApiService.post(`/task`, { task: req })
+      .then(() => {
+          showAlert("green", `${name} created`);
+          this.get();
+        }
+      )
+  },
+  update(task_id, name, description, note, assignees) {
+    const req = {};
+    if (name) req.name = name;
+    if (description) req.description = description;
+    if (note) req.note = note;
+    if (assignees) req.assignees = assignees;
+    ApiService.put(`/task/${task_id}`,
+      { task: req })
+      .then(() => {
+          this.get();
+        }
+      )
+  },
+  delete(id) {
+    ApiService.delete(`/task/${id}`, {}).then(res => {
+      this.get();
+      showAlert("green", "Task deleted");
+    })
+  }
+}
+
+
+export { ApiService, app_data, user_data, team_data, meeting_data, task_data }
