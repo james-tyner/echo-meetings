@@ -89,11 +89,35 @@ let user_data = {
   }
 }
 
-let team_data = {
+const meetings_data = {
+  all_meetings: {},
+
+  get() {
+    ApiService.get('/meeting').then((res) => {
+      this.all_meetings = res.data.meetings
+    })
+  }
+}
+
+const tasks_data = {
+  all_tasks: {},
+
+  get() {
+    return ApiService.get('/task').then((res) => {
+      this.all_tasks = res.data.tasks
+
+      return this.all_tasks
+    })
+  }
+}
+
+const team_data = {
   all_teams: {},
   get() {
-    ApiService.get('/team').then(res => {
+    return ApiService.get('/team').then(res => {
       this.all_teams = res.data.teams;
+
+      return this.all_teams 
     })
   },
   create(name, description, color) {
@@ -118,4 +142,4 @@ let team_data = {
   }
 }
 
-export {ApiService, app_data, user_data, team_data}
+export { ApiService, app_data, user_data, meetings_data, tasks_data, team_data }

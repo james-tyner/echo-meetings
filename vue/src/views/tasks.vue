@@ -13,7 +13,7 @@
     <hr/>
 
     <!-- kanban -->
-    <section>
+    <section v-if="fakeTasks && fakeTasks.length > 0">
       <div id="kanban">
         <div class="task-column">
           <div class="column-header">
@@ -54,6 +54,12 @@
         <div class="clear-float"></div>
       </div> <!-- #kanban -->
     </section>
+    <div v-else class="placeholder-page">
+      <div class="placeholder-page-container">
+        <h2>Well, look at you</h2>
+        <p>You have no tasks to complete</p>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -118,68 +124,68 @@ export default {
       selectedTeam:"",
       draggedElement:null,
       fakeTasks:[
-        {
-          "id": 1,
-          "name": "Finish A11",
-          "description": "need to finish",
-          "due": 1553479225106,
-          "status": 1,
-          "assignees":[{
-            "name": "Tommy Trojan",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-          }, {
-            "name": "Mars Tan",
-            "username": "mars.tanjx",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-          }],
-          "team":{
-            "id": 1,
-            "color":"blue",
-            "name": "Team Echo",
-            "description": "This team isn't even real.",
-            "members": [{
-              "name": "Tommy Trojan",
-              "username": "trojan.echo",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-            }, {
-              "name": "Mars Tan",
-              "username": "mars.tanjx",
-              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-            }]
-          }
-        },
-        {
-          "id": 2,
-          "name": "Finish Everything",
-          "description": "please finish everything",
-          "due": 1554867187000,
-          "status": 2,
-          "assignees":[{
-            "name": "Courtney Dunlap",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-          }],
-          "team":{
-            "id": 2,
-            "color":"red",
-            "name": "Dance Club",
-            "description": "This team is super not real.",
-            "members": [{
-              "name": "Courtney Dunlap",
-              "username": "trojan.echo",
-              "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-            }, {
-              "name": "James Tyner",
-              "username": "james",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
-            }, {
-              "name": "Joy Verve",
-              "username": "joy",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
-            }]
-          }
-        }
+        // {
+        //   "id": 1,
+        //   "name": "Finish A11",
+        //   "description": "need to finish",
+        //   "due": 1553479225106,
+        //   "status": 1,
+        //   "assignees":[{
+        //     "name": "Tommy Trojan",
+        //     "username": "trojan.echo",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+        //   }, {
+        //     "name": "Mars Tan",
+        //     "username": "mars.tanjx",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+        //   }],
+        //   "team":{
+        //     "id": 1,
+        //     "color":"blue",
+        //     "name": "Team Echo",
+        //     "description": "This team isn't even real.",
+        //     "members": [{
+        //       "name": "Tommy Trojan",
+        //       "username": "trojan.echo",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+        //     }, {
+        //       "name": "Mars Tan",
+        //       "username": "mars.tanjx",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+        //     }]
+        //   }
+        // },
+        // {
+        //   "id": 2,
+        //   "name": "Finish Everything",
+        //   "description": "please finish everything",
+        //   "due": 1554867187000,
+        //   "status": 2,
+        //   "assignees":[{
+        //     "name": "Courtney Dunlap",
+        //     "username": "trojan.echo",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+        //   }],
+        //   "team":{
+        //     "id": 2,
+        //     "color":"red",
+        //     "name": "Dance Club",
+        //     "description": "This team is super not real.",
+        //     "members": [{
+        //       "name": "Courtney Dunlap",
+        //       "username": "trojan.echo",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
+        //     }, {
+        //       "name": "James Tyner",
+        //       "username": "james",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
+        //     }, {
+        //       "name": "Joy Verve",
+        //       "username": "joy",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
+        //     }]
+        //   }
+        // }
       ]
     }
   }
