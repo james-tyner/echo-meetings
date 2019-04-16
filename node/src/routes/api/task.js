@@ -24,7 +24,15 @@ router.use(auth.required, async (req, res, next) => {
 router.get('/', async (req, res) => {
   const { user } = req.locals;
   Task.find({ assignees: user.id })
-    .populate('meeting')
+    .populate({
+      path: 'meeting',
+      populate: {
+        path: 'team',
+        populate: {
+          path: 'members'
+        }
+      },
+    })
     .then((tasks) => {
       res.json({ tasks });
     });
