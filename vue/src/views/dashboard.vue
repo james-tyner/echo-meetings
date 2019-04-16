@@ -4,36 +4,21 @@
       <div class="up-next-div">
         <h2>Up Next</h2>
         <div class="grid-4">
-          <div v-if="meetings_data.all_meetings && meetings_data.all_meetings.length > 0">
-            <div v-for="meeting in meetings_data.all_meetings">
-              <router-link :to="`/meeting/details/${meeting.id}`" class="card">
-                <div>
-                  <h2 class="card-heading">{{ meeting.title }}</h2>
-                  <p class="card-date">{{ time }}</p>
-                  <div class="card-description">
-                    <div class="team-members">
-                      <div v-for="meeting_user in meeting.team.members">
-                        <div class="member-img-div">
-                          <img v-bind:src="meeting_user.avatar" v-bind:alt="meeting_user.name">
-                        </div>
-                      </div>
-                    </div>
-                    <h3 class="card-team blue">{{ meeting.location }}</h3>
-                  </div>
-                </div>
-              </router-link>
-            </div>
+          <div v-for="meeting in truncatedMeetings">
+            <router-link :to="`/meetings/details/${meeting._id}`">
+              <MeetingCard v-bind:meeting="meeting" v-bind:allTeams="team_data.all_teams"></MeetingCard>
+            </router-link>
           </div>
-          <a v-else class="card card-empty">
+          <!-- <a v-else class="card card-empty">
             <div>
               <h2 class="card-heading">Take a moment to breathe</h2>
               <div class="card-description">
                 <span>You have no meetings coming up</span>
               </div>
             </div>
-          </a>
+          </a> -->
           <div class="add-meeting-div">
-            <a href="#"><i class="material-icons"> add </i></a>
+            <router-link to="/meetings/add"><i class="material-icons"> add </i></router-link>
           </div>
         </div>
       </div>
@@ -83,19 +68,9 @@
         </div>
 
         <div class="team-div">
-          <h2>Team</h2>
-          <div v-if="team_data.all_teams && team_data.all_teams.length > 0">
-            <div v-for="team in team_data.all_teams">
-              <div class="team">
-                <h3 class="team-name">{{ team.name }}</h3>
-                <h4 class="group-name green">{{ team.description }}</h4>
-                <div class="team-members" v-for="team_member in team.members">
-                  <div class="member-img-div">
-                    <img v-bind:src="team_member.avatar" v-bind:alt="'profile-img-' + team_member.name">
-                  </div>
-                </div>
-              </div>
-            </div>
+          <h2>Teams</h2>
+          <div v-if="truncatedTeams.length > 0">
+            <TeamGrouping v-for="team in truncatedTeams" v-bind:team="team"></TeamGrouping>
           </div>
           <div v-else>
             <p>You’re not part of any teams yet</p>
@@ -108,90 +83,38 @@
 
 <script>
 
-import { meetings_data, team_data, tasks_data } from '../data';
+import { meeting_data, team_data, task_data } from '../data';
+import MeetingCard from "../components/dashboard/MeetingCard"
+import TeamGrouping from "../components/dashboard/TeamGrouping"
+
 
 export default {
   name: 'dashboard',
-
+  components:{
+    MeetingCard,
+    TeamGrouping
+  },
+  data:function(){
+    return {
+      task_data:task_data,
+      team_data:team_data,
+      meeting_data:meeting_data
+    }
+  },
+  computed:{
+    truncatedMeetings:function(){
+      return this.meeting_data.all_meetings.slice(0,3)
+    },
+    truncatedTeams:function(){
+      return this.team_data.all_teams.slice(0,3)
+    }
+  },
   mounted: function () {
     this.$nextTick(() => {
-      console.log('from ' + this.$route.name);
-      meetings_data.get()
-      team_data.get()
+      meeting_data.meeting.get();
+      team_data.get();
+      task_data.get();
     })
-  },
-
-  data() {
-    return {
-      tasks_data,
-      team_data,
-      meetings_data,
-
-      fakeTasks:[
-        // {
-        //   "id": 1,
-        //   "name": "Finish A11",
-        //   "description": "need to finish",
-        //   "due": 1553479225106,
-        //   "status": 1,
-        //   "assignees":[{
-        //     "name": "Tommy Trojan",
-        //     "username": "trojan.echo",
-        //     "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-        //   }, {
-        //     "name": "Mars Tan",
-        //     "username": "mars.tanjx",
-        //     "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-        //   }],
-        //   "team":{
-        //     "id": 1,
-        //     "color":"blue",
-        //     "name": "Team Echo",
-        //     "description": "This team isn't even real.",
-        //     "members": [{
-        //       "name": "Tommy Trojan",
-        //       "username": "trojan.echo",
-        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-        //     }, {
-        //       "name": "Mars Tan",
-        //       "username": "mars.tanjx",
-        //       "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-        //     }]
-        //   }
-        // },
-        // {
-        //   "id": 2,
-        //   "name": "Finish Everything",
-        //   "description": "please finish everything",
-        //   "due": 1554867187000,
-        //   "status": 2,
-        //   "assignees":[{
-        //     "name": "Courtney Dunlap",
-        //     "username": "trojan.echo",
-        //     "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-        //   }],
-        //   "team":{
-        //     "id": 2,
-        //     "color":"red",
-        //     "name": "Dance Club",
-        //     "description": "This team is super not real.",
-        //     "members": [{
-        //       "name": "Courtney Dunlap",
-        //       "username": "trojan.echo",
-        //       "avatar": "https://randomuser.me/api/portraits/thumb/men/63.jpg"
-        //     }, {
-        //       "name": "James Tyner",
-        //       "username": "james",
-        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/72.jpg"
-        //     }, {
-        //       "name": "Joy Verve",
-        //       "username": "joy",
-        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/42.jpg"
-        //     }]
-        //   }
-        // }
-      ]
-    }
   }
 }
 </script>

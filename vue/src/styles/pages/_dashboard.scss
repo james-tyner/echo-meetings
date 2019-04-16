@@ -176,4 +176,15 @@
     @include detailsFont;
     margin: 0 0 12px;
   }
+
+  .team-members {
+    width:100%;
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+
+    .member-img-div {
+      @include profile-photo;
+    }
+  }
 }
