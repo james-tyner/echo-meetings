@@ -12,11 +12,14 @@
 
     <hr/>
 
-    <section class="meeting-cards">
-      <h2>Upcoming</h2>
-      <div v-if="this.upcomingFilteredMeetings.length == 0" id="no-upcoming-meetings">
-        No meetings coming up <span v-if="selectedTeam != ''">in {{selectedTeam}}</span>
+    <div v-if="this.upcomingFilteredMeetings.length == 0" id="no-upcoming-meetings" class="placeholder-page">
+      <div class="placeholder-page-container">
+        <h2>Sit back, relax.</h2>
+        <p>You have no upcoming meetings</p>
       </div>
+    </div>
+    <section v-else class="meeting-cards">
+      <h2>Upcoming</h2>
       <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
         <router-link :to="`/meeting/details/${meeting.id}`" class="dropdown-item">
           <MeetingCard v-bind:meeting="meeting"></MeetingCard>
@@ -81,76 +84,76 @@ export default {
     return {
       selectedTeam:"",
       fakeMeetings: [
-        {
-          "id":1,
-          "title":"Fakest Meeting",
-          "time":1553479225106,
-          "location":"TTH 110",
-          "invitees":[{
-            "name": "Tommy Trojan",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-          }, {
-            "name": "Mars Tan",
-            "username": "mars.tanjx",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-          }],
-          "agendas":[
+        // {
+        //   "id":1,
+        //   "title":"Fakest Meeting",
+        //   "time":1553479225106,
+        //   "location":"TTH 110",
+        //   "invitees":[{
+        //     "name": "Tommy Trojan",
+        //     "username": "trojan.echo",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+        //   }, {
+        //     "name": "Mars Tan",
+        //     "username": "mars.tanjx",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+        //   }],
+        //   "agendas":[
 
-          ],
-          "team":{
-            "id": 1,
-            "color":"blue",
-            "name": "Team Echo",
-            "description": "This team isn't even real.",
-            "members": [{
-              "name": "Tommy Trojan",
-              "username": "trojan.echo",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-            }, {
-              "name": "Mars Tan",
-              "username": "mars.tanjx",
-              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-            }]
-          },
-          "start":1553479225106,
-          "end":1553480225106
-        },
-        {
-          "id":2,
-          "title":"Not So Fake Meeting",
-          "time":1555479225106,
-          "location":"TTH 110",
-          "invitees":[{
-            "name": "Tommy Trojan",
-            "username": "trojan.echo",
-            "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-          }, {
-            "name": "Mars Tan",
-            "username": "mars.tanjx",
-            "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-          }],
-          "agendas":[
+        //   ],
+        //   "team":{
+        //     "id": 1,
+        //     "color":"blue",
+        //     "name": "Team Echo",
+        //     "description": "This team isn't even real.",
+        //     "members": [{
+        //       "name": "Tommy Trojan",
+        //       "username": "trojan.echo",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+        //     }, {
+        //       "name": "Mars Tan",
+        //       "username": "mars.tanjx",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+        //     }]
+        //   },
+        //   "start":1553479225106,
+        //   "end":1553480225106
+        // },
+        // {
+        //   "id":2,
+        //   "title":"Not So Fake Meeting",
+        //   "time":1555479225106,
+        //   "location":"TTH 110",
+        //   "invitees":[{
+        //     "name": "Tommy Trojan",
+        //     "username": "trojan.echo",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+        //   }, {
+        //     "name": "Mars Tan",
+        //     "username": "mars.tanjx",
+        //     "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+        //   }],
+        //   "agendas":[
 
-          ],
-          "team":{
-            "id": 1,
-            "color":"red",
-            "name": "Team Jupiter",
-            "description": "This team is not real.",
-            "members": [{
-              "name": "Tommy Trojan",
-              "username": "trojan.echo",
-              "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
-            }, {
-              "name": "Mars Tan",
-              "username": "mars.tanjx",
-              "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
-            }]
-          },
-          "start":1554569225106,
-          "end":1553980225106
-        }
+        //   ],
+        //   "team":{
+        //     "id": 1,
+        //     "color":"red",
+        //     "name": "Team Jupiter",
+        //     "description": "This team is not real.",
+        //     "members": [{
+        //       "name": "Tommy Trojan",
+        //       "username": "trojan.echo",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/women/65.jpg"
+        //     }, {
+        //       "name": "Mars Tan",
+        //       "username": "mars.tanjx",
+        //       "avatar": "https://randomuser.me/api/portraits/thumb/men/62.jpg"
+        //     }]
+        //   },
+        //   "start":1554569225106,
+        //   "end":1553980225106
+        // }
       ]
     }
   }
