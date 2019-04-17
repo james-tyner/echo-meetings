@@ -39,9 +39,18 @@
         <div class="assignees">
           <div class="assignee-photo" v-for="assignee in action.assignees"
                :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"></div>
-          <i class="fas fa-user-plus"></i>
+          <i class="fas fa-user-plus" @click="focused_task = action._id"></i>
           <i class="far fa-trash-alt" v-on:click="deleteTask(action._id)"></i>
         </div>
+        <v-autocomplete
+          v-if="focused_task===action._id"
+          :items="availableMembers"
+          :component-item="MemberSearchTemplate"
+          :get-label="getLabel"
+          class="select-assignee"
+          :auto-select-one-item="false"
+          keep-open
+        ></v-autocomplete>
       </div>
       <div class="action-item">
         <input type="checkbox" disabled>
@@ -63,13 +72,19 @@
 <script>
 import { meeting_data, task_data } from '../../data'
 import AnimateSave from "../SaveAnimation"
+import MemberSearch from "../../components/meetings/MemberSearchItem"
 
 export default {
   name: "agenda-item",
+  components: {
+    MemberSearch
+  },
   data: function () {
     return {
+      focused_task: '',
       meeting_data: meeting_data,
-      task_data: task_data
+      task_data: task_data,
+      MemberSearchTemplate: MemberSearch
     }
   },
   props: {
@@ -77,7 +92,20 @@ export default {
     meeting: Object
   },
   mixins: [AnimateSave],
+  computed: {
+    availableMembers() {
+      if (!this.meeting) {
+        return [];
+      } else {
+        return this.meeting.invitees;
+      }
+    }
+  },
   methods: {
+    getLabel(item) {
+      if (!item) return '';
+      return item.name
+    },
     createNewTask: function (event) {
       console.log(event.keyCode);
       let taskName = event.target.value;
@@ -127,6 +155,25 @@ export default {
         task_data.update()
         self.animateSave();
       })
+    },
+    handleClick: function (event) {
+      if (event.target && !event.target.classList.contains('fa-user-plus')) {
+        let count = 0;
+        let current_node = event.target;
+        let found = false;
+        while (count++ < 3) {
+          if (current_node.classList.contains('v-autocomplete-input-group')
+            || current_node.classList.contains('member-item')
+            || current_node.classList.contains('v-autocomplete-list')) {
+            found = true;
+            break;
+          }
+          current_node = event.target.parentElement;
+        }
+        if (!found) {
+          this.focused_task = '';
+        }
+      }
     }
   },
   filters: {
@@ -155,8 +202,52 @@ export default {
       return dateFormatted;
     }
   },
-  computed: {},
   mounted: function () {
+    window.addEventListener('click', this.handleClick)
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('click', this.handleClick)
   }
 }
 </script>
+
+<style lang="scss">
+  .action-item {
+    position: relative;
+  }
+
+  .v-autocomplete.select-assignee {
+    z-index: 10;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    position: absolute;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    .v-autocomplete-list {
+      z-index: 11;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .v-autocomplete-input-group {
+
+      .v-autocomplete-input {
+        font-size: .8em;
+        padding: 10px 15px;
+        box-shadow: none;
+        border: none;
+        background-color: #f9f9f9;
+      }
+    }
+
+    .v-autocomplete-list-item {
+      cursor: pointer;
+      background-color: #fff;
+      padding: 8px;
+      border: none
+    }
+  }
+
+
+</style>

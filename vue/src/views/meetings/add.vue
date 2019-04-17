@@ -58,7 +58,6 @@
         <label>Invite</label>
         <div class="invitee-input">
           <v-autocomplete
-            @click="console.log('click')"
             :items="availableMembers"
             :component-item="MemberSearchTemplate"
             :get-label="getLabel"
