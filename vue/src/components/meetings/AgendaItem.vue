@@ -37,8 +37,19 @@
                  v-on:change="modifyTaskTime(action._id)" v-model="action.due" placeholder="due…">
         </div>
         <div class="assignees">
-          <div class="assignee-photo" v-for="assignee in action.assignees"
-               :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"></div>
+          <div
+            class="assignee-photo assignee-photo__task"
+            v-for="assignee in action.assignees"
+            :class="focused_removing_assignee===action._id + assignee._id ? 'danger' : ''"
+            @click="onRemovingAssignee(action._id, assignee._id)"
+            :style="{ 'background-image': 'url(' + assignee.avatar + ')' }"
+            v-tooltip="{
+            offset: '5',
+            hideOnTargetClick: false,
+            content: focused_removing_assignee===action._id + assignee._id ? 'Click again to remove from assignee' : 'Click twice to remove from assignee',
+            classes: focused_removing_assignee===action._id + assignee._id ? 'danger-bg' : ''
+            }"
+          ></div>
           <i class="fas fa-user-plus" @click="focused_task = action._id"></i>
           <i class="far fa-trash-alt" v-on:click="deleteTask(action._id)"></i>
         </div>
@@ -83,6 +94,7 @@ export default {
   },
   data: function () {
     return {
+      focused_removing_assignee: '',
       focused_task: '',
       selected_assignee: {},
       meeting_data: meeting_data,
@@ -107,6 +119,7 @@ export default {
             } else {
               console.log('ok');
               assignees.push(user._id);
+              // this.agendaItem.tasks[i].assignees.push(user._id);
               task_data.update(task_id, null, null, null, null, assignees);
             }
           }
@@ -194,6 +207,7 @@ export default {
         let current_node = event.target;
         let found = false;
         while (count++ < 3) {
+          if (!current_node) break;
           if (current_node.classList.contains('v-autocomplete-input-group')
             || current_node.classList.contains('member-item')
             || current_node.classList.contains('v-autocomplete-list')) {
@@ -205,6 +219,30 @@ export default {
         if (!found) {
           this.focused_task = '';
         }
+      }
+      if (event.target && !event.target.classList.contains('assignee-photo')) {
+        this.focused_removing_assignee = '';
+      }
+    },
+    onRemovingAssignee: function (task_id, member_id) {
+      if (this.focused_removing_assignee === task_id + member_id) {
+        // second click
+        for (let i = 0; i < this.agendaItem.tasks.length; i++) {
+          const task = this.agendaItem.tasks[i];
+          if (task._id !== task_id) continue;
+          const assignees = task.assignees.map(m => m._id);
+          for (let j = 0; j < assignees.length; j++) {
+            if (assignees[j] === member_id) {
+              assignees.splice(j, 1);
+              this.agendaItem.tasks[i].assignees.splice(j, 1);
+              break;
+            }
+          }
+          task_data.update(task_id, null, null, null, null, assignees);
+        }
+      } else {
+        // first click
+        this.focused_removing_assignee = task_id + member_id;
       }
     }
   },
@@ -244,6 +282,31 @@ export default {
 </script>
 
 <style lang="scss">
+  .assignee-photo__task {
+    cursor: pointer;
+
+    &.danger {
+      filter: grayscale(100%);
+    }
+  }
+
+  .tooltip {
+
+    &.danger-bg .tooltip-inner {
+      background: #f53900;
+    }
+
+    transition: 0s;
+
+    .tooltip-inner {
+      background: black;
+      color: white;
+      font-size: .8rem;
+      border-radius: 16px;
+      padding: 5px 10px 4px;
+    }
+  }
+
   .action-item {
     position: relative;
   }
