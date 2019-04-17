@@ -120,6 +120,10 @@
     border-bottom: 1px solid $gray1;
     padding: 16px 0;
 
+    &.zero-tasks {
+      grid-template-columns:100%;
+    }
+
     &:last-child {
       border: 0;
     }

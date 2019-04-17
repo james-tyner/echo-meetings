@@ -34,7 +34,7 @@
             </div>
 
             <div v-else>
-              <div class="task-item-div">
+              <div class="task-item-div zero-tasks">
                 <label>There are no tasks assigned to you… rejoice! 🙌</label>
               </div>
             </div>
