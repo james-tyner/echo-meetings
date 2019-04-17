@@ -3,12 +3,12 @@
 
     <!-- Add buttons must go above the heading -->
       <!-- Teams -->
-      <div v-if="pageName == 'Teams'" class="add-button align-right">
+      <div v-if="pageName === 'Teams'" class="add-button align-right">
         <router-link to="teams/add"><i class="material-icons"> add </i></router-link>
       </div>
 
       <!-- Meetings -->
-      <div v-if="pageName == 'Meetings'" class="add-button align-right">
+      <div v-if="pageName === 'Meetings'" class="add-button align-right">
         <router-link to="meetings/add"><i class="material-icons"> add </i></router-link>
       </div>
 
@@ -32,7 +32,7 @@ export default {
   name: 'Header',
   computed: {
     scrollableHeader:function(){
-      if (this.pageName == 'Teams' || this.pageName == "Meetings") {
+      if (this.pageName === 'Teams' || this.pageName === "Meetings") {
         return true
       }
     }
