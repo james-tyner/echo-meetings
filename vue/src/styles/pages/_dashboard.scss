@@ -120,6 +120,10 @@
     border-bottom: 1px solid $gray1;
     padding: 16px 0;
 
+    &.zero-tasks {
+      grid-template-columns:100%;
+    }
+
     &:last-child {
       border: 0;
     }
@@ -127,12 +131,14 @@
     .task-due {
       margin: 0;
       @include detailsFont;
-      text-align: center;
+      text-align: right;
+      margin-right:1em;
     }
 
     label {
       color: $gray3;
       display: block;
+      cursor:pointer;
     }
 
     .task-upcoming {
@@ -175,5 +181,16 @@
   .group-name {
     @include detailsFont;
     margin: 0 0 12px;
+  }
+
+  .team-members {
+    width:100%;
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+
+    .member-img-div {
+      @include profile-photo;
+    }
   }
 }
