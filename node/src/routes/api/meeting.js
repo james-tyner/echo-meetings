@@ -240,6 +240,7 @@ router.post('/:m_id/agenda', async (req, res) => {
         agenda.notes = req_agenda.notes;
       }
       agenda.tasks = [];
+      agenda.order = meeting.agendas.length;
       meeting.agendas.push(agenda);
       meeting.save().then(() => {
         log.log(`Agenda (${agenda.title}) created inside Meeting (${meeting.title})`);
@@ -300,6 +301,28 @@ router.put('/:m_id/agenda/:a_id', async (req, res) => {
       if (typeof req_agenda.notes !== 'undefined') {
         agenda.notes = req_agenda.notes;
       }
+      if (typeof req_agenda.order !== 'undefined') {
+        // remove operation
+        for (let i = 0; i < meeting.agendas.length; i++) {
+          const temp_agenda = meeting.agendas[i];
+          if (temp_agenda._id.equals(agenda._id)) continue;
+          if (temp_agenda.order > agenda.order) {
+            temp_agenda.order--;
+            meeting.agendas.set(i, temp_agenda);
+          }
+        }
+        agenda.order = req_agenda.order;
+        // insert operation
+        for (let i = 0; i < meeting.agendas.length; i++) {
+          const temp_agenda = meeting.agendas[i];
+          if (temp_agenda._id.equals(agenda._id)) continue;
+          if (temp_agenda.order >= agenda.order) {
+            temp_agenda.order++;
+            meeting.agendas.set(i, temp_agenda);
+          }
+        }
+      }
+      console.log(meeting.agendas);
       meeting.agendas.set(index, agenda);
       meeting.save().then(() => {
         log.log(`Agenda (${agenda.title}) modified inside Meeting (${meeting.title})`);
@@ -341,6 +364,14 @@ router.delete('/:m_id/agenda/:a_id', async (req, res) => {
             message: 'Agenda does not exist',
           },
         });
+      }
+      // remove operation
+      for (let i = 0; i < meeting.agendas.length; i++) {
+        const temp_agenda = meeting.agendas[i];
+        if (temp_agenda.order > agenda.order) {
+          temp_agenda.order--;
+          meeting.agendas.set(i, temp_agenda);
+        }
       }
       meeting.agendas.id(req.params.a_id).remove();
       meeting.save().then(() => {

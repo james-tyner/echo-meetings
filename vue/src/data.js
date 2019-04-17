@@ -168,11 +168,12 @@ const meeting_data = {
           }
         )
     },
-    update(meeting_id, agenda_id, title = null, description = null, notes = null) {
+    update(meeting_id, agenda_id, title = null, description = null, notes = null, order = null) {
       const req = {};
       if (title) req.title = title;
       if (description) req.description = description;
       if (notes) req.notes = notes;
+      if (order) req.order = order;
       ApiService.put(`/meeting/${meeting_id}/agenda/${agenda_id}`,
         { 'agenda': req })
     },

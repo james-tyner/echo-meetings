@@ -8,6 +8,7 @@ const AgendaSchema = new mongoose.Schema({
   description: String,
   notes: String,
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Task' }],
+  order: Number,
 }, { timestamps: true });
 
 const MeetingSchema = new mongoose.Schema({
@@ -34,6 +35,5 @@ const MeetingSchema = new mongoose.Schema({
   start: Number,
   end: Number,
 });
-
 
 mongoose.model('Meeting', MeetingSchema);
