@@ -157,7 +157,6 @@ router.put('/:t_id', async (req, res, next) => {
         if (typeof req_task.status !== 'undefined') {
           task.status = req_task.status;
         }
-        task.assignees = [];
         if (typeof req_task.assignees !== 'undefined') {
           task.assignees = req_task.assignees;
         }
@@ -168,6 +167,11 @@ router.put('/:t_id', async (req, res, next) => {
           .catch((err) => {
             next(err);
           });
+      });
+    })
+    .catch((err) => {
+      return res.status(422).json({
+        errors: { message: 'Task does not exist' },
       });
     });
 });
