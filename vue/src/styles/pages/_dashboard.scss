@@ -127,12 +127,14 @@
     .task-due {
       margin: 0;
       @include detailsFont;
-      text-align: center;
+      text-align: right;
+      margin-right:1em;
     }
 
     label {
       color: $gray3;
       display: block;
+      cursor:pointer;
     }
 
     .task-upcoming {

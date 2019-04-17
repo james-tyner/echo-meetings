@@ -25,45 +25,8 @@
       <div class="task-team-flexbox">
         <div class="tasks-div">
           <h2>Tasks</h2>
-          <div v-if="fakeTasks && fakeTasks.length === 0" class="card">
-            <div class="task-item-div">
-              <input class="task-item-div-input-name" for="task-1" placeholder="Add a new task" type="text" />
-              <input class="task-item-div-input-due" for="task-1" placeholder="Due..." type="text" />
-              <select id="task-1">
-                <option value="1">Not Started</option>
-                <option value="2">In Progress</option>
-                <option value="3">Done</option>
-              </select>
-            </div>
-          </div>
-          <div v-else class="card">
-            <div class="task-item-div">
-              <label for="task-1">Support color token autocomplete in filter</label>
-              <p class="task-due task-upcoming">12/01/18</p>
-              <select id="task-1">
-                <option value="1">Not Started</option>
-                <option value="2" selected>In Progress</option>
-                <option value="3">Done</option>
-              </select>
-            </div>
-            <div class="task-item-div">
-              <label for="task-2">Update program brainstorm class page</label>
-              <p class="task-due task-progress">12/01/18</p>
-              <select id="task-2">
-                <option value="1" selected>Not Started</option>
-                <option value="2">In Progress</option>
-                <option value="3">Done</option>
-              </select>
-            </div>
-            <div class="task-item-div">
-              <label for="task-3">Create Workspace Filtering dropdown</label>
-              <p class="task-due">12/01/18</p>
-              <select id="task-3">
-                <option value="1" selected>Not Started</option>
-                <option value="2">In Progress</option>
-                <option value="3">Done</option>
-              </select>
-            </div>
+          <div class="card">
+            <TaskRow v-for="(task,index) in truncatedTasks" v-bind:task="task" v-bind:index="index"></TaskRow>
           </div>
         </div>
 
@@ -82,17 +45,47 @@
 </template>
 
 <script>
-
 import { meeting_data, team_data, task_data } from '../data';
 import MeetingCard from "../components/dashboard/MeetingCard"
 import TeamGrouping from "../components/dashboard/TeamGrouping"
+import TaskRow from "../components/dashboard/TaskRow"
 
+// THIS WORKS ONLY FOR MEETINGS
+function compareMeetings(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const timeA = a.time;
+  const timeB = b.time;
+
+  let comparison = 0;
+  if (timeA > timeB) {
+    comparison = 1;
+  } else if (timeA < timeB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
+// THIS WORKS ONLY FOR TASKS
+function compareTasks(a, b) {
+  // Use toUpperCase() to ignore character casing
+  const timeA = a.due;
+  const timeB = b.due;
+
+  let comparison = 0;
+  if (timeA > timeB) {
+    comparison = 1;
+  } else if (timeA < timeB) {
+    comparison = -1;
+  }
+  return comparison;
+}
 
 export default {
   name: 'dashboard',
   components:{
     MeetingCard,
-    TeamGrouping
+    TeamGrouping,
+    TaskRow
   },
   data:function(){
     return {
@@ -103,10 +96,22 @@ export default {
   },
   computed:{
     truncatedMeetings:function(){
-      return this.meeting_data.all_meetings.slice(0,3)
+      let allMeetings = this.meeting_data.all_meetings;
+
+      const now = Date.now();
+
+      let futureMeetings = allMeetings.filter(meeting => meeting.time > now)
+      futureMeetings.sort(compareMeetings);
+      return futureMeetings.slice(0,3)
     },
     truncatedTeams:function(){
       return this.team_data.all_teams.slice(0,3)
+    },
+    truncatedTasks:function(){
+      let allTasks = this.task_data.all_tasks;
+      allTasks.filter(task => task.status != 2);
+      allTasks.sort(compareTasks);
+      return allTasks.slice(0,6); //only the next 5 tasks that aren't done yet
     }
   },
   mounted: function () {
