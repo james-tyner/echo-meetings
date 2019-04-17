@@ -44,6 +44,7 @@
         </div>
         <v-autocomplete
           v-if="focused_task===action._id"
+          v-model="selected_assignee[action._id]"
           :items="availableMembers"
           :component-item="MemberSearchTemplate"
           :get-label="getLabel"
@@ -73,6 +74,7 @@
 import { meeting_data, task_data } from '../../data'
 import AnimateSave from "../SaveAnimation"
 import MemberSearch from "../../components/meetings/MemberSearchItem"
+import showAlert from "../ShowAlert"
 
 export default {
   name: "agenda-item",
@@ -82,9 +84,39 @@ export default {
   data: function () {
     return {
       focused_task: '',
+      selected_assignee: {},
       meeting_data: meeting_data,
       task_data: task_data,
       MemberSearchTemplate: MemberSearch
+    }
+  },
+  watch: {
+    selected_assignee: {
+      handler: function (val) {
+        const task_id = this.focused_task;
+        if (task_id && val[task_id]) {
+          const user = val[task_id];
+          // add assignees
+          for (let i = 0; i < this.agendaItem.tasks.length; i++) {
+            const task = this.agendaItem.tasks[i];
+            if (task._id !== task_id) continue;
+            const assignees = task.assignees.map(m => m._id);
+            if (assignees.includes(user._id)) {
+              console.log('included');
+              showAlert('red', 'This member is already assigned');
+            } else {
+              console.log('ok');
+              assignees.push(user._id);
+              task_data.update(task_id, null, null, null, null, assignees);
+            }
+          }
+          this.$nextTick(function () {
+            this.selected_assignee[task_id] = undefined;
+          });
+          this.focused_task = '';
+        }
+      },
+      deep: true
     }
   },
   props: {
