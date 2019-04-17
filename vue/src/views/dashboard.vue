@@ -4,19 +4,22 @@
       <div class="up-next-div">
         <h2>Up Next</h2>
         <div class="grid-4">
-          <div v-for="meeting in truncatedMeetings">
-            <router-link :to="`/meetings/details/${meeting._id}`">
-              <MeetingCard v-bind:meeting="meeting" v-bind:allTeams="team_data.all_teams"></MeetingCard>
-            </router-link>
+          <div v-if="truncatedMeetings.length > 0">
+            <div v-for="meeting in truncatedMeetings">
+              <router-link :to="`/meetings/details/${meeting._id}`">
+                <MeetingCard v-bind:meeting="meeting" v-bind:allTeams="team_data.all_teams"></MeetingCard>
+              </router-link>
+            </div>
           </div>
-          <!-- <a v-else class="card card-empty">
+
+          <div v-else class="card card-empty">
             <div>
               <h2 class="card-heading">Take a moment to breathe</h2>
               <div class="card-description">
                 <span>You have no meetings coming up</span>
               </div>
             </div>
-          </a> -->
+          </div>
           <div class="add-meeting-div">
             <router-link to="/meetings/add"><i class="material-icons"> add </i></router-link>
           </div>
@@ -26,7 +29,16 @@
         <div class="tasks-div">
           <h2>Tasks</h2>
           <div class="card">
-            <TaskRow v-for="(task,index) in truncatedTasks" v-bind:task="task" v-bind:index="index"></TaskRow>
+            <div v-if="truncatedTasks.length > 0">
+              <TaskRow v-for="(task,index) in truncatedTasks" v-bind:task="task" v-bind:index="index"></TaskRow>
+            </div>
+
+            <div v-else>
+              <div class="task-item-div">
+                <label>There are no tasks assigned to you… rejoice! 🙌</label>
+              </div>
+            </div>
+
           </div>
         </div>
 
