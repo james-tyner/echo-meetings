@@ -4,7 +4,6 @@
 
 .DS_Store
 node_modules
-/vue/dist
 credentials.json
 
 # local env files
