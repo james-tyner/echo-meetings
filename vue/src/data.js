@@ -173,7 +173,7 @@ const meeting_data = {
       if (title) req.title = title;
       if (description) req.description = description;
       if (notes) req.notes = notes;
-      if (order) req.order = order;
+      if (order != null) req.order = order;
       ApiService.put(`/meeting/${meeting_id}/agenda/${agenda_id}`,
         { 'agenda': req })
     },

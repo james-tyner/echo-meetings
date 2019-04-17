@@ -37,7 +37,11 @@
       <h2 v-if="this.meetingState === 2" class="meeting-timer">{{this.meetingTimer}}</h2>
 
       <!-- Agenda Item ToC -->
-      <draggable class="agenda-list-div" v-model="thisMeeting.agendas">
+      <draggable
+        class="agenda-list-div"
+        v-model="thisMeeting.agendas"
+        :move="onSort"
+      >
         <a
           v-for="(item,index) in thisMeeting.agendas"
           :href="'#agenda-' + item._id"
@@ -55,6 +59,7 @@ import { app_data, meeting_data } from '../../data'
 import draggable from "vuedraggable"
 import AnimateSave from "../../components/SaveAnimation"
 import AgendaItem from "../../components/meetings/AgendaItem"
+import debounce from 'lodash.debounce'
 
 window.moment = require('moment'); // for use on AgendaItem component
 let meetingCount; // declared to use within
@@ -96,7 +101,17 @@ export default {
       });
     }
   },
+  created: function () {
+    this.debouncedUpdateOrder = debounce(this.updateOrder, 500)
+  },
   methods: {
+    onSort: function (event) {
+      console.log(`${this.thisMeeting.agendas[event.draggedContext.index].title} is dragged to ${event.relatedContext.index}`);
+      this.debouncedUpdateOrder(this.thisMeeting.agendas[event.draggedContext.index]._id, event.relatedContext.index);
+    },
+    updateOrder(agenda_id, order) {
+      meeting_data.agenda.update(this.thisMeeting._id, agenda_id, null, null, null, order)
+    },
     startTimer: function () {
       this.meetingLength = 0;
       meetingCount = setInterval(() => {
