@@ -15,7 +15,9 @@ const TaskSchema = new mongoose.Schema({
       message: 'User non existent',
     },
   }],
-  status: { type: Number, min: 0, max: 2 },
+  status: {
+    default: 0, type: Number, min: 0, max: 2,
+  },
   // team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   meeting: {
     type: mongoose.Schema.Types.ObjectId,
