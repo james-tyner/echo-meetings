@@ -33,6 +33,9 @@ router.get('/', async (req, res) => {
       populate: { path: 'assignees' },
     })
     .then((meetings) => {
+      for (let i = 0; i < meetings.length; i++) {
+        meetings[i].agendas.sort((a2, a1) => a2.order - a1.order);
+      }
       res.json({ meetings });
     });
 });
