@@ -1,74 +1,73 @@
-
 // WRITTEN BY JESSICA
 
 #add-team-main {
 
-  input{
+  input {
     position: fixed;
-  width: 35%;
-  height: 5%;
-  left: 25%;
-  top: 30%;
-  border-radius: 8px;
-  text-indent: 8px;
-  font-size: 15px;
-  box-shadow:  10px  rgba(0,0,0,0.1);
+    width: 35%;
+    height: 5%;
+    left: 25%;
+    top: 30%;
+    border-radius: 8px;
+    text-indent: 8px;
+    font-size: 15px;
+    box-shadow: 10px rgba(0, 0, 0, 0.1);
 
 
   }
 
-  input::placeholder{
+  input::placeholder {
     font-style: italic;
   }
-  textarea::placeholder{
+
+  textarea::placeholder {
     font-style: italic;
     padding-top: 2%;
   }
 
-  h1{
+  h1 {
     position: fixed;
     left: 25%;
-  top: 10%;
+    top: 10%;
   }
 
-   h2{
-     position: fixed;
-  width: 200%;
-  height: 100%;
-  left: 25%;
-  top: 20%;
+  h2 {
+    position: fixed;
+    width: 200%;
+    height: 100%;
+    left: 25%;
+    top: 20%;
 
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  font-size: 24px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 24px;
 
-  color: #222222;
-   }
+    color: #222222;
+  }
 
-   #location h2{
-     position:fixed;
-     left: 25%;
-     top: 40%;
+  #location h2 {
+    position: fixed;
+    left: 25%;
+    top: 40%;
 
-   }
+  }
 
 
-
-  #location textarea{
+  #location textarea {
     left: 25%;
     top: 50%;
     width: 35%;
     height: 20%;
     vertical-align: top;
     text-align: left;
-  position: fixed;
+    position: fixed;
 
     border-radius: 8px;
     text-indent: 8px;
     font-size: 15px;
-    box-shadow:  10px  rgba(0,0,0,0.1);
+    box-shadow: 10px rgba(0, 0, 0, 0.1);
 
   }
 
@@ -85,22 +84,22 @@
   // font-family: Rubik;
   // }
 
-  #add-members h3{
+  #add-members h3 {
     position: fixed;
-  width: 50%;
-  height: 50%;
-  left: 85%;
-  top: 20%;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  font-size: 18px;
+    width: 50%;
+    height: 50%;
+    left: 85%;
+    top: 20%;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 18px;
 
-  color: #000000;
+    color: #000000;
   }
 
-  #add-members input{
+  #add-members input {
     left: 83%;
     top: 30%;
     width: 15%;
@@ -116,15 +115,15 @@
 
   }
 
-  i{
-  margin-left: 61%;
-  position: fixed;
-  top: 32%;
+  i {
+    margin-left: 61%;
+    position: fixed;
+    top: 32%;
   }
 
 
-    #side-line{
-      position: fixed;
+  #side-line {
+    position: fixed;
     width: 50%;
     height: 0px;
     left: 55%;
@@ -133,6 +132,6 @@
     /* Gray/3 */
     border: 0.5px solid #777777;
     transform: rotate(90deg);
-    }
+  }
 
 }
