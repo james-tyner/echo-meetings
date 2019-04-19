@@ -1,0 +1,107 @@
+// WRITTEN BY KAT
+#teams-main {
+  .team-card {
+    margin-bottom: 2em;
+    max-width: 675px;
+
+    .card-heading, .team-photos {
+      cursor: pointer;
+    }
+
+    .profile-photo {
+      @include profile-photo;
+      margin-right: 0.5em;
+    }
+
+    .team-info {
+      .team-desc {
+        @include bodyFont;
+        color: $gray3;
+        padding-bottom: 1.2em;
+        //border-bottom: 1px solid $gray1;
+        width: 100%;
+      }
+
+      .team-members {
+        .member {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .member-name {
+            margin-right: auto;
+          }
+
+          .member-email {
+            margin-left: auto;
+            @include bodyFont;
+            color: $gray3;
+
+            i {
+              margin-left: 0.5em;
+            }
+          }
+        }
+
+        .new-member {
+          padding-left: 12px;
+
+          &:empty::before {
+            content: "Add someone…"
+          }
+        }
+      }
+    }
+
+    .team-photos {
+      display: flex;
+      flex-wrap: nowrap;
+      border-top: 1px solid #eeeeee;
+      padding-top: 0.8em;
+      margin-top: 0.8em;
+      margin-bottom: 0.3em;
+    }
+  }
+}
+
+
+// WRITTEN BY JESSICA
+
+#add-team-main {
+  label {
+    margin-bottom: 0.5em;
+    display: block;
+    font-size: 1.1rem;
+  }
+
+  input, textarea {
+    @include input-field-style;
+    margin-bottom: 2em;
+    outline: none;
+  }
+
+  input[type="text"], textarea {
+    padding: 0.5em;
+    min-width: 50%;
+    font-size: 1.1em;
+  }
+
+  input::placeholder, textarea::placeholder {
+    @include startTyping;
+  }
+
+  button {
+    @include submit-button;
+  }
+}
+
+#add-members {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+
+  h4 {
+    margin-bottom: 0.8em;
+    width: 100%;
+  }
+}

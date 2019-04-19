@@ -1,0 +1,602 @@
+// THIS SECTION WRITTEN BY JAMES
+main.meeting-main {
+  width: 62vw;
+  // Total width: 3 + 56 + 3 = 62
+  // Totally covers 18 + 62 = 80
+}
+
+header.meeting-header {
+  width: calc(62vw - 1px); // subtract 1 px for right bar border
+
+  &.scrollable-header {
+    &::after {
+      width: calc(62vw - 1px);
+    }
+  }
+}
+
+.right-bar {
+  border-left: 1px solid $gray2;
+  width: 20vw;
+  padding: 1.5vw;
+  position: fixed;
+  right: 0;
+  // top: 0;
+  // height: 100vh;
+  bottom:0;
+  height:calc(100vh - (3vw + 2.1em + 0.67em + 15px)); //full height except header
+  display: grid;
+  grid-template-rows:15% 25% auto;
+
+  .meeting-start-btn {
+    padding: 0.5em;
+    margin-right:0.5em;
+    grid-row-start: 1;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1em;
+    border: 2px solid $green;
+    @include buttonFont;
+    color: $green;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+
+    &.meeting-end-btn {
+      border-color: $red;
+      color: $red;
+
+      &:hover {
+        background-color: $red;
+      }
+    }
+
+    &.meeting-pause-btn {
+      border-color:$orange;
+      color:$orange;
+
+      &:hover {
+        background-color:$orange;
+      }
+    }
+
+    &:hover {
+      background-color: $green;
+      color: white;
+    }
+  }
+
+  .meeting-timer {
+    grid-row-start:2;
+    grid-column: 1 / 3;
+    align-self:flex-start;
+    color:$gray3;
+    font-weight:500;
+    width:100%;
+  }
+
+  .agenda-list-div {
+    grid-row-start: 3;
+    grid-column: 1 / 3;
+    align-self: flex-start;
+
+    .agenda-list-item {
+      @include bodyFont;
+      color: $gray2;
+      cursor: pointer;
+      margin: 1em auto;
+      display: flex;
+      justify-content: space-between;
+      text-align: right;
+      flex-wrap: nowrap;
+
+      &:hover {
+        color: $gray3;
+      }
+
+      &::after {
+        content: ' ';
+        display: inline-block;
+        margin-left: 1.2em;
+        margin-top: 0.3em;
+        background-color: $gray2;
+        height: 0.6em;
+        width: 0.6em;
+        border-radius: 0.6em;
+      }
+
+      &.active {
+
+        &::after {
+          background-color: $gray3;
+        }
+      }
+    }
+  }
+}
+
+textarea.editable {
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  margin-top: 0.75em;
+  @include bodyFont;
+  color: $gray3;
+  width: 100%;
+
+  &::placeholder {
+    @include startTyping;
+  }
+
+  &.agenda-item-note {
+    margin-top: 0;
+    width: calc(100% - 1.2em);
+  }
+}
+
+input.editable {
+  border:none;
+  background:transparent;
+  outline:none;
+  resize:none;
+  width:100%;
+
+  &::placeholder {
+    color:$gray2;
+  }
+}
+
+#agenda {
+
+  .agenda-item {
+    @include card-style;
+    background-color: white;
+    padding: 2em;
+    margin-bottom: 2em;
+    position: relative;
+
+    [contenteditable="true"]:active,
+    [contenteditable="true"]:focus {
+      border: 2px solid $gray2;
+      @include card-corners;
+      padding: 0.5em;
+      outline: none;
+      width: calc(100% - 1em);
+
+      &.agenda-item-note {
+        width: calc(95% - 1em);
+      }
+    }
+
+    .agenda-item-title {
+      display: block;
+      @include heading2;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 0.25em;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      outline: none;
+      resize: none;
+
+      &::placeholder {
+        color: $gray2;
+      }
+
+      &:active, &:focus {
+        border-bottom: 2px solid $gray2;
+      }
+    }
+
+    .agenda-icon-tray {
+      position: absolute;
+      top: 1em;
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      color: $gray2;
+
+      i {
+        margin-right: 1em;
+        font-size: 1em;
+        cursor: pointer;
+
+        &:hover {
+          color: $gray3;
+        }
+
+        &.active {
+          color: $green;
+        }
+
+        &.fa-trash-alt:hover {
+          color:$red;
+        }
+      }
+    }
+
+    p {
+      @include bodyFont;
+      color: $gray3;
+    }
+
+    h3 {
+      @include itemHeading;
+      margin-top: 0.5em;
+      margin-bottom: 0.8em;
+    }
+
+    .agenda-item-note {
+      margin-left: 1.2em;
+      width: calc(100% - 1.2em);
+    }
+
+    .agenda-action-items {
+      border-top: 1px solid $gray1;
+      margin-top: 0.5em;
+
+      .action-item {
+        padding-top: 0.8em;
+        padding-bottom: 0.8em;
+        border-bottom: 1px solid $gray1;
+        display: flex;
+        justify-content: space-between;
+
+        input[type="checkbox"] {
+          border-color: $gray2;
+          border-radius: 0.3em;
+          height: 1.2em;
+          width: 1.2em;
+        }
+
+        .action-item-text {
+          padding-left: 0.6em;
+          margin-right: auto;
+
+          .action-item-description {
+            @include bodyFont;
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          .due-date {
+            @include taskDetails;
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          .start-typing-description {
+            &::placeholder {
+              @include startTyping;
+            }
+            @include bodyFont;
+            color:$gray3;
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+
+          .start-typing-due-date {
+            &::placeholder {
+              @include startTypingDetail;
+            }
+            @include detailsFont;
+            margin-top: 0;
+            margin-bottom: 0;
+            color:$gray3;
+          }
+        }
+
+        .assignees {
+          margin-left: auto;
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          position: relative;
+
+          .assignee-photo {
+            @include profile-photo;
+            background: url("../public/assets/profile-img-sample.jpg");
+            background-size: cover;
+            margin-left: auto;
+          }
+
+          i {
+            color: $gray1;
+            margin-left: auto;
+            margin-right: 0.4em;
+            cursor: pointer;
+
+            &:hover {
+              color: $gray3;
+            }
+          }
+
+          .add-assignee {
+            background-color: $bgGray;
+            @include card-style;
+            display: none;
+
+            p {
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+
+            .add-team {
+              @include startTyping;
+              padding: 0.8em;
+            }
+
+            .add-assignee-row {
+              border-bottom: 1px solid $gray1;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              padding: 0.8em;
+              cursor: pointer;
+
+              &:hover {
+                background-color: $gray3;
+
+                * {
+                  color: white;
+                }
+              }
+
+              .add-assignee-img {
+                @include profile-photo;
+                width: 1.4em;
+                height: 1.4em;
+                background: url("../public/assets/profile-img-sample.jpg");
+                background-size: cover;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .agenda-item-add-button {
+    @include add-button;
+    margin:auto;
+  }
+}
+
+
+// ALL BELOW WRITTEN BY KAT
+
+
+.meeting-cards {
+
+  #no-upcoming-meetings {
+    margin-bottom: 1.5em;
+    color: $gray2;
+  }
+
+  .all-mtg-cards {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+
+  .mtg-card {
+    margin-bottom: 1.5em;
+    margin-right:1.5em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+
+    .card {
+      width: 50%;
+      min-width: 350px;
+      max-width: 560px;
+      cursor: pointer;
+      margin-right: auto;
+
+      &.centered {
+        width: 85%;
+        opacity: 1;
+
+        .card-team, .card-heading {
+          text-decoration: none !important;
+        }
+
+        &::before {
+          content: "Next up:";
+          @include bodyFont;
+          margin-right: 2em;
+          position: absolute;
+          left: -8em;
+          top: calc(50% - 0.375em);
+        }
+      }
+
+      .card-team {
+        margin-top: 0;
+        text-transform: uppercase;
+      }
+
+      .card-heading {
+        @include itemHeading;
+      }
+    }
+
+    .mtg-date {
+      text-align: left;
+      @include detailsFont;
+      color: $gray3;
+    }
+
+    .mtg-unassigned-tasks {
+      @include detailsFont;
+      color:$red;
+    }
+  }
+}
+
+
+// ALL BELOW WRITTEN BY MARS
+
+.card.meeting-end-card {
+  max-width: 1440px;
+  margin: 120px auto 0;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+
+  .card-header {
+    background-color: $gray4;
+    text-align: center;
+    padding: 35px 0 30px;
+
+    h2 {
+      margin: 0;
+      color: white;
+      padding: 10px 0;
+      font-size: 2.5em;
+    }
+
+    p {
+      color: white;
+      margin: 5px;
+    }
+  }
+
+  .card-body {
+    padding: 20px 50px;
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    .date {
+      color: $gray3;
+      margin: 0;
+    }
+
+  }
+
+  .tasks-div {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.button-group {
+  max-width: 500px;
+  margin: 40px auto 0;
+
+  .button {
+    width: 230px;
+    height: 50px;
+    border-radius: 50px;
+    box-shadow: none;
+    border: none;
+    font-size: 1.1em;
+  }
+
+  .button.create-meeting-btn {
+    color: white;
+    background-color: $green;
+    margin-right: 30px;
+
+    &:hover {
+      background-color: desaturate($green, 20);
+    }
+  }
+
+  .button.dashboard-btn {
+    color: $gray3;
+    background-color: $gray1;
+
+    &:hover {
+      background-color: $gray2;
+    }
+  }
+}
+
+.confetti-launcher {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  height: 5px;
+  width: 5px;
+  display: block;
+  //background-color: red;
+}
+
+
+// BELOW WRITTEN BY JESSICA
+#create-meeting-main {
+  .input-section {
+    margin: 0 0 40px;
+  }
+
+  label {
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  input {
+    @include input-field-style;
+    @include card-corners;
+    font-size: 15px;
+    padding: 7px;
+    outline: none;
+
+    &::placeholder {
+      @include startTyping;
+    }
+  }
+
+  #date-time-block {
+    #label-row, #field-row {
+      display: grid;
+      grid-template-columns: 40% 20% 40%;
+    }
+
+    #date-label {
+      grid-column-start: 1;
+    }
+
+    #time-label {
+      grid-column-start: 3;
+    }
+
+    #meeting-date {
+      grid-column-start: 1;
+    }
+
+    #at {
+      grid-column-start: 2;
+      text-align: center;
+    }
+
+    #meeting-time {
+      grid-column-start: 3;
+    }
+  }
+
+  .search-bar {
+    input {
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid $gray3;
+      background: transparent;
+      display: inline-block;
+      margin: 0;
+    }
+
+    i {
+      margin-right: 0.3em;
+      align-self: center;
+    }
+  }
+}

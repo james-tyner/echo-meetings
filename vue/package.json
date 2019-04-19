@@ -1,0 +1,29 @@
+{
+  "name": "cli-hello",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash.debounce": "^4.0.8",
+    "moment": "^2.24.0",
+    "v-autocomplete": "^1.8.2",
+    "v-tooltip": "^2.0.1",
+    "vue": "^2.6.6",
+    "vue-axios": "^2.1.4",
+    "vue-cookies": "^1.5.13",
+    "vue-router": "^3.0.2",
+    "vuedraggable": "^2.20.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-service": "^3.5.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.5.21"
+  }
+}

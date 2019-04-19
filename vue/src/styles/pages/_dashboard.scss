@@ -1,0 +1,196 @@
+// WRITTEN BY MARS
+
+.member-img-div {
+  display: inline-block;
+
+  img {
+    @include profile-photo;
+  }
+}
+
+.up-next-div {
+  $margin-btw: 25px;
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: calc(32% - 12.5px) calc(32% + 12.5px) calc(32% + 12.5px) calc(4% - 12.5px);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .card {
+    min-width: auto;
+    padding: 18px 15px;
+    margin: 0 25px;
+    background-color: white;
+
+    .card-date {
+      color: $gray3;
+      margin: 5px 0 0;
+      @include detailsFont;
+    }
+
+    .card-description {
+      margin-top: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &.card-empty > div {
+      opacity: 0.7;
+    }
+  }
+
+  .card:first-of-type {
+    margin-left: 0;
+  }
+
+  .add-meeting-div {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 2.5em;
+    @include card-shadow;
+    background-color: white;
+
+    &:hover {
+      background-color: $green;
+    }
+
+    i {
+      color: $gray3;
+      cursor: pointer;
+      font-size: 2em;
+      transform: translateY(0.05em);
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+.task-team-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 40px;
+}
+
+
+.task-item-div-input-name {
+  border: none;
+  font-size: 14px;
+  font-family: 'Rubik';
+  outline: 0;
+  padding-right: 10px;
+}
+
+.task-item-div-input-due {
+  border: none;
+  font-size: 14px;
+  font-family: 'Rubik';
+  outline: 0;
+  padding-right: 10px;
+}
+
+.tasks-div {
+  flex-basis: 65%;
+  flex-grow: 2;
+  flex-shrink: 1;
+  margin-right: auto;
+  padding-right: 25px;
+
+  .card {
+    width: 100%;
+    overflow: auto;
+    padding: 10px 15px;
+    background-color: white;
+  }
+
+  .task-item-div {
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    align-items: center;
+    border-bottom: 1px solid $gray1;
+    padding: 16px 0;
+
+    &.zero-tasks {
+      grid-template-columns:100%;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+
+    .task-due {
+      margin: 0;
+      @include detailsFont;
+      text-align: right;
+      margin-right:1em;
+    }
+
+    label {
+      color: $gray3;
+      display: block;
+      cursor:pointer;
+    }
+
+    .task-upcoming {
+      color: $red;
+    }
+
+    .task-progress {
+      color: $blue;
+    }
+
+    select {
+      border: 1px solid $gray2;
+      color: $gray3;
+      padding: 5px;
+      @include card-corners;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+    }
+  }
+}
+
+.team-div {
+  flex-basis: 35%;
+  flex-grow: 1;
+  flex-shrink: 2;
+  margin-left: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  .team {
+    margin-bottom: 20px;
+  }
+
+  .team-name {
+    @include itemHeading;
+    margin: 0;
+  }
+
+  .group-name {
+    @include detailsFont;
+    margin: 0 0 12px;
+  }
+
+  .team-members {
+    width:100%;
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+
+    .member-img-div {
+      @include profile-photo;
+    }
+  }
+}
