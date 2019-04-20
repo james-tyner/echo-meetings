@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { meeting_data } from '../../data'
+import { app_data, meeting_data } from '../../data'
 import TaskRow from "../../components/meetings/TaskRow"
 
 export default {
@@ -56,6 +56,16 @@ export default {
       var dateFormatted = moment(meetingTime).format('MMMM Do YYYY [at] h:mm a');
 
       return dateFormatted;
+    }
+  },
+  watch: {
+    thisMeeting: function () {
+      this.$nextTick(function () {
+        if (this.thisMeeting.title) {
+          app_data.updatePage(this.thisMeeting.title);
+          document.title = `${this.thisMeeting.title} - echo`
+        }
+      });
     }
   },
   props:{
