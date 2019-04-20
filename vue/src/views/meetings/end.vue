@@ -6,7 +6,7 @@
     <div class="card meeting-end-card">
       <div class="card-header">
         <h2> Congratulations! </h2>
-        <p>The <span class="meeting-name-span">{{this.thisMeeting.title}}</span> meeting has ended.</p>
+        <p>The <span class="meeting-name-span">{{this.thisMeeting.title}}</span> <span v-if="!this.thisMeeting.title.endsWith('meeting')">meeting</span> has ended.</p>
         <p>Meeting minutes will be shared with all attendees by email.</p>
       </div>
 
@@ -15,69 +15,33 @@
         <p class="date"><span class="date-span">{{this.humanDate}}</span></p>
 
         <div class="agenda-item-list">
-          <div class="agenda-item">
-            <h3>Agenda Item One:</h3>
-            <div class="tasks-div">
-              <div class="task-item-div">
-                <label for="task-1">Support color token autocomplete in filter</label>
-                <p class="task-due task-upcoming">12/01/18</p>
-                <select id="task-1">
-                  <option value="1">Not Started</option>
-                  <option value="2" selected>In Progress</option>
-                  <option value="3">Done</option>
-                </select>
-              </div>
-              <div class="task-item-div">
-                <label for="task-1">Update program brainstorm class page</label>
-                <p class="task-due task-progress">12/01/18</p>
-                <select id="task-1">
-                  <option value="1" selected>Not Started</option>
-                  <option value="2">In Progress</option>
-                  <option value="3">Done</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="agenda-item">
-            <h3>Agenda Item One:</h3>
-            <div class="tasks-div">
-              <div class="task-item-div">
-                <label for="task-1">Support color token autocomplete in filter</label>
-                <p class="task-due task-upcoming">12/01/18</p>
-                <select id="task-1">
-                  <option value="1">Not Started</option>
-                  <option value="2" selected>In Progress</option>
-                  <option value="3">Done</option>
-                </select>
-              </div>
-              <div class="task-item-div">
-                <label for="task-1">Update program brainstorm class page</label>
-                <p class="task-due task-progress">12/01/18</p>
-                <select id="task-1">
-                  <option value="1" selected>Not Started</option>
-                  <option value="2">In Progress</option>
-                  <option value="3">Done</option>
-                </select>
-              </div>
+          <div class="agenda-item" v-for="item in this.thisMeeting.agendas">
+            <h3 style="margin-bottom:0;">{{item.title}}</h3>
+            <p class="agenda-item-desc">{{item.description}}</p>
+            <small class="agenda-item-notes">{{item.notes}}</small>
+            <div v-if="item.tasks.length > 0">
+              <TaskRow v-for="(task, index) in item.tasks" v-bind:task="task" v-bind:index="index"></TaskRow>
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
     <div class="button-group">
-      <button class="button create-meeting-btn"><router-link :to="{path:'/meetings/create'}">Create New Meeting</router-link></button>
-      <button class="button dashboard-btn"><router-link :to="{path:'/'}">Return to Dashboard</router-link></button>
+      <router-link :to="{path:'/meetings/create'}"><button class="button create-meeting-btn">Create New Meeting</button></router-link>
+      <router-link :to="{path:'/'}"><button class="button dashboard-btn">Return to Dashboard</button></router-link>
     </div>
   </main>
 </template>
 
 <script>
 import { meeting_data } from '../../data'
+import TaskRow from "../../components/meetings/TaskRow"
 
 export default {
   name:"end-meeting",
+  components:{
+    TaskRow
+  },
   data:function(){
     return {
       meeting_data:meeting_data

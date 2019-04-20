@@ -504,6 +504,14 @@ input.editable {
     width: 100%;
     padding: 0;
   }
+
+  .agenda-item-desc {
+    @include detailsFont;
+  }
+
+  .agenda-item-notes {
+    @include taskDetails;
+  }
 }
 
 .button-group {
@@ -517,6 +525,7 @@ input.editable {
     box-shadow: none;
     border: none;
     font-size: 1.1em;
+    cursor:pointer;
   }
 
   .button.create-meeting-btn {

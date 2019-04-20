@@ -112,52 +112,52 @@
     padding: 10px 15px;
     background-color: white;
   }
+}
 
-  .task-item-div {
-    display: grid;
-    grid-template-columns: 60% 20% 20%;
-    align-items: center;
-    border-bottom: 1px solid $gray1;
-    padding: 16px 0;
+.task-item-div {
+  display: grid;
+  grid-template-columns: 60% 20% 20%;
+  align-items: center;
+  border-bottom: 1px solid $gray1;
+  padding: 16px 0;
 
-    &.zero-tasks {
-      grid-template-columns:100%;
-    }
+  &.zero-tasks {
+    grid-template-columns:100%;
+  }
 
-    &:last-child {
-      border: 0;
-    }
+  &:last-child {
+    border: 0;
+  }
 
-    .task-due {
-      margin: 0;
-      @include detailsFont;
-      text-align: right;
-      margin-right:1em;
-    }
+  .task-due {
+    margin: 0;
+    @include detailsFont;
+    text-align: right;
+    margin-right:1em;
+  }
 
-    label {
-      color: $gray3;
-      display: block;
-      cursor:pointer;
-    }
+  label {
+    color: $gray3;
+    display: block;
+    cursor:pointer;
+  }
 
-    .task-upcoming {
-      color: $red;
-    }
+  .task-upcoming {
+    color: $red;
+  }
 
-    .task-progress {
-      color: $blue;
-    }
+  .task-progress {
+    color: $blue;
+  }
 
-    select {
-      border: 1px solid $gray2;
-      color: $gray3;
-      padding: 5px;
-      @include card-corners;
-      appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-    }
+  select {
+    border: 1px solid $gray2;
+    color: $gray3;
+    padding: 5px;
+    @include card-corners;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
   }
 }
 
