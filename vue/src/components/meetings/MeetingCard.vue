@@ -1,9 +1,5 @@
 <template>
   <div class="card" v-bind:class="colorBand">
-    <!-- <div id="meeting-card-modify-icons">
-      <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i>
-      <i class="far fa-trash-alt" v-on:click="deleteMeeting" v-tooltip="{offset: '5', content: 'Delete Meeting'}"></i>
-    </div> -->
     <h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{meeting.team.name}}</h3>
     <h2 class="card-heading" v-on:click="toggle()">{{meeting.title}}</h2>
     <p v-if="showHumanDate" v-on:mouseenter="swapDates" v-on:mouseleave="swapDates" class="mtg-date">{{humanDate}}</p>
@@ -13,8 +9,6 @@
 </template>
 
 <script>
-// import { meeting_data } from '../../data'
-// import showAlert from "../ShowAlert"
 
 export default {
   name: "meeting-card",
@@ -79,15 +73,7 @@ export default {
     },
     swapDates(){
       this.showHumanDate = !this.showHumanDate
-    },
-    // deleteMeeting:function(){
-    //   meeting_data.meeting.delete(this.meeting._id);
-    //   showAlert("red", `Deleted ${this.meeting.title}`);
-    //   meeting_data.meeting.get();
-    // },
-    // editMeeting:function(){
-    //   this.$router.push({path:`/meetings/edit/${this.meeting._id}`, params:{id:this.meeting._id}});
-    // }
+    }
   },
   data: function () {
     return {
