@@ -146,7 +146,7 @@ export default {
       this.$router.push({path:"/meetings"});
     },
     editMeeting:function(){
-
+      this.$router.push({path:`/meetings/edit/${this.id}`, params:{id:this.id}});
     }
   },
   mounted: function () {

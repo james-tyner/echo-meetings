@@ -443,6 +443,25 @@ input.editable {
       .card-heading {
         @include itemHeading;
       }
+
+      #meeting-card-modify-icons {
+        float:right;
+        @include startTypingDetail;
+
+        i {
+          margin:0.2em;
+          cursor:pointer;
+          color:$gray2;
+
+          &:hover {
+            color:$gray3;
+          }
+
+          &:last-of-type {
+            margin-right:0;
+          }
+        }
+      }
     }
 
     .mtg-date {
