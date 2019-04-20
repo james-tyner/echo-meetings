@@ -16,7 +16,7 @@
 
         <div class="agenda-item-list">
           <div class="agenda-item" v-for="item in this.thisMeeting.agendas">
-            <h3 style="margin-bottom:0;">{{item.title}}</h3>
+            <h2 style="margin-bottom:0;">{{item.title}}</h2>
             <p class="agenda-item-desc">{{item.description}}</p>
             <small class="agenda-item-notes">{{item.notes}}</small>
             <div v-if="item.tasks.length > 0">

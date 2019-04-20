@@ -506,11 +506,11 @@ input.editable {
   }
 
   .agenda-item-desc {
-    @include detailsFont;
+    @include bodyFont;
   }
 
   .agenda-item-notes {
-    @include taskDetails;
+    @include detailsFont;
   }
 }
 
