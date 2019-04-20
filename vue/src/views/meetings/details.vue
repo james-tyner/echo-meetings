@@ -50,6 +50,11 @@
           {{index + 1}}. {{item.title}}
         </a>
       </draggable>
+
+      <div id="meeting-modify-icons">
+        <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i>
+        <i class="far fa-trash-alt" v-on:click="deleteMeeting" v-tooltip="{offset: '5', content: 'Delete Meeting'}"></i>
+      </div>
     </section>
   </div>
 </template>
@@ -58,6 +63,7 @@
 import { app_data, meeting_data } from '../../data'
 import draggable from "vuedraggable"
 import AnimateSave from "../../components/SaveAnimation"
+import showAlert from "../../components/ShowAlert"
 import AgendaItem from "../../components/meetings/AgendaItem"
 import debounce from 'lodash.debounce'
 
@@ -133,6 +139,14 @@ export default {
     },
     addAgendaItem: function () {
       meeting_data.agenda.create(this.id, "New agenda item");
+    },
+    deleteMeeting:function(){
+      meeting_data.meeting.delete(this.id);
+      showAlert("red", `Deleted ${this.thisMeeting.title}`);
+      this.$router.push({path:"/meetings"});
+    },
+    editMeeting:function(){
+
     }
   },
   mounted: function () {
