@@ -34,6 +34,7 @@ const MeetingSchema = new mongoose.Schema({
   },
   start: Number,
   end: Number,
+  recaps: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recap' }]
 });
 
 mongoose.model('Meeting', MeetingSchema);

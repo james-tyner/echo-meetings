@@ -28,7 +28,7 @@
       </div>
       <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-pause-btn" v-on:click="pauseTimer">Pause
       </div>
-      <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-end-btn">
+      <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-end-btn" v-on:click="endMeeting">
         <router-link :to="{ path: `/meetings/end/${this.id}`, params: {id: this.id, duration:this.meetingLength} }">
           End
         </router-link>
@@ -136,6 +136,18 @@ export default {
       meetingCount = setInterval(() => {
         this.meetingLength += 1
       }, 1000);
+    },
+    endMeeting:function(){
+      let emails = [];
+      for (var invitee of this.thisMeeting.invitees){
+        emails.push(invitee.email);
+      }
+
+      var meetingDate = new Date(this.thisMeeting.time);
+      meetingDate = moment(meetingDate).format('MMMM Do YYYY [at] h:mm a');
+
+      meeting_data.meeting.sendRecap(this.id, emails, meetingDate);
+      this.$router.push({path:`/meetings/end/${this.id}`, params:{id:this.id}});
     },
     addAgendaItem: function () {
       meeting_data.agenda.create(this.id, "New agenda item");

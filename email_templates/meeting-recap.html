@@ -1,0 +1,166 @@
+<html>
+<head>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,700');
+
+    * {
+      font-family:"Rubik", sans-serif;
+      box-sizing:border-box;
+    }
+
+    body {
+      background-color: #fcfcfc;
+      margin: 0;
+    }
+
+    .green {
+      color:#00d9bd;
+    }
+
+    .blue {
+      color:#4c98f2;
+    }
+
+    .red {
+      color:#ff5f77;
+    }
+
+    .magenta {
+      color:#ec74cb;
+    }
+
+    .orange {
+      color:#ffaf3a;
+    }
+
+    #container {
+      padding-left:15px;
+      padding-right:15px;
+      max-width:700px;
+      margin:auto;
+    }
+
+    h2 {
+      font-weight:700;
+      font-size:1.7em;
+    }
+
+    a, a * {
+      text-decoration:none;
+      color:inherit;
+    }
+
+    hr {
+      border:1px solid #EEEEEE;
+    }
+
+    #title-logo {
+      padding:10px;
+      background-color:#222222;
+      margin-bottom:40px;
+      text-align:center;
+    }
+
+    #title-logo img {
+      height:50px;
+    }
+
+    #spark {
+      height:20px;
+      margin:1em auto 2em auto;
+    }
+
+    #spark-container {
+      text-align:center;
+    }
+
+    .agenda-item {
+      clear:both;
+    }
+
+    .agenda-item h2 {
+      margin-bottom:0;
+    }
+
+    .agenda-item h4 {
+      margin-bottom:0;
+    }
+
+    .agenda-item-desc {
+      font-size:0.9em;
+    }
+
+    .agenda-item-notes {
+      font-size:0.9em;
+    }
+
+    .task-item-div {
+      display:block;
+      height:1.8em;
+      margin-bottom:0.4em;
+    }
+
+    .task-name {
+      margin-right:auto;
+      flex-basis:100px;
+    }
+
+    .member-img {
+      float:right;
+      width: 1.8em;
+      height: 1.8em;
+      margin-right: 0.4em;
+      border-radius: 1.8em;
+    }
+
+    small {
+      display:block;
+      color:#cccccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="title-logo">
+    <img src="https://test.jamestyner.com/echo-assets/logo@2x.png" alt="echo">
+  </div>
+  <div id="container">
+    <h4 class="{{meeting.team.color}}">MEETING RECAP:</h4>
+    <h2>{{meeting.title}}</h2>
+    <h3>{{datetime}}</h3>
+
+    <hr>
+
+    {{#each meeting.agendas}}
+      <div class="agenda-item">
+        <h3>{{this.title}}</h3>
+        {{#if this.description}}
+          <h4>Description:</h4>
+          <p class="agenda-item-desc">{{this.description}}</p>
+        {{/if}}
+        {{#if this.notes}}
+          <h4>Notes:</h4>
+          <p class="agenda-item-notes">{{this.notes}}</p>
+        {{/if}}
+        {{#if this.tasks}}
+          <h4>Action Items:</h4>
+          {{#each this.tasks}}
+            <div class="task-item-div">
+              {{#each this.assignees}}
+              <img class="member-img" src="{{this.avatar}}" alt="{{this.name}}">
+              {{/each}}
+              <label class="task-name">{{this.name}}</label>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+
+      <hr>
+    {{/each}}
+  </div>
+
+  <div id="spark-container">
+    <img id="spark" src="https://test.jamestyner.com/echo-assets/Spark.png">
+  </div>
+
+</body>
+</html>

@@ -6,7 +6,7 @@
     <div class="card meeting-end-card">
       <div class="card-header">
         <h2> Congratulations! </h2>
-        <p>The <span class="meeting-name-span">{{this.thisMeeting.title}}</span> <span v-if="!this.thisMeeting.title.endsWith('meeting')">meeting</span> has ended.</p>
+        <p>The <span class="meeting-name-span">{{this.thisMeeting.title}}</span> <span v-if="!this.thisMeeting.title.endsWith('meeting')"> meeting</span> has ended.</p>
         <p>Meeting minutes will be shared with all attendees by email.</p>
       </div>
 
@@ -20,7 +20,7 @@
             <p class="agenda-item-desc">{{item.description}}</p>
             <small class="agenda-item-notes">{{item.notes}}</small>
             <div v-if="item.tasks.length > 0">
-              <TaskRow v-for="(task, index) in item.tasks" v-bind:task="task" v-bind:index="index"></TaskRow>
+              <TaskRow v-for="(task, index) in item.tasks" v-bind:task="task" v-bind:index="index" :key="task._id"></TaskRow>
             </div>
           </div>
         </div>

@@ -156,6 +156,14 @@ const meeting_data = {
     },
     delete(id) {
       ApiService.delete(`/meeting/${id}`, {})
+    },
+    sendRecap(id, emails, datetime){
+      ApiService.post(`/meeting/${id}/recap`, {
+        'emails':emails,
+        'datetime':datetime
+      }).then(res => {
+      this.get();
+    })
     }
   },
   agenda: {
@@ -235,4 +243,3 @@ const task_data = {
 
 
 export { ApiService, app_data, user_data, team_data, meeting_data, task_data }
-
