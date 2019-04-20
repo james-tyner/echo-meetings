@@ -86,7 +86,7 @@
 .task-item-div-input-name {
   border: none;
   font-size: 14px;
-  font-family: 'Rubik';
+  font-family: 'Rubik', sans-serif;
   outline: 0;
   padding-right: 10px;
 }
@@ -94,7 +94,7 @@
 .task-item-div-input-due {
   border: none;
   font-size: 14px;
-  font-family: 'Rubik';
+  font-family: 'Rubik', sans-serif;
   outline: 0;
   padding-right: 10px;
 }
@@ -121,8 +121,9 @@
   border-bottom: 1px solid $gray1;
   padding: 16px 0;
 
+
   &.zero-tasks {
-    grid-template-columns:100%;
+    grid-template-columns: 100%;
   }
 
   &:last-child {
@@ -184,10 +185,10 @@
   }
 
   .team-members {
-    width:100%;
-    display:flex;
-    flex-wrap:nowrap;
-    overflow-x:auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
 
     .member-img-div {
       @include profile-photo;

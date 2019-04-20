@@ -1,4 +1,4 @@
-// compile this...
+
 @import 'fonts';
 @import 'colors';
 @import 'elements';
@@ -22,7 +22,7 @@
 }
 
 [contenteditable]:focus {
-  outline: 0px solid transparent;
+  outline: 0 solid transparent;
 }
 
 body {
@@ -87,7 +87,7 @@ nav#sidebar {
           padding-top: 0.1em;
           color: $red;
           font-weight: 400;
-          cursor:pointer;
+          cursor: pointer;
 
           &:hover {
             color: $red * 0.7;
@@ -228,7 +228,7 @@ button {
   &.out {
     animation: slide-out .8s;
     animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(.05,.24,.13,.99);
+    animation-timing-function: cubic-bezier(.05, .24, .13, .99);
   }
 }
 
