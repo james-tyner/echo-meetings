@@ -1,9 +1,9 @@
 <template>
   <main>
     <section>
-      <div id="filterbar">
+      <div class="filterbar">
         <div class="filter-title"> Filter by team:</div>
-        <div id="options">
+        <div class="options">
           <a class="filter-group" v-on:click="selectedTeam = ''"
              v-bind:class="{'selected' : selectedTeam == ''}">ALL</a>
           <a v-for="team in allTaskTeams"
@@ -106,6 +106,29 @@ export default {
       if (!this.draggedElement) return;
       task_data.update(this.draggedElement, status);
       this.animateSave();
+    },
+    updateView: function () {
+      let chosenTeam = this.selectedTeam;
+      let filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 0)
+      if (chosenTeam) {
+        this.notStartedTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
+      } else {
+        this.notStartedTasks = filteredTasks;
+      }
+      chosenTeam = this.selectedTeam;
+      filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 1)
+      if (chosenTeam) {
+        this.inProgressTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
+      } else {
+        this.inProgressTasks = filteredTasks;
+      }
+      chosenTeam = this.selectedTeam;
+      filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 2)
+      if (chosenTeam) {
+        this.completedTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
+      } else {
+        this.completedTasks = filteredTasks;
+      }
     }
   },
   computed: {
@@ -118,29 +141,13 @@ export default {
     },
   },
   watch: {
+    selectedTeam: function() {
+      console.log('changed');
+      this.updateView()
+    },
     task_data: {
       handler: function () {
-        let chosenTeam = this.selectedTeam;
-        let filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 0)
-        if (chosenTeam) {
-          this.notStartedTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
-        } else {
-          this.notStartedTasks = filteredTasks;
-        }
-        chosenTeam = this.selectedTeam;
-        filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 1)
-        if (chosenTeam) {
-          this.inProgressTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
-        } else {
-          this.inProgressTasks = filteredTasks;
-        }
-        chosenTeam = this.selectedTeam;
-        filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 2)
-        if (chosenTeam) {
-          this.completedTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
-        } else {
-          this.completedTasks = filteredTasks;
-        }
+        this.updateView()
       },
       deep: true,
     }

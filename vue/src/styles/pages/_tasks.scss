@@ -1,41 +1,34 @@
-
 // WRITTEN BY ANGELLA
 
 hr {
   border: 1px solid #EEEEEE;
 }
 
-
-#options {
+.options {
   margin-left: 20px;
 
   button {
     padding: 12px 30px;
-    margin: 0px 5px;
+    margin: 0 5px;
     border: none;
     border-radius: 30px;
     color: #777777;
     background-color: #EEEEEE;
     font-size: 12px;
     text-align: center;
-
-    &#selected {
-      color: #FCFCFC;
-      background-color: #777777;
-    }
   }
 }
 
 .task-column {
   width: calc(33% - 20px);
   float: left;
-  padding: 0px 10px;
+  padding: 0 10px;
 
   .column-header {
-    display:flex;
-    width:100%;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
     .num-circle {
       width: 1.5em;
@@ -44,15 +37,15 @@ hr {
       border: 2px solid $gray2;
       font-weight: 500;
       font-size: 1.25em;
-      line-height:calc(1.5em - 4px);
+      line-height: calc(1.5em - 4px);
       color: $gray2;
       background: $bgGray;
-      margin-right:0.5em;
-      text-align:center;
+      margin-right: 0.5em;
+      text-align: center;
     }
 
     h2 {
-      display:inline-block;
+      display: inline-block;
       font-weight: 500;
       font-size: 1.5em;
       color: $gray3;
@@ -60,66 +53,66 @@ hr {
   }
 
   .task-list {
-    min-height:150px;
+    min-height: 150px;
   }
 }
 
 .kanban .card {
-   margin-bottom: 1em;
-   cursor:move;
-   background-color:white;
+  margin-bottom: 1em;
+  cursor: move;
+  background-color: white;
 
-   .card-team {
-     @include detailsFont;
-     text-transform:uppercase;
-   }
+  .card-team {
+    @include detailsFont;
+    text-transform: uppercase;
+  }
 
-   .card-team, .card-heading {
-     cursor:pointer;
-   }
+  .card-team, .card-heading {
+    cursor: pointer;
+  }
 
-   .card-desc {
-     @include bodyFont;
-     margin-bottom:0.5em;
-   }
+  .card-desc {
+    @include bodyFont;
+    margin-bottom: 0.5em;
+  }
 
-   .card-date {
-     @include detailsFont;
-     color:$gray3;
+  .card-date {
+    @include detailsFont;
+    color: $gray3;
 
-     &.red {
-       color:$red;
-     }
-   }
+    &.red {
+      color: $red;
+    }
+  }
 
-   .task-assignees {
-     .assignee-heading {
-       border-top:1px solid $gray2;
-       padding-top:1em;
-       @include detailsFont;
-       text-transform:uppercase;
-       margin-bottom:0.5em;
-     }
+  .task-assignees {
+    .assignee-heading {
+      border-top: 1px solid $gray2;
+      padding-top: 1em;
+      @include detailsFont;
+      text-transform: uppercase;
+      margin-bottom: 0.5em;
+    }
 
-     .assignee {
-       @include detailsFont;
-       color:$gray3;
-       display:flex;
-       align-items:center;
-       margin-bottom:0.5em;
+    .assignee {
+      @include detailsFont;
+      color: $gray3;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
 
-       &:last-of-type {
-         margin-bottom:0;
-       }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
 
-       .profile-photo {
-         @include profile-photo;
-         margin-right:0.5em;
-       }
+      .profile-photo {
+        @include profile-photo;
+        margin-right: 0.5em;
+      }
 
-       p {
-         margin:0;
-       }
-     }
-   }
- }
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
