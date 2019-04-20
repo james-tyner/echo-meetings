@@ -1,10 +1,13 @@
+require('dotenv').config();
 const router = require('express').Router();
 const mongoose = require('mongoose');
+const sgMail = require('@sendgrid/mail');
 const log = require('../../util/log');
+// const fs = require('fs');
 
 const User = mongoose.model('User');
 const Meeting = mongoose.model('Meeting');
-
+const Recap = mongoose.model('Recap');
 const auth = require('../auth');
 
 const MEETING_NONEXISTENT_MSG = "Meeting does not exist, or user doesn't have permission to access this meeting";
@@ -381,6 +384,74 @@ router.delete('/:m_id/agenda/:a_id', async (req, res) => {
         log.log(`Agenda (${agenda.title}) deleted inside Meeting (${meeting.title})`);
         return res.json({ meeting });
       });
+    })
+    .catch(() => res.status(422).json({
+      errors: {
+        message: MEETING_NONEXISTENT_MSG,
+      },
+    }));
+});
+
+// Send a meeting recap
+router.post('/:m_id/recap', async (req, res) => {
+  const { user } = req.locals;
+  Meeting.findOne({ _id: req.params.m_id })
+    .populate('team')
+    .populate('invitees')
+    .populate({
+      path: 'agendas.tasks',
+      populate: { path: 'assignees' },
+    })
+    .then((meeting) => {
+      if (!meeting) {
+        return res.status(422).json({
+          errors: {
+            message: MEETING_NONEXISTENT_MSG,
+          },
+        });
+      }
+      // Email addresses of meeting attendees
+      const req_emails = req.body.emails;
+      if (!req_emails) {
+        return res.status(422).json({
+          errors: {
+            message: 'No Emails field',
+          },
+        });
+      }
+
+      const recap = new Recap({
+        emails: req_emails,
+        meeting: meeting._id
+      });
+
+      const msg = {
+        from: {
+          name:'echo',
+          email:'jianxuat@usc.edu'
+        },
+        personalizations:[{
+          to:req_emails,
+          dynamic_template_data:{
+            meeting,
+            user:user,
+            datetime:req.body.datetime
+          }
+        }],
+        template_id: process.env.RECAP_TEMPLATE
+      }
+      sgMail.send(msg).catch(error => log.error(error));
+      // For debugging
+      // fs.writeFile('email_data.txt', JSON.stringify(msg, null, 2) , 'utf-8', function (err) {
+      //   if (err) throw err;
+      //   console.log('Saved!');
+      // });
+
+      meeting.recaps.push(recap._id);
+      recap.save();
+
+      meeting.save().then(() => res.json({ meeting }));
+
     })
     .catch(() => res.status(422).json({
       errors: {

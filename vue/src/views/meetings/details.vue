@@ -28,7 +28,7 @@
       </div>
       <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-pause-btn" v-on:click="pauseTimer">Pause
       </div>
-      <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-end-btn">
+      <div v-if="this.meetingState === 2" class="meeting-start-btn meeting-end-btn" v-on:click="endMeeting">
         <router-link :to="{ path: `/meetings/end/${this.id}`, params: {id: this.id, duration:this.meetingLength} }">
           End
         </router-link>
@@ -50,6 +50,11 @@
           {{index + 1}}. {{item.title}}
         </a>
       </draggable>
+
+      <div id="meeting-modify-icons">
+        <!-- <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i> -->
+        <i class="far fa-trash-alt" v-on:click="deleteMeeting" v-tooltip="{offset: '5', content: 'Delete Meeting'}"></i>
+      </div>
     </section>
   </div>
 </template>
@@ -58,6 +63,7 @@
 import { app_data, meeting_data } from '../../data'
 import draggable from "vuedraggable"
 import AnimateSave from "../../components/SaveAnimation"
+import showAlert from "../../components/ShowAlert"
 import AgendaItem from "../../components/meetings/AgendaItem"
 import debounce from 'lodash.debounce'
 
@@ -131,8 +137,28 @@ export default {
         this.meetingLength += 1
       }, 1000);
     },
+    endMeeting:function(){
+      let emails = [];
+      for (var invitee of this.thisMeeting.invitees){
+        emails.push(invitee.email);
+      }
+
+      var meetingDate = new Date(this.thisMeeting.time);
+      meetingDate = moment(meetingDate).format('MMMM Do YYYY [at] h:mm a');
+
+      meeting_data.meeting.sendRecap(this.id, emails, meetingDate);
+      this.$router.push({path:`/meetings/end/${this.id}`, params:{id:this.id}});
+    },
     addAgendaItem: function () {
       meeting_data.agenda.create(this.id, "New agenda item");
+    },
+    deleteMeeting:function(){
+      meeting_data.meeting.delete(this.id);
+      showAlert("red", `Deleted ${this.thisMeeting.title}`);
+      this.$router.push({path:"/meetings"});
+    },
+    editMeeting:function(){
+      this.$router.push({path:`/meetings/edit/${this.id}`, params:{id:this.id}});
     }
   },
   mounted: function () {

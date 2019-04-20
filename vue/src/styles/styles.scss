@@ -11,6 +11,10 @@
     text-decoration: none;
     color: inherit;
   }
+
+  &:visited {
+    color:inherit;
+  }
 }
 
 [contentEditable=true]:empty::before {

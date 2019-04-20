@@ -114,6 +114,26 @@ header.meeting-header {
       }
     }
   }
+
+  #meeting-modify-icons {
+    grid-row: 4 / 5;
+    align-self:flex-end;
+    text-align:left;
+
+    i {
+      margin:0.5em;
+      cursor:pointer;
+      color:$gray2;
+
+      &:hover {
+        color:$gray3;
+      }
+
+      &:first-of-type {
+        margin-left:0;
+      }
+    }
+  }
 }
 
 textarea.editable {
@@ -444,6 +464,14 @@ input.editable {
     width: 100%;
     padding: 0;
   }
+
+  .agenda-item-desc {
+    @include bodyFont;
+  }
+
+  .agenda-item-notes {
+    @include detailsFont;
+  }
 }
 
 .button-group {
@@ -457,6 +485,7 @@ input.editable {
     box-shadow: none;
     border: none;
     font-size: 1.1em;
+    cursor:pointer;
   }
 
   .button.create-meeting-btn {
