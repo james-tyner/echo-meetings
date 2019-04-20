@@ -64,7 +64,7 @@
   .input-window {
     height: 100vh;
 
-    padding: 10vh 0px 0px 40%;
+    padding: 10vh 0 0 40%;
 
     .input-container {
       padding: 0 20px;
@@ -80,15 +80,15 @@
 
     .image {
       width: 100%;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .image-right {
-      border-radius: 10px 0px 0px 10px;
+      border-radius: 10px 0 0 10px;
     }
 
     .image-left {
-      border-radius: 0px 10px 10px 0px;
+      border-radius: 0 10px 10px 0;
     }
 
 
@@ -99,7 +99,7 @@
     }
 
     .text {
-      padding: 0px 2vw 0px 5vw;
+      padding: 0 2vw 0 5vw;
       line-height: 1.5em;
     }
 
