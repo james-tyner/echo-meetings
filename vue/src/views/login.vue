@@ -1,6 +1,6 @@
 <template>
   <div id="login-signup-main">
-    <div id="logo"><img src="/assets/logo_white.svg" alt="logo-img"></div>
+    <div id="logo"><img src="~@/assets/logo_white.svg" alt="logo-img"></div>
     <div class="login-flex">
       <div class="bg-window">
         <div id="outside-prompt">
