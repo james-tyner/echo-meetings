@@ -1,36 +1,37 @@
 // STYLES BY JAMES
 
 #login-signup-main {
-  //overflow: hidden;
+  display:grid;
+  grid-template-columns:40vw 60vw;
 
-  #logo {
-    position: fixed;
-    top: 50px;
-    left: 50px;
-    z-index: 500;
-
-    img {
-      width: 120px;
-    }
-  }
-
-  .login-flex {
-    display: flex;
+  a {
+    text-decoration: none;
   }
 
   .bg-window {
-    width: 40%;
+    grid-column: 1 / 2;
     background-image: url("~@/assets/signup-background.svg");
     background-position: center;
     background-size: cover;
-    height: 100vh;
-    position: fixed;
+    display:flex;
+
+    #logo {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      z-index: 500;
+
+      img {
+        width: 120px;
+      }
+    }
 
     #outside-prompt {
-      padding: calc(50vh - 100px) 5vw 0px 5vw;
-      text-align: center;
+      padding-left:50px;
+      width:calc(40vw - 50px);
       color: white;
       line-height: 1.5em;
+      align-self:center;
 
       h1 {
         @include heading1;
@@ -39,74 +40,52 @@
       #google {
         height: 50px;
       }
-
-      .prompt-button {
-        display: block;
-        text-transform: uppercase;
-        @include submit-button;
-        width: 50%;
-        margin: auto;
-
-        &#signin-prompt {
-          background-color: $blue;
-          border-color: $blue;
-        }
-
-        &#signup-prompt {
-          background-color: $red;
-          border-color: $red;
-        }
-      }
     }
   }
 
-
-  .input-window {
-    height: 100vh;
-
-    padding: 10vh 0 0 40%;
-
-    .input-container {
-      padding: 0 20px;
-    }
-
-    p {
-      color: $gray4;
-    }
+  .input-container {
+    grid-column: 2 / 3;
+    padding:50px;
+    overflow-y:scroll;
 
     h3 {
       @include heading3;
+      margin-top:0;
+    }
+
+    p {
+      color: $gray3;
+    }
+
+    .text {
+      text-align:right;
+    }
+
+    .image + .text {
+      text-align:left;
     }
 
     .image {
       width: 100%;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      @include card-style;
     }
-
-    .image-right {
-      border-radius: 10px 0 0 10px;
-    }
-
-    .image-left {
-      border-radius: 0 10px 10px 0;
-    }
-
 
     .row {
-      padding-bottom: 10vh;
+      padding-top:5vh;
+      padding-bottom: 5vh;
       display: grid;
-      grid-template-columns: 50% 50%;
+      grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+      grid-column-gap:20px;
+
+      &:first-of-type {
+        padding-top:0;
+      }
+
+      &:last-of-type{
+        padding-bottom:0;
+      }
     }
 
-    .text {
-      padding: 0 2vw 0 5vw;
-      line-height: 1.5em;
-    }
-
-
-  }
-
-  a {
-    text-decoration: none;
   }
 }
