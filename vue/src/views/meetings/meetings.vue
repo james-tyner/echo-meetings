@@ -20,7 +20,7 @@
         <div class="placeholder-page-container">
         <h2>Sit back, relax.</h2>
         <p>You have no upcoming meetings <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span></p>
-      </div> 
+      </div>
       </div>
       <div class="all-mtg-cards">
         <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
@@ -89,9 +89,11 @@ export default {
       if (chosenTeam !== "") {
         let futureMeetings = filteredMeetings.filter(meeting => meeting.time > now)
         futureMeetings.sort(compare);
+        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length == 0));
         return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
         let futureMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
+        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length == 0))
         futureMeetings.sort(compare);
         return futureMeetings;
       }
@@ -103,11 +105,11 @@ export default {
       const now = Date.now();
 
       if (chosenTeam !== "") {
-        let pastMeetings = filteredMeetings.filter(meeting => meeting.time <= now)
+        let pastMeetings = filteredMeetings.filter(meeting => (meeting.time <= now || meeting.recaps.length > 0))
         pastMeetings.sort(compare);
         return pastMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
-        let pastMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time <= now);
+        let pastMeetings = this.meeting_data.all_meetings.filter(meeting => (meeting.time <= now || meeting.recaps.length > 0));
         return pastMeetings
       }
     }

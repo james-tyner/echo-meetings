@@ -3,7 +3,7 @@
     <router-link :to="`/meetings/details/${task.meeting._id}`">
       <label :for="'task-' + this.index">{{task.name}}</label>
     </router-link>
-    <p class="task-due">due {{humanDate}}</p>
+    <p class="task-due">{{humanDate}}</p>
     <select :id="'task' + this.index" v-model="task.status" v-on:change="updateStatus">
       <option value="0">Not Started</option>
       <option value="1">In Progress</option>
@@ -54,7 +54,11 @@ export default {
         dateFormatted = moment(dueDate).fromNow();
       }
 
-      return dateFormatted;
+      if (dateFormatted != "Invalid date"){
+        return "due " + dateFormatted;
+      } else {
+        return ""
+      }
     }
   },
   methods:{

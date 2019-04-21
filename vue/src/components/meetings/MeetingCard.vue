@@ -46,7 +46,11 @@ export default {
         dateFormatted = moment(meetingTime).fromNow();
       }
 
-      return dateFormatted;
+      if (dateFormatted != "Invalid date"){
+        return dateFormatted;
+      } else {
+        return ""
+      }
     },
     fullDate:function(){
       var meetingTime = new Date(this.meeting.time);
