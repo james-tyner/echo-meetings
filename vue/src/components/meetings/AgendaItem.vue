@@ -290,7 +290,6 @@ export default {
   }
 
   .tooltip {
-
     &.danger-bg .tooltip-inner {
       background: #f53900;
     }

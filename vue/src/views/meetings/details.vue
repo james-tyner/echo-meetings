@@ -53,12 +53,26 @@
 
       <div id="meeting-modify-icons">
         <!-- <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i> -->
-        <i class="far fa-trash-alt" v-on:click="deleteMeeting" v-tooltip="{offset: '5', content: 'Delete Meeting'}"></i>
+        <i
+          class="far fa-trash-alt"
+          :class="deleteMeetingConfirmed ? 'danger' : ''"
+          @click="deleteMeeting"
+          v-tooltip="{
+            offset: '5',
+            hideOnTargetClick: false,
+            content: deleteMeetingConfirmed ? 'Click again to delete meeting' : 'Click twice to delete meeting',
+            classes: deleteMeetingConfirmed ? 'danger-bg' : ''
+            }"
+        ></i>
       </div>
     </section>
   </div>
 </template>
-
+<style lang="scss" scoped>
+  .fa-trash-alt.danger {
+    color: #f53900 !important;
+  }
+</style>
 <script>
 import { app_data, meeting_data } from '../../data'
 import draggable from "vuedraggable"
@@ -82,7 +96,8 @@ export default {
       meeting_data: meeting_data,
       meetingLength: null, // in seconds
       meetingState: 1, // 1 = working, 2 = started, 3 = paused, 4 = ended
-      pausedLength: null
+      pausedLength: null,
+      deleteMeetingConfirmed: false
     }
   },
   computed: {
@@ -153,18 +168,31 @@ export default {
       meeting_data.agenda.create(this.id, "New agenda item");
     },
     deleteMeeting: function () {
-      meeting_data.meeting.delete(this.id);
-      showAlert("red", `Deleted ${this.thisMeeting.title}`);
-      this.$router.push({ path: "/meetings" });
+      if (this.deleteMeetingConfirmed) {
+        meeting_data.meeting.delete(this.id);
+        showAlert("red", `Deleted ${this.thisMeeting.title}`);
+        this.$router.push({ path: "/meetings" });
+      } else {
+        this.deleteMeetingConfirmed = true;
+      }
     },
     editMeeting: function () {
       this.$router.push({ path: `/meetings/edit/${this.id}`, params: { id: this.id } });
+    },
+    handleClick: function (event) {
+      if (event.target && !event.target.classList.contains('fa-trash-alt')) {
+        this.deleteMeetingConfirmed = false;
+      }
     }
   },
   mounted: function () {
+    window.addEventListener('click', this.handleClick);
     this.$nextTick(function () {
       meeting_data.meeting.get();
     });
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('click', this.handleClick)
   }
 }
 
