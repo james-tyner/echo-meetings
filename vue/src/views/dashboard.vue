@@ -92,6 +92,21 @@ function compareTasks(a, b) {
   return comparison;
 }
 
+// THIS WORKS ONLY FOR TEAMS
+function compareTeams(a, b){
+  const updateA = new Date(a.updatedAt)
+  const updateB = new Date(b.updatedAt)
+
+  let comparison = 0;
+  if (updateA > updateB){
+    comparison = 1
+  } else if (updateA < updateB){
+    comparison = -1
+  }
+
+  return comparison;
+}
+
 export default {
   name: 'dashboard',
   components:{
@@ -117,7 +132,10 @@ export default {
       return futureMeetings.slice(0,3)
     },
     truncatedTeams:function(){
-      return this.team_data.all_teams.slice(0,3)
+      let sortedTeams = this.team_data.all_teams;
+      sortedTeams.sort(compareTeams);
+      sortedTeams.reverse()
+      return sortedTeams.slice(0,4);
     },
     truncatedTasks:function(){
       let allTasks = this.task_data.all_tasks;
