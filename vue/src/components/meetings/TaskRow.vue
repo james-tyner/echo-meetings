@@ -1,7 +1,7 @@
 <template>
   <div class="task-item-div">
     <label class="task-name" :for="'task-' + this.index">{{task.name}}</label>
-    <p class="task-due">due {{humanDate}}</p>
+    <p class="task-due">{{humanDate}}</p>
     <div class="member-img-div" v-for="assignee in task.assignees">
       <img v-bind:src="assignee.avatar" v-bind:alt="assignee.name">
     </div>
@@ -55,7 +55,11 @@ export default {
         dateFormatted = moment(dueDate).fromNow();
       }
 
-      return dateFormatted;
+      if (dateFormatted != "Invalid date"){
+        return "due " + dateFormatted;
+      } else {
+        return ""
+      }
     }
   },
   methods:{
