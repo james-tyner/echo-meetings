@@ -84,7 +84,7 @@ header.meeting-header {
     .agenda-list-item {
       @include bodyFont;
       color: $gray2;
-      cursor: pointer;
+      cursor: move;
       margin: 1em auto;
       display: flex;
       justify-content: space-between;
