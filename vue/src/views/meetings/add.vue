@@ -66,6 +66,7 @@
             :auto-select-one-item="false"
           ></v-autocomplete>
         </div>
+        <p>If no invitees selected, all team members will be invited.</p>
       </div>
 
       <button @click="onCreateMeeting" class="submit-button" type="button">Create Meeting</button>
@@ -127,7 +128,6 @@ export default {
         return;
       }
       const _id = val._id;
-      console.log(val.name);
       if (this.invitees.includes(_id)) {
         return;
       }
@@ -178,6 +178,9 @@ export default {
       if (!this.time || !this.date) {
         showAlert('red', 'You must pick a time', 2500);
         return;
+      }
+      if (this.invitees.length < 1) {
+        this.invitees = this.team.members.map(m => m._id);
       }
       const timestamp = moment(`${this.date} ${this.time}`).valueOf();
       meeting_data.meeting.create(this.title, timestamp, this.team._id, this.location, this.invitees);

@@ -152,7 +152,6 @@ export default {
       return item.name
     },
     createNewTask: function (event) {
-      console.log(event.keyCode);
       let taskName = event.target.value;
       // Will fire when user hits enter
       if (event.keyCode === 13 && taskName.length >= 0 && taskName.length != null) {
