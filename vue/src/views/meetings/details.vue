@@ -34,7 +34,7 @@
         </router-link>
       </div>
       <div v-if="this.meetingState === 3" class="meeting-start-btn" v-on:click="resumeTimer">Resume</div>
-      <h2 v-if="this.meetingState === 2" class="meeting-timer">{{this.meetingTimer}}</h2>
+      <h2 v-if="this.meetingState >= 2" class="meeting-timer">{{this.meetingTimer}}</h2>
 
       <!-- Agenda Item ToC -->
       <draggable
@@ -121,7 +121,7 @@ export default {
     startTimer: function () {
       this.meetingLength = 0;
       meetingCount = setInterval(() => {
-        this.meetingLength += 1
+        this.meetingLength++;
       }, 1000);
       this.meetingState = 2;
     },
@@ -134,12 +134,12 @@ export default {
       this.meetingState = 2;
       this.meetingLength = this.pausedLength;
       meetingCount = setInterval(() => {
-        this.meetingLength += 1
+        this.meetingLength++;
       }, 1000);
     },
-    endMeeting:function(){
+    endMeeting: function () {
       let emails = [];
-      for (var invitee of this.thisMeeting.invitees){
+      for (const invitee of this.thisMeeting.invitees) {
         emails.push(invitee.email);
       }
 
@@ -147,18 +147,18 @@ export default {
       meetingDate = moment(meetingDate).format('MMMM Do YYYY [at] h:mm a');
 
       meeting_data.meeting.sendRecap(this.id, emails, meetingDate);
-      this.$router.push({path:`/meetings/end/${this.id}`, params:{id:this.id}});
+      this.$router.push({ path: `/meetings/end/${this.id}`, params: { id: this.id } });
     },
     addAgendaItem: function () {
       meeting_data.agenda.create(this.id, "New agenda item");
     },
-    deleteMeeting:function(){
+    deleteMeeting: function () {
       meeting_data.meeting.delete(this.id);
       showAlert("red", `Deleted ${this.thisMeeting.title}`);
-      this.$router.push({path:"/meetings"});
+      this.$router.push({ path: "/meetings" });
     },
-    editMeeting:function(){
-      this.$router.push({path:`/meetings/edit/${this.id}`, params:{id:this.id}});
+    editMeeting: function () {
+      this.$router.push({ path: `/meetings/edit/${this.id}`, params: { id: this.id } });
     }
   },
   mounted: function () {
