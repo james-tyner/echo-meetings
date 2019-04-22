@@ -1,3 +1,4 @@
+
 // THIS SECTION WRITTEN BY JAMES
 main.meeting-main {
   width: 62vw;
@@ -275,6 +276,7 @@ input.editable {
         .action-item-text {
           padding-left: 0.6em;
           margin-right: auto;
+          width:calc(100% - 0.6em);
 
           .action-item-description {
             @include bodyFont;
@@ -302,6 +304,14 @@ input.editable {
           .start-typing-due-date {
             &::placeholder {
               @include startTypingDetail;
+            }
+
+            &:active, &:focus {
+              border: 2px solid $gray2;
+              @include card-corners;
+              padding: 0.5em;
+              outline: none;
+              width: calc(100% - 1em);
             }
 
             @include detailsFont;
