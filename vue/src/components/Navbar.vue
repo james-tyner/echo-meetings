@@ -1,6 +1,6 @@
 <template>
   <nav id="sidebar">
-    <img id="logo" src="~@/assets/logo_white.svg" alt="logo-img">
+    <router-link to="/"><img id="logo" src="~@/assets/logo_white.svg" alt="logo-img"></router-link>
     <div class="nav-items">
       <router-link class="nav-item" v-bind:class="{active : currentDashboard}" to="/">Dashboard</router-link>
       <router-link class="nav-item" v-bind:class="{active : currentMeetings}" to="/meetings">Meetings</router-link>

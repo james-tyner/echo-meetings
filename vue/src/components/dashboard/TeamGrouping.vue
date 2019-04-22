@@ -1,6 +1,6 @@
 <template>
   <div class="team">
-    <h3 class="team-name">{{ team.name }}</h3>
+    <router-link to="/teams"><h3 class="team-name">{{ team.name }}</h3></router-link>
     <h4 class="group-name" :class="team.color">{{ team.description }}</h4>
     <div class="team-members">
       <div class="member-img-div" v-for="member in team.members">
