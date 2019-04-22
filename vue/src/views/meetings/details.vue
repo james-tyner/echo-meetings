@@ -34,7 +34,7 @@
         </router-link>
       </div>
       <div v-if="this.meetingState === 3" class="meeting-start-btn" v-on:click="resumeTimer">Resume</div>
-      <h2 v-if="this.meetingState === 2" class="meeting-timer">{{this.meetingTimer}}</h2>
+      <h2 v-if="this.meetingState >= 2" class="meeting-timer">{{this.meetingTimer}}</h2>
 
       <!-- Agenda Item ToC -->
       <draggable
@@ -53,12 +53,26 @@
 
       <div id="meeting-modify-icons">
         <!-- <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i> -->
-        <i class="far fa-trash-alt" v-on:click="deleteMeeting" v-tooltip="{offset: '5', content: 'Delete Meeting'}"></i>
+        <i
+          class="far fa-trash-alt"
+          :class="deleteMeetingConfirmed ? 'danger' : ''"
+          @click="deleteMeeting"
+          v-tooltip="{
+            offset: '5',
+            hideOnTargetClick: false,
+            content: deleteMeetingConfirmed ? 'Click again to delete meeting' : 'Click twice to delete meeting',
+            classes: deleteMeetingConfirmed ? 'danger-bg' : ''
+            }"
+        ></i>
       </div>
     </section>
   </div>
 </template>
-
+<style lang="scss" scoped>
+  .fa-trash-alt.danger {
+    color: #f53900 !important;
+  }
+</style>
 <script>
 import { app_data, meeting_data } from '../../data'
 import draggable from "vuedraggable"
@@ -82,7 +96,8 @@ export default {
       meeting_data: meeting_data,
       meetingLength: null, // in seconds
       meetingState: 1, // 1 = working, 2 = started, 3 = paused, 4 = ended
-      pausedLength: null
+      pausedLength: null,
+      deleteMeetingConfirmed: false
     }
   },
   computed: {
@@ -121,7 +136,7 @@ export default {
     startTimer: function () {
       this.meetingLength = 0;
       meetingCount = setInterval(() => {
-        this.meetingLength += 1
+        this.meetingLength++;
       }, 1000);
       this.meetingState = 2;
     },
@@ -134,12 +149,12 @@ export default {
       this.meetingState = 2;
       this.meetingLength = this.pausedLength;
       meetingCount = setInterval(() => {
-        this.meetingLength += 1
+        this.meetingLength++;
       }, 1000);
     },
-    endMeeting:function(){
+    endMeeting: function () {
       let emails = [];
-      for (var invitee of this.thisMeeting.invitees){
+      for (const invitee of this.thisMeeting.invitees) {
         emails.push(invitee.email);
       }
 
@@ -147,24 +162,37 @@ export default {
       meetingDate = moment(meetingDate).format('MMMM Do YYYY [at] h:mm a');
 
       meeting_data.meeting.sendRecap(this.id, emails, meetingDate);
-      this.$router.push({path:`/meetings/end/${this.id}`, params:{id:this.id}});
+      this.$router.push({ path: `/meetings/end/${this.id}`, params: { id: this.id } });
     },
     addAgendaItem: function () {
       meeting_data.agenda.create(this.id, "New agenda item");
     },
-    deleteMeeting:function(){
-      meeting_data.meeting.delete(this.id);
-      showAlert("red", `Deleted ${this.thisMeeting.title}`);
-      this.$router.push({path:"/meetings"});
+    deleteMeeting: function () {
+      if (this.deleteMeetingConfirmed) {
+        meeting_data.meeting.delete(this.id);
+        showAlert("red", `Deleted ${this.thisMeeting.title}`);
+        this.$router.push({ path: "/meetings" });
+      } else {
+        this.deleteMeetingConfirmed = true;
+      }
     },
-    editMeeting:function(){
-      this.$router.push({path:`/meetings/edit/${this.id}`, params:{id:this.id}});
+    editMeeting: function () {
+      this.$router.push({ path: `/meetings/edit/${this.id}`, params: { id: this.id } });
+    },
+    handleClick: function (event) {
+      if (event.target && !event.target.classList.contains('fa-trash-alt')) {
+        this.deleteMeetingConfirmed = false;
+      }
     }
   },
   mounted: function () {
+    window.addEventListener('click', this.handleClick);
     this.$nextTick(function () {
       meeting_data.meeting.get();
     });
+  },
+  beforeDestroy: function () {
+    window.removeEventListener('click', this.handleClick)
   }
 }
 

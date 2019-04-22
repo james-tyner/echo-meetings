@@ -89,11 +89,11 @@ export default {
       if (chosenTeam !== "") {
         let futureMeetings = filteredMeetings.filter(meeting => meeting.time > now)
         futureMeetings.sort(compare);
-        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length == 0));
+        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length === 0));
         return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
       } else {
         let futureMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
-        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length == 0))
+        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length === 0))
         futureMeetings.sort(compare);
         return futureMeetings;
       }

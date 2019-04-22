@@ -6,6 +6,7 @@ const log = require('../../util/log');
 // const fs = require('fs');
 
 const User = mongoose.model('User');
+const Task = mongoose.model('Task');
 const Meeting = mongoose.model('Meeting');
 const Recap = mongoose.model('Recap');
 const auth = require('../auth');
@@ -196,8 +197,10 @@ router.delete('/:m_id', async (req, res) => {
           },
         });
       }
-      log.log(`Meeting (${meeting.title}) deleted`);
-      res.json({ meeting });
+      Task.deleteMany({ meeting: meeting._id }).then(() => {
+        log.log(`Meeting (${meeting.title}) deleted`);
+        res.json({ meeting });
+      });
     })
     .catch(() => res.status(422).json({
       errors: {
@@ -380,9 +383,11 @@ router.delete('/:m_id/agenda/:a_id', async (req, res) => {
         }
       }
       meeting.agendas.id(req.params.a_id).remove();
-      meeting.save().then(() => {
-        log.log(`Agenda (${agenda.title}) deleted inside Meeting (${meeting.title})`);
-        return res.json({ meeting });
+      Task.deleteMany({ _id: { $in: agenda.tasks } }).then(() => {
+        meeting.save().then(() => {
+          log.log(`Agenda (${agenda.title}) deleted inside Meeting (${meeting.title})`);
+          return res.json({ meeting });
+        });
       });
     })
     .catch(() => res.status(422).json({
@@ -422,24 +427,24 @@ router.post('/:m_id/recap', async (req, res) => {
 
       const recap = new Recap({
         emails: req_emails,
-        meeting: meeting._id
+        meeting: meeting._id,
       });
 
       const msg = {
         from: {
-          name:'echo',
-          email:'jianxuat@usc.edu'
+          name: 'echo',
+          email: 'jianxuat@usc.edu',
         },
-        personalizations:[{
-          to:req_emails,
-          dynamic_template_data:{
+        personalizations: [{
+          to: req_emails,
+          dynamic_template_data: {
             meeting,
-            user:user,
-            datetime:req.body.datetime
-          }
+            user,
+            datetime: req.body.datetime,
+          },
         }],
-        template_id: process.env.RECAP_TEMPLATE
-      }
+        template_id: process.env.RECAP_TEMPLATE,
+      };
       sgMail.send(msg).catch(error => log.error(error));
       // For debugging
       // fs.writeFile('email_data.txt', JSON.stringify(msg, null, 2) , 'utf-8', function (err) {
@@ -451,7 +456,6 @@ router.post('/:m_id/recap', async (req, res) => {
       recap.save();
 
       meeting.save().then(() => res.json({ meeting }));
-
     })
     .catch(() => res.status(422).json({
       errors: {
