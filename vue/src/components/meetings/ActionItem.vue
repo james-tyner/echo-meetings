@@ -45,7 +45,7 @@ import { meeting_data, task_data } from '../../data'
 import MemberSearch from "../../components/meetings/MemberSearchItem"
 import AnimateSave from "../SaveAnimation"
 
-const chrono = require("chrono-node");
+import chrono from 'chrono-node';
 
 export default {
   name:"action-item",
@@ -63,7 +63,9 @@ export default {
       focused_task: '',
       selected_assignee: {},
       MemberSearchTemplate: MemberSearch,
-      taskDateTooltip:false
+      taskDateTooltip:false,
+      meeting_data: meeting_data,
+      task_data: task_data
     }
   },
   computed: {
@@ -141,7 +143,7 @@ export default {
       if (event.keyCode === 13 && taskDateTime.length > 0) {
         event.target.value = readableDate;
         event.target.blur();
-        
+
         // save new due date to task
         let unixDate = moment(readableDate, "ddd, MMM D [at] h:mm a").valueOf();
         task_data.update(taskId, taskStatus, unixDate);
