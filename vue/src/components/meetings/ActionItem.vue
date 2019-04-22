@@ -2,7 +2,8 @@
   <div class="action-item">
     <div class="action-item-text">
       <p contenteditable="true" class="action-item-description">{{action.name}}</p>
-      <input :id="'action-item-due-date-' + action._id" class="editable start-typing-due-date" type="text" v-on:keydown="modifyTaskTime($event, action.status, action._id)" placeholder="due…" v-tooltip="{
+      <input :id="'action-item-due-date-' + action._id" class="editable start-typing-due-date" type="text"
+             v-on:keydown="modifyTaskTime($event, action.status, action._id)" placeholder="due…" v-tooltip="{
       offset: '5',
       hideOnTargetClick: false,
       content:taskDateTooltip,
@@ -42,28 +43,29 @@
 
 <script>
 import { meeting_data, task_data } from '../../data'
+import showAlert from '../ShowAlert'
 import MemberSearch from "../../components/meetings/MemberSearchItem"
 import AnimateSave from "../SaveAnimation"
 
 import chrono from 'chrono-node';
 
 export default {
-  name:"action-item",
-  props:{
-    action:Object,
-    meeting:Object,
-    agendaItem:Object
+  name: "action-item",
+  props: {
+    action: Object,
+    meeting: Object,
+    agendaItem: Object
   },
-  components:{
+  components: {
     MemberSearch
   },
-  data:function(){
+  data: function () {
     return {
       focused_removing_assignee: '',
       focused_task: '',
       selected_assignee: {},
       MemberSearchTemplate: MemberSearch,
-      taskDateTooltip:false,
+      taskDateTooltip: false,
       meeting_data: meeting_data,
       task_data: task_data
     }
@@ -76,8 +78,8 @@ export default {
         return this.meeting.invitees;
       }
     },
-    actionDueDate:function(){
-      if (!this.action.due){
+    actionDueDate: function () {
+      if (!this.action.due) {
         return null;
       } else {
         return moment(this.action.due).format("ddd, MMM D [at] h:mm a");
@@ -103,7 +105,7 @@ export default {
               console.log('ok');
               assignees.push(user._id);
               // this.agendaItem.tasks[i].assignees.push(user._id);
-              task_data.update(task_id, null, null, null, null, assignees);
+              task_data.update(task_id, null, null, null, null, null, assignees);
             }
           }
           this.$nextTick(function () {
@@ -115,7 +117,7 @@ export default {
       deep: true
     }
   },
-  methods:{
+  methods: {
     getLabel(item) {
       if (!item) return '';
       return item.name
@@ -127,7 +129,7 @@ export default {
       var readableDate;
 
       // Will fire on every keypress when entry is 3 or more characters
-      if (taskDateTime.length >= 3){
+      if (taskDateTime.length >= 3) {
         clearTimeout(hideTooltipTimeout);
         parsedDateTime = chrono.en.parseDate(taskDateTime);
         jsDate = new Date(parsedDateTime);
@@ -159,7 +161,7 @@ export default {
         clearTimeout(updateTimer);
       }
       updateTimer = setTimeout(() => {
-        task_data.update()
+        // task_data.update()
         self.animateSave();
       })
     },
@@ -200,7 +202,7 @@ export default {
               break;
             }
           }
-          task_data.update(task_id, null, null, null, null, assignees);
+          task_data.update(task_id, null, null, null, null, null, assignees);
         }
       } else {
         // first click
@@ -210,7 +212,7 @@ export default {
   },
   mounted: function () {
     window.addEventListener('click', this.handleClick);
-    if (this.action.due){
+    if (this.action.due) {
       document.getElementById('action-item-due-date-' + this.action._id).value = moment(this.action.due).format("ddd, MMM D [at] h:mm a");
     }
   },
