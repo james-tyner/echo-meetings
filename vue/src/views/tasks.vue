@@ -124,6 +124,8 @@ export default {
       }
       chosenTeam = this.selectedTeam;
       filteredTasks = this.task_data.all_tasks.filter(task => task["status"] === 2)
+      const now = moment(Date.now());
+      filteredMeetings = filteredMeetings.filter(task => moment(task.updatedAt).diff(now, "days") > 7);
       if (chosenTeam) {
         this.completedTasks = filteredTasks.filter(task => task.meeting.team.name === this.selectedTeam)
       } else {
