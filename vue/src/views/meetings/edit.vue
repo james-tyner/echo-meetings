@@ -20,7 +20,7 @@
         <div id="field-row">
           <input
             id="meeting-date" type="date"
-            v-model="this.date"
+            v-model="this.humanDate"
           >
           <div id="at">at</div>
           <input
@@ -80,11 +80,7 @@ export default {
   },
   data: function () {
     return {
-      selected_member: '',
-      team_data: team_data,
-      MemberSearchTemplate: MemberSearch,
-      meeting_data: meeting_data,
-      old_data: meeting_data,
+      title: '',
       date: '',
       time: '',
       teamName: '',
@@ -93,6 +89,11 @@ export default {
         location: '',
       },
       invitees: [],
+      selected_member: '',
+      team_data: team_data,
+      MemberSearchTemplate: MemberSearch,
+      meeting_data: meeting_data,
+      old_data: meeting_data
     }
   },
   props: {
@@ -205,11 +206,11 @@ export default {
         showAlert('red', 'You must choose a team', 2500);
         return;
       }
-      if (!this.time || !this.date) {
+      if (!this.humanTime || !this.humanDate) {
         showAlert('red', 'You must pick a time', 2500);
         return;
       }
-      const timestamp = moment(`${this.date} ${this.time}`).valueOf();
+      const timestamp = moment(`${this.humanDate} ${this.humanTime}`).valueOf();
       meeting_data.meeting.update(
         this.thisMeeting._id,
         this.thisMeeting.title,
@@ -217,7 +218,7 @@ export default {
         this.thisMeeting.location,
         this.thisMeeting.invitees
       );
-      this.$router.push(`../details/${this.thisMeeting.id}`)
+      this.$router.push(`../details/${this.thisMeeting._id}`);
     },
     onReset() {
       return this.old_data.all_meetings.find(meeting => meeting._id === this.id);
