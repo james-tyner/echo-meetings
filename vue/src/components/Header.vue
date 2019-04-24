@@ -14,7 +14,7 @@
 
     <!-- Save animation icon (must stay above heading) -->
     <div id="save-animation">
-      Saved <img src="/assets/Spark.svg">
+      Saved <img src="~@/assets/Spark.svg">
     </div>
 
     <h1 class="page-title">{{pageName}}</h1>
