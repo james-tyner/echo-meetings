@@ -52,7 +52,7 @@
       </draggable>
 
       <div id="meeting-modify-icons">
-        <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i>
+        <!-- <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i> -->
         <i
           class="far fa-trash-alt"
           :class="deleteMeetingConfirmed ? 'danger' : ''"
