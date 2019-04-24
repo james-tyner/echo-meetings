@@ -1,5 +1,6 @@
 FROM node:10
-COPY . /home/node/app
 WORKDIR /home/node/app
+COPY package.json .
 RUN npm install --production --loglevel verbose
+COPY . .
 CMD npm run-script run
