@@ -1,6 +1,5 @@
 <template>
   <main id="edit-meeting-main" class="meeting-main">
-    <h1>Edit meeting</h1>
     <section id="meeting-form">
 
       <div id="name" class="input-section">
