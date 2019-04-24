@@ -19,13 +19,13 @@
 
         <div id="field-row">
           <input
-            id="meeting-date" type="date" name="name"
-            v-model="this.humanDate"
+            id="meeting-date" type="date"
+            v-model="this.date"
           >
           <div id="at">at</div>
           <input
-            id="meeting-time" type="time" name="name"
-            v-model="this.humanDate"
+            id="meeting-time" type="time"
+            v-model="this.time"
           >
         </div>
       </div>
@@ -33,7 +33,7 @@
       <div id="location" class="input-section">
         <label for="meeting-loc">Location</label>
         <input
-          id="meeting-loc" type="text" name="name"
+          id="meeting-loc" type="text"
           placeholder="Timberwolves Room…"
           v-model="this.thisMeeting.location"
         >
@@ -41,17 +41,7 @@
 
       <div id="edit-meeting" class="input-section search-bar">
         <label>Team</label>
-        <div id="team-search">
-          <v-autocomplete
-            @focus='resetTeam'
-            :items="team_data.all_teams"
-            :component-item="TeamSearchTemplate"
-            :get-label="getLabel"
-            v-model="this.thisMeeting.team"
-            class="editable"
-            :auto-select-one-item="false"
-          ></v-autocomplete>
-        </div>
+        <p>{{this.teamName}}</p>
       </div>
 
       <div class="input-section search-bar">
@@ -77,7 +67,6 @@
 <script>
 import Vue from 'vue'
 import { team_data, meeting_data } from "../../data";
-import TeamSearch from "../../components/meetings/TeamSearchItem"
 import MemberSearch from "../../components/meetings/MemberSearchItem"
 import MemberBox from "../../components/meetings/MemberBox"
 import showAlert from "../../components/ShowAlert"
@@ -86,7 +75,6 @@ import moment from 'moment'
 export default {
   name: 'edit-meeting',
   components: {
-    TeamSearch,
     MemberSearch,
     MemberBox
   },
@@ -94,36 +82,30 @@ export default {
     return {
       selected_member: '',
       team_data: team_data,
-      TeamSearchTemplate: TeamSearch,
       MemberSearchTemplate: MemberSearch,
-      meeting_data:meeting_data,
-      old_data:meeting_data
+      meeting_data: meeting_data,
+      old_data: meeting_data,
+      date: '',
+      time: '',
+      teamName: '',
+      thisMeeting: {
+        title: '',
+        location: '',
+      },
+      invitees: [],
     }
   },
-  props:{
-    id:String,
+  props: {
+    id: String,
   },
   computed: {
-    thisMeeting:function(){
-      return meeting_data.all_meetings.find(meeting => meeting._id == this.id);
-    },
-    humanDate: function() {
-      var meetingTime = new Date(this.thisMeeting.time).toISOString().substring(0,10); 
-      return meetingTime;
-      //var dateFormatted = moment(meetingTime).format('L')
-    },
-    humanTime: function() {
-      var meetingTime = new Date(this.thisMeeting.time);
-      var timeFormatted = moment(meetingTime).format('LT');
-      return timeFormatted;
-    },
     availableMembers() {
-      if (!this.team) {
+      if (!this.thisMeeting.team) {
         return [];
       } else {
         // team.member - invitees
         let difference = [];
-        for (const member of this.team.members) {
+        for (const member of this.thisMeeting.team.members) {
           if (!this.invitees.includes(member._id)) {
             difference.push(member)
           }
@@ -133,6 +115,18 @@ export default {
     }
   },
   watch: {
+    meeting_data: {
+      handler: function () {
+        // const meeting = this.meeting_data.all_meetings.find(meeting => meeting._id === this.id);
+        // this.thisMeeting = meeting ? meeting : {};
+        if (!this.thisMeeting.time) return;
+        this.date = new Date(this.thisMeeting.time).toISOString().substring(0, 10);
+        this.time = moment(this.thisMeeting.time).format('HH:mm');
+        this.teamName = this.thisMeeting.team.name;
+        this.invitees = this.thisMeeting.invitees.map(user => user._id);
+      },
+      deep: true,
+    },
     selected_member: function (val) {
       // add an invitee
       if (!val || !val._id) {
@@ -160,12 +154,12 @@ export default {
       this.$nextTick(function () {
         this.selected_member = null;
       });
-    }
+    },
   },
   mounted: function () {
-    team_data.get()
-    meeting_data.meeting.get()
-    let thisMeeting = meeting_data.all_meetings.find(meeting => meeting._id = this.id);
+    team_data.get();
+    meeting_data.meeting.get();
+    this.thisMeeting = meeting_data.all_meetings.find(meeting => meeting._id = this.id);
   },
   methods: {
     getLabel(item) {
@@ -194,11 +188,17 @@ export default {
         return;
       }
       const timestamp = moment(`${this.date} ${this.time}`).valueOf();
-      meeting_data.meeting.update(this.title, timestamp, this.team._id, this.location, this.invitees);
+      meeting_data.meeting.update(
+        this.thisMeeting._id,
+        this.thisMeeting.title,
+        timestamp,
+        this.thisMeeting.location,
+        this.thisMeeting.invitees
+      );
       this.$router.push(`../details/${this.thisMeeting.id}`)
     },
     onReset() {
-      return old_data.all_meetings.find(meeting => meeting._id == this.id);
+      return this.old_data.all_meetings.find(meeting => meeting._id === this.id);
     },
     onDeleteMember(instance) {
       const _id = instance.member._id;
