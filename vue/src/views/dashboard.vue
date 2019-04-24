@@ -58,7 +58,7 @@
         <div class="team-div">
           <h2>Teams</h2>
           <div v-if="truncatedTeams.length > 0">
-            <TeamGrouping
+            <TeamGrouping class="card"
               v-for="team in truncatedTeams"
               v-bind:team="team"
               :key="team._id"

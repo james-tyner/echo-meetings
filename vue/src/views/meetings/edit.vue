@@ -1,5 +1,6 @@
 <template>
-  <main id="create-meeting-main" class="meeting-main">
+  <main id="edit-meeting-main" class="meeting-main">
+    <h1>Edit meeting</h1>
     <section id="meeting-form">
 
       <div id="name" class="input-section">
@@ -7,7 +8,7 @@
         <input
           id="meeting-name" type="text" name="name"
           placeholder="Planning extravaganza…"
-          v-model="title"
+          v-model="this.thisMeeting.title"
         >
       </div>
 
@@ -35,11 +36,11 @@
         <input
           id="meeting-loc" type="text" name="name"
           placeholder="Timberwolves Room…"
-          v-model="location"
+          v-model="this.thisMeeting.location"
         >
       </div>
 
-      <div id="add-team" class="input-section search-bar">
+      <div id="edit-meeting" class="input-section search-bar">
         <label>Team</label>
         <div id="team-search">
           <v-autocomplete
@@ -47,7 +48,7 @@
             :items="team_data.all_teams"
             :component-item="TeamSearchTemplate"
             :get-label="getLabel"
-            v-model="team"
+            v-model="this.thisMeeting.team"
             class="editable"
             :auto-select-one-item="false"
           ></v-autocomplete>
@@ -68,7 +69,8 @@
         </div>
       </div>
 
-      <button @click="onCreateMeeting" class="submit-button" type="button">Create Meeting</button>
+      <button @click="onSaveMeeting" class="submit-button" type="button">Save Changes</button>
+      <button @click="onReset" class="reset-button" type="button">Reset</button>
     </section>
   </main>
 </template>
@@ -83,7 +85,7 @@ import showAlert from "../../components/ShowAlert"
 import moment from 'moment'
 
 export default {
-  name: 'add-team',
+  name: 'edit-meeting',
   components: {
     TeamSearch,
     MemberSearch,
@@ -91,24 +93,21 @@ export default {
   },
   data: function () {
     return {
-      title: '',
-      date: '',
-      time: '',
-      location: '',
-      team_data: team_data,
-      team: '',
-      invitees: [],
       selected_member: '',
-      memberbox_instances: [],
+      team_data: team_data,
       TeamSearchTemplate: TeamSearch,
       MemberSearchTemplate: MemberSearch,
-      meeting_data:meeting_data
+      meeting_data:meeting_data,
+      old_data:meeting_data
     }
   },
   props:{
-    id:String
+    id:String,
   },
   computed: {
+    thisMeeting:function(){
+      return meeting_data.all_meetings.find(meeting => meeting._id == this.id);
+    },
     availableMembers() {
       if (!this.team) {
         return [];
@@ -172,12 +171,12 @@ export default {
       }
       this.invitees = [];
     },
-    onCreateMeeting() {
-      if (!this.title) {
+    onSaveMeeting() {
+      if (!this.thisMeeting.title) {
         showAlert('red', 'Meeting name cannot be empty', 2500);
         return;
       }
-      if (!this.team) {
+      if (!this.thisMeeting.team) {
         showAlert('red', 'You must choose a team', 2500);
         return;
       }
@@ -186,8 +185,11 @@ export default {
         return;
       }
       const timestamp = moment(`${this.date} ${this.time}`).valueOf();
-      meeting_data.meeting.create(this.title, timestamp, this.team._id, this.location, this.invitees);
-      this.$router.push('../meetings')
+      meeting_data.meeting.update(this.title, timestamp, this.team._id, this.location, this.invitees);
+      this.$router.push(`../details/${this.thisMeeting.id}`)
+    },
+    onReset() {
+      return old_data.all_meetings.find(meeting => meeting._id == this.id);
     },
     onDeleteMember(instance) {
       const _id = instance.member._id;
