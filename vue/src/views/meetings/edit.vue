@@ -25,7 +25,7 @@
           <div id="at">at</div>
           <input
             id="meeting-time" type="time" name="name"
-            v-model="this.humanDate"
+            v-model="this.humanTime"
           >
         </div>
       </div>
@@ -114,7 +114,16 @@ export default {
     },
     humanTime: function() {
       var meetingTime = new Date(this.thisMeeting.time);
-      var timeFormatted = moment(meetingTime).format('LT');
+      var hours = moment(meetingTime).hours();
+      if (hours < 10) {
+        hours = '0' + hours;
+      }
+      var minutes = moment(meetingTime).minutes();
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+      var timeFormatted = hours + ':' + minutes;
+      console.log(timeFormatted);
       return timeFormatted;
     },
     availableMembers() {
