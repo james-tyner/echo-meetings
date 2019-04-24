@@ -9,17 +9,17 @@
 
 <script>
 export default {
-  name: "EmailBox",
+  name: 'EmailBox',
   props: {
     email: String,
-    editable: Boolean
+    editable: Boolean,
   },
   methods: {
     onClickClose() {
-      this.$emit('delete-email', this)
-    }
-  }
-}
+      this.$emit('delete-email', this);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

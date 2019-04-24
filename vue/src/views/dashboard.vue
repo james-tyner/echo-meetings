@@ -75,9 +75,9 @@
 
 <script>
 import { meeting_data, team_data, task_data } from '../data';
-import MeetingCard from "../components/dashboard/MeetingCard"
-import TeamGrouping from "../components/dashboard/TeamGrouping"
-import TaskRow from "../components/dashboard/TaskRow"
+import MeetingCard from '../components/dashboard/MeetingCard';
+import TeamGrouping from '../components/dashboard/TeamGrouping';
+import TaskRow from '../components/dashboard/TaskRow';
 
 // THIS WORKS ONLY FOR MEETINGS
 function compareMeetings(a, b) {
@@ -111,14 +111,14 @@ function compareTasks(a, b) {
 
 // THIS WORKS ONLY FOR TEAMS
 function compareTeams(a, b) {
-  const updateA = new Date(a.updatedAt)
-  const updateB = new Date(b.updatedAt)
+  const updateA = new Date(a.updatedAt);
+  const updateB = new Date(b.updatedAt);
 
   let comparison = 0;
   if (updateA > updateB) {
-    comparison = 1
+    comparison = 1;
   } else if (updateA < updateB) {
-    comparison = -1
+    comparison = -1;
   }
 
   return comparison;
@@ -129,44 +129,44 @@ export default {
   components: {
     MeetingCard,
     TeamGrouping,
-    TaskRow
+    TaskRow,
   },
-  data: function () {
+  data() {
     return {
-      task_data: task_data,
-      team_data: team_data,
-      meeting_data: meeting_data
-    }
+      task_data,
+      team_data,
+      meeting_data,
+    };
   },
   computed: {
-    truncatedMeetings: function () {
-      let allMeetings = this.meeting_data.all_meetings;
+    truncatedMeetings() {
+      const allMeetings = this.meeting_data.all_meetings;
 
       const now = Date.now();
 
-      let futureMeetings = allMeetings.filter(meeting => meeting.time > now)
+      const futureMeetings = allMeetings.filter(meeting => meeting.time > now);
       futureMeetings.sort(compareMeetings);
-      return futureMeetings.slice(0, 3)
+      return futureMeetings.slice(0, 3);
     },
-    truncatedTeams: function () {
-      let sortedTeams = this.team_data.all_teams;
+    truncatedTeams() {
+      const sortedTeams = this.team_data.all_teams;
       sortedTeams.sort(compareTeams);
-      sortedTeams.reverse()
+      sortedTeams.reverse();
       return sortedTeams.slice(0, 4);
     },
-    truncatedTasks: function () {
-      let allTasks = this.task_data.all_tasks;
+    truncatedTasks() {
+      const allTasks = this.task_data.all_tasks;
       allTasks.filter(task => task.status !== 2);
       allTasks.sort(compareTasks);
-      return allTasks.slice(0, 6); //only the next 5 tasks that aren't done yet
-    }
+      return allTasks.slice(0, 6); // only the next 5 tasks that aren't done yet
+    },
   },
-  mounted: function () {
+  mounted() {
     this.$nextTick(() => {
       meeting_data.meeting.get();
       team_data.get();
       task_data.get();
-    })
-  }
-}
+    });
+  },
+};
 </script>

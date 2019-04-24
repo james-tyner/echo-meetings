@@ -43,21 +43,21 @@
 </template>
 
 <script>
-import { app_data } from '../data'
+import { app_data } from '../data';
 
 export default {
   name: 'login',
-  data: function () {
+  data() {
     return {
-      back_url: app_data.back_url
-    }
+      back_url: app_data.back_url,
+    };
   },
   computed: {
-    login_url: function () {
-      return this.back_url + '/auth/google'
-    }
-  }
-}
+    login_url() {
+      return `${this.back_url}/auth/google`;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

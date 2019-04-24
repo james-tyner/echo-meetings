@@ -11,17 +11,17 @@
 
 <script>
 export default {
-  name: "EmailBox",
+  name: 'EmailBox',
   props: {
     member: Object,
     editable: Boolean,
   },
   methods: {
     onClickClose() {
-      this.$emit('delete-member', this)
-    }
-  }
-}
+      this.$emit('delete-member', this);
+    },
+  },
+};
 </script>
 
 <style lang="scss">

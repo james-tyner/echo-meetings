@@ -10,12 +10,12 @@
 
 <script>
 export default {
-  name: "team-search-item",
+  name: 'team-search-item',
   props: {
     item: { required: true },
-    searchText: { required: true }
-  }
-}
+    searchText: { required: true },
+  },
+};
 </script>
 
 <style lang="scss">

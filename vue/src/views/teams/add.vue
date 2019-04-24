@@ -22,30 +22,29 @@
 
 <script>
 
-import { team_data } from "../../data";
-import showAlert from "../../components/ShowAlert"
+import { team_data } from '../../data';
+import showAlert from '../../components/ShowAlert';
 
-const possibleColors = ['green', 'blue', 'red', 'magenta', 'orange']
+const possibleColors = ['green', 'blue', 'red', 'magenta', 'orange'];
 
 export default {
   name: 'add-team',
-  data: function () {
+  data() {
     return {
       name: '',
-      description: ''
-    }
+      description: '',
+    };
   },
   methods: {
     onCreateTeam() {
       if (this.name === '') {
         showAlert('red', 'Team name cannot be empty', 2500);
-        return
+        return;
       }
-      const color = possibleColors[Math.floor(Math.random() * possibleColors.length)]
+      const color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
       team_data.create(this.name, this.description, color);
-      this.$router.push('../teams')
-    }
-  }
-}
+      this.$router.push('../teams');
+    },
+  },
+};
 </script>
-

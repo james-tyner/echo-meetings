@@ -31,16 +31,14 @@
 export default {
   name: 'Header',
   computed: {
-    scrollableHeader:function(){
-      if (this.pageName === 'Teams' || this.pageName === "Meetings") {
-        return true
-      }
-    }
+    scrollableHeader() {
+      return this.pageName === 'Teams' || this.pageName === 'Meetings';
+    },
   },
   props: {
-    pageName: String
-  }
-}
+    pageName: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

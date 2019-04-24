@@ -42,54 +42,49 @@
 </template>
 
 <script>
-import { meeting_data, task_data } from '../../data'
-import showAlert from '../ShowAlert'
-import MemberSearch from "../../components/meetings/MemberSearchItem"
-import AnimateSave from "../SaveAnimation"
-
 import chrono from 'chrono-node';
+import { meeting_data, task_data } from '../../data';
+import showAlert from '../ShowAlert';
+import MemberSearch from './MemberSearchItem.vue';
+import AnimateSave from '../SaveAnimation';
+
 
 export default {
-  name: "action-item",
+  name: 'action-item',
   props: {
     action: Object,
     meeting: Object,
-    agendaItem: Object
+    agendaItem: Object,
   },
-  components: {
-    MemberSearch
-  },
-  data: function () {
+  data() {
     return {
       focused_removing_assignee: '',
       focused_task: '',
       selected_assignee: {},
       MemberSearchTemplate: MemberSearch,
       taskDateTooltip: false,
-      meeting_data: meeting_data,
-      task_data: task_data
-    }
+      meeting_data,
+      task_data,
+    };
   },
   computed: {
     availableMembers() {
       if (!this.meeting) {
         return [];
-      } else {
-        return this.meeting.invitees;
       }
+      return this.meeting.invitees;
     },
-    actionDueDate: function () {
+    actionDueDate() {
       if (!this.action.due) {
         return null;
-      } else {
-        return moment(this.action.due).format("ddd, MMM D [at] h:mm a");
       }
-    }
+      return moment(this.action.due).format('ddd, MMM D [at] h:mm a');
+    },
   },
   mixins: [AnimateSave],
   watch: {
     selected_assignee: {
-      handler: function (val) {
+      handler(val) {
         const task_id = this.focused_task;
         if (task_id && val[task_id]) {
           const user = val[task_id];
@@ -108,37 +103,37 @@ export default {
               task_data.update(task_id, null, null, null, null, null, assignees);
             }
           }
-          this.$nextTick(function () {
+          this.$nextTick(() => {
             this.selected_assignee[task_id] = undefined;
           });
           this.focused_task = '';
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     getLabel(item) {
       if (!item) return '';
-      return item.name
+      return item.name;
     },
-    modifyTaskTime: function (event, taskStatus, taskId) {
-      let taskDateTime = event.target.value;
-      var parsedDateTime;
-      var jsDate;
-      var readableDate;
+    modifyTaskTime(event, taskStatus, taskId) {
+      const taskDateTime = event.target.value;
+      let parsedDateTime;
+      let jsDate;
+      let readableDate;
 
       // Will fire on every keypress when entry is 3 or more characters
       if (taskDateTime.length >= 3) {
         clearTimeout(hideTooltipTimeout);
         parsedDateTime = chrono.en.parseDate(taskDateTime);
         jsDate = new Date(parsedDateTime);
-        readableDate = moment(parsedDateTime).format("ddd, MMM D [at] h:mm a")
-        console.log("new unix " + this.currentTaskInput);
+        readableDate = moment(parsedDateTime).format('ddd, MMM D [at] h:mm a');
+        console.log(`new unix ${this.currentTaskInput}`);
         this.taskDateTooltip = readableDate;
         let hideTooltipTimeout = setTimeout(() => {
           this.taskDateTooltip = false;
-        }, 2500)
+        }, 2500);
       }
 
       // Will fire when user hits enter
@@ -147,25 +142,25 @@ export default {
         event.target.blur();
 
         // save new due date to task
-        let unixDate = moment(readableDate, "ddd, MMM D [at] h:mm a").valueOf();
+        const unixDate = moment(readableDate, 'ddd, MMM D [at] h:mm a').valueOf();
         task_data.update(taskId, taskStatus, unixDate);
       }
     },
-    deleteTask: function (task_id) {
+    deleteTask(task_id) {
       task_data.delete(task_id);
     },
-    updateTask: function () {
-      var self = this;
-      var updateTimer;
+    updateTask() {
+      const self = this;
+      let updateTimer;
       if (updateTimer) {
         clearTimeout(updateTimer);
       }
       updateTimer = setTimeout(() => {
         // task_data.update()
         self.animateSave();
-      })
+      });
     },
-    handleClick: function (event) {
+    handleClick(event) {
       if (event.target && !event.target.classList.contains('fa-user-plus')) {
         let count = 0;
         let current_node = event.target;
@@ -188,7 +183,7 @@ export default {
         this.focused_removing_assignee = '';
       }
     },
-    onRemovingAssignee: function (task_id, member_id) {
+    onRemovingAssignee(task_id, member_id) {
       if (this.focused_removing_assignee === task_id + member_id) {
         // second click
         for (let i = 0; i < this.agendaItem.tasks.length; i++) {
@@ -208,16 +203,16 @@ export default {
         // first click
         this.focused_removing_assignee = task_id + member_id;
       }
-    }
+    },
   },
-  mounted: function () {
+  mounted() {
     window.addEventListener('click', this.handleClick);
     if (this.action.due) {
-      document.getElementById('action-item-due-date-' + this.action._id).value = moment(this.action.due).format("ddd, MMM D [at] h:mm a");
+      document.getElementById(`action-item-due-date-${this.action._id}`).value = moment(this.action.due).format('ddd, MMM D [at] h:mm a');
     }
   },
-  beforeDestroy: function () {
-    window.removeEventListener('click', this.handleClick)
-  }
-}
+  beforeDestroy() {
+    window.removeEventListener('click', this.handleClick);
+  },
+};
 </script>

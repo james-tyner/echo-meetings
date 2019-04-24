@@ -42,52 +42,51 @@
 </template>
 
 <script>
-import { meeting_data, task_data } from '../../data'
-import AnimateSave from "../SaveAnimation"
-import ActionItem from "../../components/meetings/ActionItem"
-import showAlert from "../ShowAlert"
+import { meeting_data, task_data } from '../../data';
+import AnimateSave from '../SaveAnimation';
+import ActionItem from './ActionItem.vue';
 
 export default {
-  name: "agenda-item",
+  name: 'agenda-item',
   components: {
-    ActionItem
+    ActionItem,
   },
-  data: function () {
+  data() {
     return {
-      meeting_data: meeting_data,
-      task_data: task_data
-    }
+      meeting_data,
+      task_data,
+    };
   },
   props: {
     agendaItem: Object,
-    meeting: Object
+    meeting: Object,
   },
   mixins: [AnimateSave],
   methods: {
-    deleteItem: function () {
-      meeting_data.agenda.delete(this.meeting._id, this.agendaItem._id, this.agendaItem.title)
+    deleteItem() {
+      meeting_data.agenda.delete(this.meeting._id, this.agendaItem._id, this.agendaItem.title);
     },
-    updateItem: function () {
-      var self = this;
-      var updateTimer;
+    updateItem() {
+      const self = this;
+      let updateTimer;
       if (updateTimer) {
         clearTimeout(updateTimer);
       }
       updateTimer = setTimeout(() => {
         meeting_data.agenda.update(self.meeting._id, self.agendaItem._id, self.agendaItem.title, self.agendaItem.description, self.agendaItem.notes);
         self.animateSave();
-      }, 750)
+      }, 750);
     },
-    createNewTask: function (event) {
-      let taskName = event.target.value;
+    createNewTask(event) {
+      const taskName = event.target.value;
       // Will fire when user hits enter
       if (event.keyCode === 13 && taskName.length >= 0 && taskName.length != null) {
-        task_data.create(this.meeting._id, this.agendaItem._id, taskName)
-        event.target.value = "";
+        task_data.create(this.meeting._id, this.agendaItem._id, taskName);
+        event.target.value = '';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

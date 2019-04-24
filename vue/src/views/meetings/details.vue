@@ -74,126 +74,128 @@
   }
 </style>
 <script>
-import { app_data, meeting_data } from '../../data'
-import draggable from "vuedraggable"
-import AnimateSave from "../../components/SaveAnimation"
-import showAlert from "../../components/ShowAlert"
-import AgendaItem from "../../components/meetings/AgendaItem"
-import debounce from 'lodash.debounce'
+import draggable from 'vuedraggable';
+import debounce from 'lodash.debounce';
+import { app_data, meeting_data } from '../../data';
+import AnimateSave from '../../components/SaveAnimation';
+import showAlert from '../../components/ShowAlert';
+import AgendaItem from '../../components/meetings/AgendaItem.vue';
 
-window.moment = require('moment'); // for use on AgendaItem component
+window.moment = require('moment');
+// for use on AgendaItem component
 let meetingCount; // declared to use within
 
 export default {
-  name: "meetingDetails",
+  name: 'meetingDetails',
   components: {
     AgendaItem,
     AnimateSave,
-    draggable
+    draggable,
   },
-  data: function () {
+  data() {
     return {
-      meeting_data: meeting_data,
+      meeting_data,
       meetingLength: null, // in seconds
       meetingState: 1, // 1 = working, 2 = started, 3 = paused, 4 = ended
       pausedLength: null,
-      deleteMeetingConfirmed: false
-    }
+      deleteMeetingConfirmed: false,
+    };
   },
   computed: {
-    thisMeeting: function () {
+    thisMeeting() {
       const find = meeting_data.all_meetings.find(meeting => meeting._id === this.id);
-      return find ? find : { agendas: [] };
+      return find || { agendas: [] };
     },
-    meetingTimer: function () {
-      return moment().hour(0).minute(0).second(this.meetingLength).format('m [min] s [s]');
-    }
+    meetingTimer() {
+      return moment().hour(0).minute(0).second(this.meetingLength)
+        .format('m [min] s [s]');
+    },
   },
   props: {
-    id: String
+    id: String,
   },
   watch: {
-    thisMeeting: function () {
-      this.$nextTick(function () {
+    thisMeeting() {
+      this.$nextTick(() => {
         if (this.thisMeeting.title) {
           app_data.updatePage(this.thisMeeting.title);
-          document.title = `${this.thisMeeting.title} - echo`
+          document.title = `${this.thisMeeting.title} - echo`;
         }
       });
-    }
+    },
   },
-  created: function () {
-    this.debouncedUpdateOrder = debounce(this.updateOrder, 500)
+  created() {
+    this.debouncedUpdateOrder = debounce(this.updateOrder, 500);
   },
   methods: {
-    onSort: function (event) {
+    onSort(event) {
       console.log(`${this.thisMeeting.agendas[event.draggedContext.index].title} is dragged to ${event.relatedContext.index}`);
       this.debouncedUpdateOrder(this.thisMeeting.agendas[event.draggedContext.index]._id, event.relatedContext.index);
     },
     updateOrder(agenda_id, order) {
-      meeting_data.agenda.update(this.thisMeeting._id, agenda_id, null, null, null, order)
+      meeting_data.agenda.update(this.thisMeeting._id, agenda_id, null, null, null, order);
     },
-    startTimer: function () {
+    startTimer() {
       this.meetingLength = 0;
       meetingCount = setInterval(() => {
         this.meetingLength++;
       }, 1000);
       this.meetingState = 2;
     },
-    pauseTimer: function () {
+    pauseTimer() {
       this.meetingState = 3;
       this.pausedLength = this.meetingLength;
       clearInterval(meetingCount);
     },
-    resumeTimer: function () {
+    resumeTimer() {
       this.meetingState = 2;
       this.meetingLength = this.pausedLength;
       meetingCount = setInterval(() => {
         this.meetingLength++;
       }, 1000);
     },
-    endMeeting: function () {
-      let emails = [];
+    endMeeting() {
+      const emails = [];
       for (const invitee of this.thisMeeting.invitees) {
         emails.push(invitee.email);
       }
 
-      var meetingDate = new Date(this.thisMeeting.time);
+      let meetingDate = new Date(this.thisMeeting.time);
       meetingDate = moment(meetingDate).format('MMMM Do YYYY [at] h:mm a');
 
       meeting_data.meeting.sendRecap(this.id, emails, meetingDate);
       this.$router.push({ path: `/meetings/end/${this.id}`, params: { id: this.id } });
     },
-    addAgendaItem: function () {
-      meeting_data.agenda.create(this.id, "New agenda item");
+    addAgendaItem() {
+      meeting_data.agenda.create(this.id, 'New agenda item');
     },
-    deleteMeeting: function () {
+    deleteMeeting() {
       if (this.deleteMeetingConfirmed) {
         meeting_data.meeting.delete(this.id);
-        showAlert("red", `Deleted ${this.thisMeeting.title}`);
-        this.$router.push({ path: "/meetings" });
+        showAlert('red', `Deleted ${this.thisMeeting.title}`);
+        this.$router.push({ path: '/meetings' });
       } else {
         this.deleteMeetingConfirmed = true;
       }
     },
-    editMeeting: function () {
+    editMeeting() {
       this.$router.push({ path: `/meetings/edit/${this.id}`, params: { id: this.id } });
     },
-    handleClick: function (event) {
+    handleClick(event) {
       if (event.target && !event.target.classList.contains('fa-trash-alt')) {
         this.deleteMeetingConfirmed = false;
       }
-    }
+    },
   },
-  mounted: function () {
+  mounted() {
     window.addEventListener('click', this.handleClick);
-    this.$nextTick(function () {
+    this.$nextTick(() => {
       meeting_data.meeting.get();
     });
   },
-  beforeDestroy: function () {
-    window.removeEventListener('click', this.handleClick)
-  }
-}
+  beforeDestroy() {
+    window.removeEventListener('click', this.handleClick);
+  },
+};
 
 </script>

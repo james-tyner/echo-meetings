@@ -1,21 +1,20 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 // Views
-import Dashboard from './views/dashboard'
-import Tasks from './views/tasks'
-import Meetings from './views/meetings/meetings'
-import AddMeeting from "./views/meetings/add"
-import MeetingDetails from "./views/meetings/details"
-import MeetingEdit from "./views/meetings/edit"
-import EndMeeting from "./views/meetings/end"
-import Teams from "./views/teams/teams"
-import AddTeam from "./views/teams/add"
-import Login from "./views/login"
+import Dashboard from './views/dashboard.vue';
+import Tasks from './views/tasks.vue';
+import Meetings from './views/meetings/meetings.vue';
+import AddMeeting from './views/meetings/add.vue';
+import MeetingDetails from './views/meetings/details.vue';
+import MeetingEdit from './views/meetings/edit.vue';
+import EndMeeting from './views/meetings/end.vue';
+import Teams from './views/teams/teams.vue';
+import AddTeam from './views/teams/add.vue';
+import Login from './views/login.vue';
 
-import { app_data } from "./data"
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes: [
@@ -25,92 +24,92 @@ const router = new VueRouter({
       name: 'Dashboard',
       meta: {
         title: 'Dashboard - echo',
-        group: "dashboard"
-      }
+        group: 'dashboard',
+      },
     }, {
       path: '/login',
       component: Login,
       name: 'Login',
       meta: {
         title: 'Login - echo',
-        group: "login"
-      }
+        group: 'login',
+      },
     }, {
       path: '/tasks',
       component: Tasks,
       name: 'Tasks',
       meta: {
         title: 'Tasks - echo',
-        group: "tasks"
-      }
+        group: 'tasks',
+      },
     }, {
       path: '/meetings',
       component: Meetings,
       name: 'Meetings',
       meta: {
         title: 'Meetings - echo',
-        group: "meetings"
-      }
+        group: 'meetings',
+      },
     }, {
-      path:"/meetings/add",
-      component:AddMeeting,
-      name:"Create a meeting",
+      path: '/meetings/add',
+      component: AddMeeting,
+      name: 'Create a meeting',
       meta: {
-        title:"Create a meeting - echo",
-        group:"meetings"
-      }
+        title: 'Create a meeting - echo',
+        group: 'meetings',
+      },
     }, {
-      path:"/meetings/details/:id",
-      name:"",
-      component:MeetingDetails,
-      props:true,
+      path: '/meetings/details/:id',
+      name: '',
+      component: MeetingDetails,
+      props: true,
       meta: {
-        title:"",
-        group:"meetings"
-      }
+        title: '',
+        group: 'meetings',
+      },
     }, {
-      path:"/meetings/edit/:id",
-      name:"",
-      component:MeetingEdit,
-      props:true,
+      path: '/meetings/edit/:id',
+      name: '',
+      component: MeetingEdit,
+      props: true,
       meta: {
-        title:"",
-        group:"meetings"
-      }
+        title: '',
+        group: 'meetings',
+      },
     }, {
-      path:"/meetings/end/:id",
-      name:"",
-      component:EndMeeting,
-      props:true,
+      path: '/meetings/end/:id',
+      name: '',
+      component: EndMeeting,
+      props: true,
       meta: {
-        title:"",
-        group:"meetings"
-      }
+        title: '',
+        group: 'meetings',
+      },
     }, {
-      path: "/teams",
+      path: '/teams',
       component: Teams,
-      name: "Teams",
+      name: 'Teams',
       meta: {
-        title: "Teams - echo",
-        group: "teams"
-      }
+        title: 'Teams - echo',
+        group: 'teams',
+      },
     }, {
-      path:"/teams/add",
-      component:AddTeam,
-      name: "Create a team",
+      path: '/teams/add',
+      component: AddTeam,
+      name: 'Create a team',
       meta: {
-        title: "Create a team - echo",
-        group:"teams"
-      }
-    }
-  ]
-})
+        title: 'Create a team - echo',
+        group: 'teams',
+      },
+    },
+  ],
+});
 
 // change document title on routing
 router.beforeEach((to, from, next) => {
-  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title)
-  if (nearestWithTitle) document.title = nearestWithTitle.meta.title
-  next()
-})
+  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+  if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
+  next();
+});
 
-export default router
+export default router;

@@ -46,61 +46,61 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import EmailBox from './EmailBox'
-import debounce from 'lodash.debounce'
-import {team_data} from "../../data";
-import SaveAnimation from "../SaveAnimation";
-import showAlert from "../ShowAlert";
+import Vue from 'vue';
+import debounce from 'lodash.debounce';
+import EmailBox from './EmailBox.vue';
+import { team_data } from '../../data';
+import SaveAnimation from '../SaveAnimation';
+import showAlert from '../ShowAlert';
 
 export default {
-  name: "team-card",
+  name: 'team-card',
   props: {
-    team: Object
+    team: Object,
   },
   components: {
-    EmailBox
+    EmailBox,
   },
   mixins: [
-    SaveAnimation
+    SaveAnimation,
   ],
-  data: function () {
+  data() {
     return {
       lastSavedDescription: this.team.description,
       showAll: false,
       email_input_focused: false,
       email_input: '',
       invitation_list: [],
-      emailbox_instances: []
-    }
+      emailbox_instances: [],
+    };
   },
   watch: {
     team: {
-      handler: function (val, oldVal) {
-        this.debouncedUpdateDescription(val.description, oldVal.description)
+      handler(val, oldVal) {
+        this.debouncedUpdateDescription(val.description, oldVal.description);
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
-  created: function () {
-    this.debouncedUpdateDescription = debounce(this.updateDescription, 1000)
+  created() {
+    this.debouncedUpdateDescription = debounce(this.updateDescription, 1000);
   },
   computed: {
-    colorBand: function () {
-      return (this.team.color + '-color-band')
+    colorBand() {
+      return (`${this.team.color}-color-band`);
     },
-    teamText: function () {
-      return (this.team.color)
-    }
+    teamText() {
+      return (this.team.color);
+    },
   },
   methods: {
     toggle() {
-      this.showAll = !this.showAll
+      this.showAll = !this.showAll;
     },
     updateDescription(description, old) {
       if (this.lastSavedDescription === description) return;
       this.lastSavedDescription = description;
-      team_data.update(this.team._id, null, description)
+      team_data.update(this.team._id, null, description);
     },
 
     addEmail() {
@@ -108,23 +108,23 @@ export default {
       if (this.invitation_list.includes(email)) return;
       for (const member of this.team.members) {
         if (member.email === email) {
-          showAlert("red", `${email} is already in ${this.team.name}`, 2500);
+          showAlert('red', `${email} is already in ${this.team.name}`, 2500);
           return;
         }
       }
       for (const invitation of this.team.invitations) {
         if (invitation.email === email) {
-          showAlert("red", `${email} has already been invited to ${this.team.name}`, 2500);
+          showAlert('red', `${email} has already been invited to ${this.team.name}`, 2500);
           return;
         }
       }
       const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!email.match(regex)) {
-        showAlert("red", "That’s not a valid email address", 2500);
+        showAlert('red', 'That’s not a valid email address', 2500);
         return;
       }
 
-      console.log('adding email ' + email);
+      console.log(`adding email ${email}`);
       // add to list in data
       this.invitation_list.push(email);
       // create EmailBox comp
@@ -132,8 +132,8 @@ export default {
       const emailBox = new EmailBox_vue({
         propsData: {
           editable: true,
-          email: email
-        }
+          email,
+        },
       });
       emailBox.$on('delete-email', this.onDeleteEmail);
       emailBox.$mount();
@@ -174,10 +174,10 @@ export default {
       this.emailbox_instances = [];
       this.invitation_list = [];
       console.log(ready_to_sent);
-      team_data.invite(this.team._id, ready_to_sent)
-    }
-  }
-}
+      team_data.invite(this.team._id, ready_to_sent);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

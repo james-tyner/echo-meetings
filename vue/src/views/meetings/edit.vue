@@ -74,63 +74,62 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { team_data, meeting_data } from "../../data";
-import TeamSearch from "../../components/meetings/TeamSearchItem"
-import MemberSearch from "../../components/meetings/MemberSearchItem"
-import MemberBox from "../../components/meetings/MemberBox"
-import showAlert from "../../components/ShowAlert"
-import moment from 'moment'
+import Vue from 'vue';
+import moment from 'moment';
+import { team_data, meeting_data } from '../../data';
+import TeamSearch from '../../components/meetings/TeamSearchItem.vue';
+import MemberSearch from '../../components/meetings/MemberSearchItem.vue';
+import MemberBox from '../../components/meetings/MemberBox.vue';
+import showAlert from '../../components/ShowAlert';
 
 export default {
   name: 'add-team',
   components: {
     TeamSearch,
     MemberSearch,
-    MemberBox
+    MemberBox,
   },
-  data: function () {
+  data() {
     return {
       title: '',
       date: '',
       time: '',
       location: '',
-      team_data: team_data,
+      team_data,
       team: '',
       invitees: [],
       selected_member: '',
       memberbox_instances: [],
       TeamSearchTemplate: TeamSearch,
       MemberSearchTemplate: MemberSearch,
-      meeting_data:meeting_data
-    }
+      meeting_data,
+    };
   },
-  props:{
-    id:String
+  props: {
+    id: String,
   },
   computed: {
     availableMembers() {
       if (!this.team) {
         return [];
-      } else {
-        // team.member - invitees
-        let difference = [];
-        for (const member of this.team.members) {
-          if (!this.invitees.includes(member._id)) {
-            difference.push(member)
-          }
-        }
-        return difference;
       }
-    }
+      // team.member - invitees
+      const difference = [];
+      for (const member of this.team.members) {
+        if (!this.invitees.includes(member._id)) {
+          difference.push(member);
+        }
+      }
+      return difference;
+    },
   },
   watch: {
-    selected_member: function (val) {
+    selected_member(val) {
       // add an invitee
       if (!val || !val._id) {
         return;
       }
-      const _id = val._id;
+      const { _id } = val;
       console.log(val.name);
       if (this.invitees.includes(_id)) {
         return;
@@ -141,8 +140,8 @@ export default {
       const memberBox = new MemberBox_vue({
         propsData: {
           editable: true,
-          member: val
-        }
+          member: val,
+        },
       });
       memberBox.$on('delete-member', this.onDeleteMember);
       memberBox.$mount();
@@ -152,17 +151,17 @@ export default {
       this.$nextTick(function () {
         this.selected_member = null;
       });
-    }
+    },
   },
-  mounted: function () {
-    team_data.get()
-    meeting_data.meeting.get()
-    let thisMeeting = meeting_data.all_meetings.find(meeting => meeting._id = this.id);
+  mounted() {
+    team_data.get();
+    meeting_data.meeting.get();
+    const thisMeeting = meeting_data.all_meetings.find(meeting => meeting._id = this.id);
   },
   methods: {
     getLabel(item) {
       if (!item) return '';
-      return item.name
+      return item.name;
     },
     resetTeam() {
       this.team = '';
@@ -187,10 +186,10 @@ export default {
       }
       const timestamp = moment(`${this.date} ${this.time}`).valueOf();
       meeting_data.meeting.create(this.title, timestamp, this.team._id, this.location, this.invitees);
-      this.$router.push('../meetings')
+      this.$router.push('../meetings');
     },
     onDeleteMember(instance) {
-      const _id = instance.member._id;
+      const { _id } = instance.member;
       for (let i = 0; i < this.invitees.length; i++) {
         if (this.invitees[i] === _id) {
           this.invitees.splice(i, 1);
@@ -199,9 +198,9 @@ export default {
       }
       instance.$el.remove();
       instance.$destroy();
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

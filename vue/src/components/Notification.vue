@@ -5,19 +5,19 @@
 </template>
 
 <script>
-import {user_data} from '../data'
+import { user_data } from '../data';
 
 export default {
   name: 'Notification',
-  data: function () {
+  data() {
     return {
-      user_data
-    }
+      user_data,
+    };
   },
   computed: {},
   methods: {},
-  props: {}
-}
+  props: {},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -34,47 +34,47 @@
 </template>
 
 <script>
-import { app_data, meeting_data } from '../../data'
-import TaskRow from "../../components/meetings/TaskRow"
+import { app_data, meeting_data } from '../../data';
+import TaskRow from '../../components/meetings/TaskRow.vue';
 
 export default {
-  name:"end-meeting",
-  components:{
-    TaskRow
+  name: 'end-meeting',
+  components: {
+    TaskRow,
   },
-  data:function(){
+  data() {
     return {
-      meeting_data:meeting_data
-    }
+      meeting_data,
+    };
   },
-  computed:{
-    thisMeeting:function(){
-      return meeting_data.all_meetings.find(meeting => meeting._id == this.id)
+  computed: {
+    thisMeeting() {
+      return meeting_data.all_meetings.find(meeting => meeting._id === this.id);
     },
-    humanDate: function () {
-      var meetingTime = new Date(this.thisMeeting.time);
-      var dateFormatted = moment(meetingTime).format('MMMM Do YYYY [at] h:mm a');
+    humanDate() {
+      const meetingTime = new Date(this.thisMeeting.time);
+      const dateFormatted = moment(meetingTime).format('MMMM Do YYYY [at] h:mm a');
 
       return dateFormatted;
-    }
+    },
   },
   watch: {
-    thisMeeting: function () {
+    thisMeeting() {
       this.$nextTick(function () {
         if (this.thisMeeting.title) {
           app_data.updatePage(this.thisMeeting.title);
-          document.title = `${this.thisMeeting.title} - echo`
+          document.title = `${this.thisMeeting.title} - echo`;
         }
       });
-    }
+    },
   },
-  props:{
-    id:String
+  props: {
+    id: String,
   },
-  mounted: function () {
-    this.$nextTick(function () {
-      meeting_data.meeting.get()
-    })
-  }
-}
+  mounted() {
+    this.$nextTick(() => {
+      meeting_data.meeting.get();
+    });
+  },
+};
 </script>

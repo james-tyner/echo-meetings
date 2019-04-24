@@ -18,13 +18,14 @@
       <h2>Upcoming</h2>
       <div v-if="this.upcomingFilteredMeetings.length === 0" id="no-upcoming-meetings">
         <div class="placeholder-page-container">
-        <h2>Sit back, relax.</h2>
-        <p>You have no upcoming meetings <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span></p>
-      </div>
+          <h2>Sit back, relax.</h2>
+          <p>You have no upcoming meetings <span v-if="selectedTeam !== ''">in {{selectedTeam}}</span></p>
+        </div>
       </div>
       <div class="all-mtg-cards">
         <div v-for="meeting in upcomingFilteredMeetings" class="mtg-card">
-          <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
+          <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}"
+                       class="dropdown-item">
             <MeetingCard v-bind:meeting="meeting"></MeetingCard>
           </router-link>
         </div>
@@ -36,7 +37,8 @@
       <h2>Past</h2>
       <div class="all-mtg-cards">
         <div v-for="meeting in pastFilteredMeetings" class="mtg-card">
-          <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}" class="dropdown-item">
+          <router-link :to="{path: `/meetings/details/${meeting._id}`, params: { title: meeting.title }}"
+                       class="dropdown-item">
             <MeetingCard v-bind:meeting="meeting"></MeetingCard>
           </router-link>
         </div>
@@ -47,8 +49,8 @@
 </template>
 
 <script>
-import { meeting_data } from '../../data'
-import MeetingCard from "../../components/meetings/MeetingCard"
+import { meeting_data } from '../../data';
+import MeetingCard from '../../components/meetings/MeetingCard.vue';
 
 window.moment = require('moment'); // for use on MeetingCard component
 
@@ -70,61 +72,58 @@ function compare(a, b) {
 export default {
   name: 'meetings',
   components: {
-    MeetingCard
+    MeetingCard,
   },
   computed: {
-    allTeamNames: function () {
-      let teamsSet = new Set();
+    allTeamNames() {
+      const teamsSet = new Set();
       for (const meeting of this.meeting_data.all_meetings) {
         teamsSet.add(meeting.team.name);
       }
       return Array.from(teamsSet.values()).sort();
     },
-    upcomingFilteredMeetings: function () {
-      let chosenTeam = this.selectedTeam;
-      let filteredMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.team.name === chosenTeam);
+    upcomingFilteredMeetings() {
+      const chosenTeam = this.selectedTeam;
+      const filteredMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.team.name === chosenTeam);
 
       const now = Date.now();
 
-      if (chosenTeam !== "") {
-        let futureMeetings = filteredMeetings.filter(meeting => meeting.time > now)
+      if (chosenTeam !== '') {
+        let futureMeetings = filteredMeetings.filter(meeting => meeting.time > now);
         futureMeetings.sort(compare);
         futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length === 0));
-        return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
-      } else {
-        let futureMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
-        futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length === 0))
-        futureMeetings.sort(compare);
-        return futureMeetings;
+        return futureMeetings.filter(meeting => meeting.team.name === this.selectedTeam);
       }
+      let futureMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.time > now);
+      futureMeetings = futureMeetings.filter(meeting => (!meeting.recaps || meeting.recaps.length === 0));
+      futureMeetings.sort(compare);
+      return futureMeetings;
     },
-    pastFilteredMeetings: function () {
-      let chosenTeam = this.selectedTeam;
-      let filteredMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.team.name === chosenTeam);
+    pastFilteredMeetings() {
+      const chosenTeam = this.selectedTeam;
+      const filteredMeetings = this.meeting_data.all_meetings.filter(meeting => meeting.team.name === chosenTeam);
 
       const now = Date.now();
 
-      if (chosenTeam !== "") {
-        let pastMeetings = filteredMeetings.filter(meeting => (meeting.time <= now || meeting.recaps.length > 0))
+      if (chosenTeam !== '') {
+        const pastMeetings = filteredMeetings.filter(meeting => (meeting.time <= now || meeting.recaps.length > 0));
         pastMeetings.sort(compare);
-        return pastMeetings.filter(meeting => meeting.team.name === this.selectedTeam)
-      } else {
-        let pastMeetings = this.meeting_data.all_meetings.filter(meeting => (meeting.time <= now || meeting.recaps.length > 0));
-        return pastMeetings
+        return pastMeetings.filter(meeting => meeting.team.name === this.selectedTeam);
       }
-    }
+      return this.meeting_data.all_meetings.filter(meeting => (meeting.time <= now || meeting.recaps.length > 0));
+    },
   },
-  mounted: function () {
-    this.$nextTick(function () {
-      console.log('from Meeting mounted ' + this.$route.name);
-      meeting_data.meeting.get()
-    })
+  mounted() {
+    this.$nextTick(() => {
+      console.log(`from Meeting mounted ${this.$route.name}`);
+      meeting_data.meeting.get();
+    });
   },
-  data: function () {
+  data() {
     return {
-      selectedTeam: "",
-      meeting_data: meeting_data
-    }
-  }
-}
+      selectedTeam: '',
+      meeting_data,
+    };
+  },
+};
 </script>

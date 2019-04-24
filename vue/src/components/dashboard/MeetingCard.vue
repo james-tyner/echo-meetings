@@ -17,32 +17,32 @@
 <script>
 
 export default {
-  name: "meeting-card",
+  name: 'meeting-card',
   props: {
-    meeting: Object
+    meeting: Object,
   },
   computed: {
-    colorBand: function () {
-      return (this.meeting.team.color + '-color-band')
+    colorBand() {
+      return (`${this.meeting.team.color}-color-band`);
     },
-    teamText: function () {
-      return (this.meeting.team.color)
+    teamText() {
+      return (this.meeting.team.color);
     },
-    humanDate: function () {
-      var now = Date.now();
-      var meetingTime = new Date(this.meeting.time);
-      var dateDiff = Math.abs(now - meetingTime.getTime());
+    humanDate() {
+      const now = Date.now();
+      const meetingTime = new Date(this.meeting.time);
+      let dateDiff = Math.abs(now - meetingTime.getTime());
 
       dateDiff = Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
 
-      var meetingTimeYear = moment(meetingTime).format('YY');
-      var thisYear = moment(now).format('YY');
+      const meetingTimeYear = moment(meetingTime).format('YY');
+      const thisYear = moment(now).format('YY');
 
-      var dateFormatted;
+      let dateFormatted;
       // if date is less than two weeks from now, say as "days from now" or "in XX days"
       // if date is more than two weeks from now, list month and day
       // if date is not in this year, list with year
-      if (dateDiff > 14){
+      if (dateDiff > 14) {
         if (meetingTimeYear != thisYear) {
           dateFormatted = moment(meetingTime).format('MMM D, YYYY');
         } else {
@@ -52,27 +52,26 @@ export default {
         dateFormatted = moment(meetingTime).fromNow();
       }
 
-      if (dateFormatted != "Invalid date"){
+      if (dateFormatted != 'Invalid date') {
         return dateFormatted;
-      } else {
-        return ""
       }
+      return '';
     },
-    fullDate:function(){
-      var meetingTime = new Date(this.meeting.time);
-      meetingTime = moment(meetingTime).format('MMM. D, YYYY [at] h:mm a')
+    fullDate() {
+      let meetingTime = new Date(this.meeting.time);
+      meetingTime = moment(meetingTime).format('MMM. D, YYYY [at] h:mm a');
       return meetingTime;
-    }
+    },
   },
   methods: {
-    swapDates(){
-      this.showHumanDate = !this.showHumanDate
-    }
+    swapDates() {
+      this.showHumanDate = !this.showHumanDate;
+    },
   },
-  data: function () {
+  data() {
     return {
-      showHumanDate:true
-    }
-  }
-}
+      showHumanDate: true,
+    };
+  },
+};
 </script>

@@ -24,46 +24,46 @@
 </template>
 
 <script>
-import {user_data, app_data} from '../data'
-import VueCookies from 'vue-cookies'
+import VueCookies from 'vue-cookies';
+import { user_data, app_data } from '../data';
 
 export default {
   name: 'Navbar',
-  data:function(){
+  data() {
     return {
-      user_data: user_data,
-      app_data: app_data
-    }
+      user_data,
+      app_data,
+    };
   },
   computed: {
-    firstName:function(){
-      return this.user_data.username.split(" ")[0]
+    firstName() {
+      return this.user_data.username.split(' ')[0];
     },
-    currentDashboard: function () {
-      return this.app_data.group === "dashboard"
+    currentDashboard() {
+      return this.app_data.group === 'dashboard';
     },
-    currentMeetings: function () {
-      return this.app_data.group === "meetings"
+    currentMeetings() {
+      return this.app_data.group === 'meetings';
     },
-    currentTasks: function () {
-      return this.app_data.group === "tasks"
+    currentTasks() {
+      return this.app_data.group === 'tasks';
     },
-    currentTeams: function () {
-      return this.app_data.group === "teams"
-    }
+    currentTeams() {
+      return this.app_data.group === 'teams';
+    },
   },
-  methods:{
-    logout:function(){
+  methods: {
+    logout() {
       VueCookies.remove('token');
       VueCookies.remove('invite');
       this.$router.push('/login');
       // TODO: fully make this work (no back browsing)
-    }
+    },
   },
   props: {
-    username:String
-  }
-}
+    username: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
