@@ -20,12 +20,12 @@
         <div id="field-row">
           <input
             id="meeting-date" type="date" name="name"
-            v-model="date"
+            v-model="this.humanDate"
           >
           <div id="at">at</div>
           <input
             id="meeting-time" type="time" name="name"
-            v-model="time"
+            v-model="this.humanDate"
           >
         </div>
       </div>
@@ -106,6 +106,16 @@ export default {
   computed: {
     thisMeeting:function(){
       return meeting_data.all_meetings.find(meeting => meeting._id == this.id);
+    },
+    humanDate: function() {
+      var meetingTime = new Date(this.thisMeeting.time);
+      var dateFormatted = moment(meetingTime).format('L'); 
+      return dateFormatted;
+    },
+    humanTime: function() {
+      var meetingTime = new Date(this.thisMeeting.time);
+      var timeFormatted = moment(meetingTime).format('LT');
+      return timeFormatted;
     },
     availableMembers() {
       if (!this.team) {
