@@ -609,3 +609,14 @@ input.editable {
     }
   }
 }
+
+#meeting-form .reset-button {
+  @include submit-button;
+  background-color:$orange;
+  margin-left:1em;
+
+  &:hover {
+    color:$orange;
+    background-color:white;
+  }
+}
