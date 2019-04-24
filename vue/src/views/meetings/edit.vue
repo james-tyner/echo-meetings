@@ -1,5 +1,5 @@
 <template>
-  <main id="create-meeting-main" class="meeting-main">
+  <main id="edit-meeting-main" class="meeting-main">
     <section id="meeting-form">
 
       <div id="name" class="input-section">
@@ -7,7 +7,7 @@
         <input
           id="meeting-name" type="text" name="name"
           placeholder="Planning extravaganza…"
-          v-model="title"
+          v-model="this.thisMeeting.title"
         >
       </div>
 
@@ -19,13 +19,13 @@
 
         <div id="field-row">
           <input
-            id="meeting-date" type="date" name="name"
-            v-model="date"
+            id="meeting-date" type="date"
+            v-model="this.date"
           >
           <div id="at">at</div>
           <input
-            id="meeting-time" type="time" name="name"
-            v-model="time"
+            id="meeting-time" type="time"
+            v-model="this.time"
           >
         </div>
       </div>
@@ -33,25 +33,15 @@
       <div id="location" class="input-section">
         <label for="meeting-loc">Location</label>
         <input
-          id="meeting-loc" type="text" name="name"
+          id="meeting-loc" type="text"
           placeholder="Timberwolves Room…"
-          v-model="location"
+          v-model="this.thisMeeting.location"
         >
       </div>
 
-      <div id="add-team" class="input-section search-bar">
+      <div id="edit-meeting" class="input-section search-bar">
         <label>Team</label>
-        <div id="team-search">
-          <v-autocomplete
-            @focus='resetTeam'
-            :items="team_data.all_teams"
-            :component-item="TeamSearchTemplate"
-            :get-label="getLabel"
-            v-model="team"
-            class="editable"
-            :auto-select-one-item="false"
-          ></v-autocomplete>
-        </div>
+        <p>{{this.teamName}}</p>
       </div>
 
       <div class="input-section search-bar">
@@ -68,7 +58,8 @@
         </div>
       </div>
 
-      <button @click="onCreateMeeting" class="submit-button" type="button">Create Meeting</button>
+      <button @click="onSaveMeeting" class="submit-button" type="button">Save Changes</button>
+      <button @click="onReset" class="reset-button" type="button">Reset</button>
     </section>
   </main>
 </template>
@@ -76,46 +67,45 @@
 <script>
 import Vue from 'vue'
 import { team_data, meeting_data } from "../../data";
-import TeamSearch from "../../components/meetings/TeamSearchItem"
 import MemberSearch from "../../components/meetings/MemberSearchItem"
 import MemberBox from "../../components/meetings/MemberBox"
 import showAlert from "../../components/ShowAlert"
 import moment from 'moment'
 
 export default {
-  name: 'add-team',
+  name: 'edit-meeting',
   components: {
-    TeamSearch,
     MemberSearch,
     MemberBox
   },
   data: function () {
     return {
-      title: '',
+      selected_member: '',
+      team_data: team_data,
+      MemberSearchTemplate: MemberSearch,
+      meeting_data: meeting_data,
+      old_data: meeting_data,
       date: '',
       time: '',
-      location: '',
-      team_data: team_data,
-      team: '',
+      teamName: '',
+      thisMeeting: {
+        title: '',
+        location: '',
+      },
       invitees: [],
-      selected_member: '',
-      memberbox_instances: [],
-      TeamSearchTemplate: TeamSearch,
-      MemberSearchTemplate: MemberSearch,
-      meeting_data:meeting_data
     }
   },
-  props:{
-    id:String
+  props: {
+    id: String,
   },
   computed: {
     availableMembers() {
-      if (!this.team) {
+      if (!this.thisMeeting.team) {
         return [];
       } else {
         // team.member - invitees
         let difference = [];
-        for (const member of this.team.members) {
+        for (const member of this.thisMeeting.team.members) {
           if (!this.invitees.includes(member._id)) {
             difference.push(member)
           }
@@ -125,6 +115,18 @@ export default {
     }
   },
   watch: {
+    meeting_data: {
+      handler: function () {
+        // const meeting = this.meeting_data.all_meetings.find(meeting => meeting._id === this.id);
+        // this.thisMeeting = meeting ? meeting : {};
+        if (!this.thisMeeting.time) return;
+        this.date = new Date(this.thisMeeting.time).toISOString().substring(0, 10);
+        this.time = moment(this.thisMeeting.time).format('HH:mm');
+        this.teamName = this.thisMeeting.team.name;
+        this.invitees = this.thisMeeting.invitees.map(user => user._id);
+      },
+      deep: true,
+    },
     selected_member: function (val) {
       // add an invitee
       if (!val || !val._id) {
@@ -152,12 +154,12 @@ export default {
       this.$nextTick(function () {
         this.selected_member = null;
       });
-    }
+    },
   },
   mounted: function () {
-    team_data.get()
-    meeting_data.meeting.get()
-    let thisMeeting = meeting_data.all_meetings.find(meeting => meeting._id = this.id);
+    team_data.get();
+    meeting_data.meeting.get();
+    this.thisMeeting = meeting_data.all_meetings.find(meeting => meeting._id = this.id);
   },
   methods: {
     getLabel(item) {
@@ -172,12 +174,12 @@ export default {
       }
       this.invitees = [];
     },
-    onCreateMeeting() {
-      if (!this.title) {
+    onSaveMeeting() {
+      if (!this.thisMeeting.title) {
         showAlert('red', 'Meeting name cannot be empty', 2500);
         return;
       }
-      if (!this.team) {
+      if (!this.thisMeeting.team) {
         showAlert('red', 'You must choose a team', 2500);
         return;
       }
@@ -186,8 +188,17 @@ export default {
         return;
       }
       const timestamp = moment(`${this.date} ${this.time}`).valueOf();
-      meeting_data.meeting.create(this.title, timestamp, this.team._id, this.location, this.invitees);
-      this.$router.push('../meetings')
+      meeting_data.meeting.update(
+        this.thisMeeting._id,
+        this.thisMeeting.title,
+        timestamp,
+        this.thisMeeting.location,
+        this.thisMeeting.invitees
+      );
+      this.$router.push(`../details/${this.thisMeeting.id}`)
+    },
+    onReset() {
+      return this.old_data.all_meetings.find(meeting => meeting._id === this.id);
     },
     onDeleteMember(instance) {
       const _id = instance.member._id;

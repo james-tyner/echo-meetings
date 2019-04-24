@@ -29,7 +29,7 @@ header.meeting-header {
   display: grid;
   grid-template-rows: 15% 25% auto;
 
-  .meeting-start-btn {
+  .meeting-start-btn, .meeting-edit-btn {
     padding: 0.5em;
     margin-right: 0.5em;
     grid-row-start: 1;
@@ -66,6 +66,15 @@ header.meeting-header {
       background-color: $green;
       color: white;
     }
+  }
+
+  .meeting-edit-btn {
+      border-color: $gray2;
+      color: $gray2;
+
+      &:hover {
+        background-color: $gray2;
+      }
   }
 
   .meeting-timer {
@@ -202,6 +211,7 @@ input.editable {
       background: transparent;
       outline: none;
       resize: none;
+      text-overflow: ellipsis;
 
       &::placeholder {
         color: $gray2;
@@ -530,7 +540,7 @@ input.editable {
 
 
 // BELOW WRITTEN BY JESSICA
-#create-meeting-main {
+#create-meeting-main, #edit-meeting-main {
   .input-section {
     margin: 0 0 40px;
   }

@@ -70,11 +70,11 @@ const router = new VueRouter({
       }
     }, {
       path:"/meetings/edit/:id",
-      name:"",
+      name:"Edit meeting",
       component:MeetingEdit,
       props:true,
       meta: {
-        title:"",
+        title:"Edit meeting - echo",
         group:"meetings"
       }
     }, {

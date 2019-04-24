@@ -148,6 +148,22 @@
   }
 }
 
+@mixin reset-button {
+  @include card-shadow;
+  border-radius: 2.4em;
+  background-color: $gray2;
+  padding: 0.5em;
+  @include buttonFont;
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: $gray2;
+    background-color: white;
+  }
+}
+
 .filter-bar-container {
   position: sticky;
   top: calc(3vw + 2.1em + 0.67em + 50px - 12px - 20px);
