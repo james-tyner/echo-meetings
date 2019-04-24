@@ -6,10 +6,12 @@
       </div>
     </section>
     <section v-else class="team-list empty-list-style">
+      <div class="placeholder-page">
       <div class="placeholder-page-container">
           <h2>You don’t have to go it alone.</h2>
           <p>Create a team to share meetings and tasks</p>
         </div>
+      </div>
     </section>
   </main>
 
