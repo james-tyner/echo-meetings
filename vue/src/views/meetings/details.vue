@@ -23,9 +23,6 @@
     <!-- right sidebar -->
     <section class="right-bar">
       <!-- Start/End Button -->
-      <div class="meeting-edit-btn" 
-        v-on:click="editMeeting">Edit Details
-      </div>
       <div v-if="this.meetingState === 1 && thisMeeting.agendas.length > 0" class="meeting-start-btn"
            v-on:click="startTimer">Start Meeting
       </div>
@@ -55,7 +52,7 @@
       </draggable>
 
       <div id="meeting-modify-icons">
-        <!-- <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i> -->
+        <i class="far fa-edit" v-on:click="editMeeting" v-tooltip="{offset: '5', hideOnTargetClick: false, content: 'Edit Meeting'}"></i>
         <i
           class="far fa-trash-alt"
           :class="deleteMeetingConfirmed ? 'danger' : ''"
