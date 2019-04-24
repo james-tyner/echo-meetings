@@ -108,9 +108,9 @@ export default {
       return meeting_data.all_meetings.find(meeting => meeting._id == this.id);
     },
     humanDate: function() {
-      var meetingTime = new Date(this.thisMeeting.time);
-      var dateFormatted = moment(meetingTime).format('L'); 
-      return dateFormatted;
+      var meetingTime = new Date(this.thisMeeting.time).toISOString().substring(0,10); 
+      return meetingTime;
+      //var dateFormatted = moment(meetingTime).format('L')
     },
     humanTime: function() {
       var meetingTime = new Date(this.thisMeeting.time);
