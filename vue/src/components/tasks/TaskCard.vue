@@ -30,11 +30,16 @@
 </template>
 
 <script>
+	import debounce from 'lodash.debounce'
+	import {task_data} from "../../data";
+	import SaveAnimation from "../SaveAnimation"
+
   export default {
     name:"task-card",
     props:{
       task:Object
     },
+		mixins:[SaveAnimation],
     computed:{
       colorBand:function(){
         return (this.task.meeting.team.color + '-color-band')
@@ -87,17 +92,30 @@
     methods:{
       toggle(){
         this.showAll = !this.showAll
-      }
-    },
-		updateDescription(description, old) {
-      if (this.lastSavedDescription === description) return;
-      this.lastSavedDescription = description;
-      task_data.update(this.task._id, null, description)
+      },
+			updateDescription(description, old) {
+	      if (this.lastSavedDescription === description) return;
+	      this.lastSavedDescription = description;
+	      task_data.update(this.task._id, null, null, null, description)
+				this.animateSave();
+	    }
     },
     data:function(){
       return {
-        showAll:false
+        showAll:false,
+				lastSavedDescription:this.task.description
       }
-    }
+    },
+		watch: {
+	    task: {
+	      handler: function (val, oldVal) {
+	        this.debouncedUpdateDescription(val.description, oldVal.description)
+	      },
+	      deep: true
+	    }
+	  },
+		created: function () {
+	    this.debouncedUpdateDescription = debounce(this.updateDescription, 1000)
+	  }
   }
 </script>
