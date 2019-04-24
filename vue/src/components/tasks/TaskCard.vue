@@ -3,7 +3,14 @@
 		<h3 class="card-team" v-on:click="toggle()" v-bind:class="teamText">{{task.meeting.team.name}}</h3>
 		<h2 class="card-heading" v-on:click="toggle()">{{task.name}}</h2>
 		<div class="task-info" v-if="showAll">
-      <p class="card-desc">{{task.description}}</p>
+      <!-- <p class="card-desc">{{task.description}}</p> -->
+			<textarea
+              class="editable team-desc"
+              contenteditable="true"
+              placeholder="Description"
+              v-model='task.description'
+      >
+      </textarea>
 			<p class="card-date" v-bind:class="{'red' : overdueColor}">{{humanDate}}</p>
       <div class="task-assignees">
 				<p class="assignee-heading">Assigned to</p>
@@ -81,6 +88,11 @@
       toggle(){
         this.showAll = !this.showAll
       }
+    },
+		updateDescription(description, old) {
+      if (this.lastSavedDescription === description) return;
+      this.lastSavedDescription = description;
+      task_data.update(this.task._id, null, description)
     },
     data:function(){
       return {
